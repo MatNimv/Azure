@@ -1,0 +1,71 @@
+#Version 2
+
+##Funktionaliteter
+Navigera mellan hem och informationssidan
+
+##Sidor
+- Index.html
+- Info.html
+
+##Funktioner
+DisplayAllCityNames() :: Cities[String], Hämtar alla städer/Länder(Flagga)
+DisplayAllProgramNames() :: Program[String], Hämtar alla program
+DisplayAllUniversitiesNames() :: Universities[String], Hämtar alla universitet
+
+GetCityNames(SearchbarCityInput) :: Cities[String], Hämtar alla städer/Länder(Flagga) som har den bokstaven 
+GetProgramNames(SearchbarProgramInput) :: Program[String], Hämtar alla program som har den bokstaven 
+GetUniversityNames(SearchbarUniversityInput) :: University[String], Hämtar alla universitet som har den bokstaven 
+
+
+CreateCityDiv(ListOfCities) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
+
+CreateCityDiv(ListOfPrograms) :: ProgramCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
+
+CreateCityDiv(ListOfCities) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element
+
+
+##Globala variabler
+
+
+##CSS-Filer
+index.css, nav.css, footer.css
+info.css, cities.css, programmes.css, universities.css, nav.css, footer.css
+
+index.css: <p> med text under bildspel, <p> ovanför knapp
+
+nav.css: <nav> med två divar inuti
+footer.css: <footer> med <p> och <img>
+
+info.css: 3st <div> som checkboxes, <p> emellan, <div> som sökbar med <img> inuti (söksymbol)
+          <div> wrapper där inforutorna sedan lägg in i
+
+cities.css: 
+    <div> innehållande
+    <h1> titel på stad, land och <img> flagga
+    <div> med 4st <p> och 3st <img>
+    <p> infotext om stad
+    <div> x antal universitet staden har
+    <img> stadsbild och <div> innehåller <div> med aktivitetstext
+
+programmes.css: 
+    <div> innehållande
+    <h1> titel på program
+    <div> 3st med språk/ nivå / och universitetsnamn
+    <div> med 4st <p> och 3st <img>
+    <div> med 2st <div>
+        <p> med avklaringsgrad, 
+        <div> med <p> inuti
+
+universities.css:
+    <div> innehållande
+    <h1> titel på universitet och <img> flagga
+    <div> innehållande 2st <div>
+        <img> med kattbild
+        <div> med 2st div
+            <div> stad och språk
+            <p> program och <div> programlista 
+                med <div> programtitel
+    
+
+    
+
