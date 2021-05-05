@@ -9,30 +9,14 @@
 
 ##Funktioner
 
-CollectAllCityInfo(database) :: Data[Object], hämtar relevant information till city card från databasen och lägger det i en array av objekt 
-CollectAllProgramInfo(database) :: Data[Object], hämtar relevant information till program från databasen och lägger det i en array av objekt 
-CollectAllUniversityInfo(database) :: Data[Object], hämtar relevant information till universitet från databasen och lägger det i en array av objekt 
-
-
-
-DisplayAllCityNames() :: Cities[String], Hämtar alla städer/Länder(Flagga)
-DisplayAllProgramNames() :: Program[String], Hämtar alla program
-DisplayAllUniversitiesNames() :: Universities[String], Hämtar alla universitet
-
-GetCityNames(SearchbarCityInput) :: Cities[String], Hämtar alla städer/Länder(Flagga) som har den bokstaven 
-GetProgramNames(SearchbarProgramInput) :: Program[String], Hämtar alla program som har den bokstaven 
-GetUniversityNames(SearchbarUniversityInput) :: University[String], Hämtar alla universitet som har den bokstaven 
-
-
-CreateCityDiv(ListOfCities) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
-
-CreateCityDiv(ListOfPrograms) :: ProgramCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
-
-CreateCityDiv(ListOfCities) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
-
-
+CollectAllCityInfo(database) :: CityArrayData[Object], hämtar relevant information till city card från databasen och lägger det i en array av objekt 
+CollectAllProgramInfo(database) :: ProgramArrayData[Object], hämtar relevant information till program från databasen och lägger det i en array av objekt 
+CollectAllUniversityInfo(database) :: UniversityArrayData[Object], hämtar relevant information till universitet från databasen och lägger det i en array av objekt 
 
 
 ##Globala variabler
+CityArrayData
+ProgramArrayData
+UnversityArrayData
 
 ##CSS-Filer
