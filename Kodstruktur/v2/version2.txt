@@ -4,10 +4,12 @@
 Navigera mellan hem och informationssidan
 
 ##Sidor
-- Index.html
-- Info.html
+- Index.html --> index.css, nav.css, footer.css, | database.js, index.js
+- Info.html --> info.css, cities.css, programmes.css, universities.css, nav.css, footer.css | database.js, info.js
 
 ##Funktioner
+
+info.js
 DisplayAllCityNames() :: Cities[String], Hämtar alla städer/Länder(Flagga)
 DisplayAllProgramNames() :: Program[String], Hämtar alla program
 DisplayAllUniversitiesNames() :: Universities[String], Hämtar alla universitet
