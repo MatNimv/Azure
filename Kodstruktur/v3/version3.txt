@@ -1,0 +1,37 @@
+#Version 3
+
+##Funktionaliteter
+Bildspel där man kan bläddra + automatisk ändring av bild
+Visa topp recensioner
+Klicka här knapp
+Kunna trycka in checkboxar
+
+##Sidor
+- Index.html --> index.css, nav.css, footer.css | database.js, index.js
+- Info.html --> info.css, cities.css, programmes.css, universitites.css, nav.css, footer.css | database.js, info.js
+
+##Funktioner
+
+index.js:
+- displayNextImage, sätter en ny background-image till bildstället varje gång vi trycker på "vänster" knapp 
+- displayPreviousImage, sätter en ny background-image till bildstället varje gång vi trycker på "höger" knapp 
+- getTopRating() :: highestSumOfRatings, hämtar de bästa recensionerna utifrån ALLA recensioner som finns
+
+info.js:
+- GetCityNames(SearchbarCityInput) :: Cities[String], Hämtar alla städer/Länder(Flagga) som har den bokstaven (i bokstavsordning) 
+- GetProgramNames(SearchbarProgramInput) :: Program[String], Hämtar alla program som har den bokstaven (i bokstavsordning)  
+- GetUniversityNames(SearchbarUniversityInput) :: University[String], Hämtar alla universitet som har den bokstaven (i bokstavsordning)
+- pressCheckbox(checkboxInput), den hämtar rätt .css och använder bara en av get---Names funktionerna
+
+
+##Globala variabler
+cityImageArray[]
+
+##CSS-Filer
+index.css, nav.css, footer.css
+info.css, cities.css, programmes.css, universities.css, nav.css, footer.css
+
+index.css: <div> som är bildspelet där background-image är en bild, 1 <button> bredvid varje sida av bildspelet (2st total)
+<div> 4st som innehåller topp recensioner som byggs utav 3st <p> + <img> för stjärna
+<div> 3st för annonserna
+

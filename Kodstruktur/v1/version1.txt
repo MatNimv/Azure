@@ -9,6 +9,7 @@
 
 ##Funktioner
 
+info.js:
 CollectAllCityInfo(database) :: CityArrayData[Object], hämtar relevant information till city card från databasen och lägger det i en array av objekt 
 CollectAllProgramInfo(database) :: ProgramArrayData[Object], hämtar relevant information till program från databasen och lägger det i en array av objekt 
 CollectAllUniversityInfo(database) :: UniversityArrayData[Object], hämtar relevant information till universitet från databasen och lägger det i en array av objekt 
