@@ -16,8 +16,6 @@ CollectAllUniversityInfo(database) :: UniversityArrayData[Object], hämtar relev
 
 
 ##Globala variabler
-CityArrayData
-ProgramArrayData
-UnversityArrayData
+
 
 ##CSS-Filer

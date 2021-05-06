@@ -15,11 +15,9 @@ DisplayAllCityNames() :: Cities[String], Hämtar alla städer/Länder(Flagga)
 DisplayAllProgramNames() :: Program[String], Hämtar alla program
 DisplayAllUniversitiesNames() :: Universities[String], Hämtar alla universitet
 
-CreateCityDiv(ListOfCities) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
-
-CreateCityDiv(ListOfPrograms) :: ProgramCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
-
-CreateCityDiv(ListOfCities) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element
+CreateCityDiv(CityArrayData) :: CityCard, hämtar lista av städer och går igenom alla med forEach och skapar en div med all information för varje array element.
+CreateProgramDiv(ProgramArrayData) :: ProgramCard, hämtar lista av program och går igenom alla med forEach och skapar en div med all information för varje array element.
+CreateUniversitiesDiv(UnversityArrayData) :: UniversityCard, hämtar lista av universitet och går igenom alla med forEach och skapar en div med all information för varje array element
 
 
 ##Globala variabler
