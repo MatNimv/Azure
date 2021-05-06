@@ -5,6 +5,7 @@ Bildspel där man kan bläddra + automatisk ändring av bild
 Visa topp recensioner
 Klicka här knapp
 Kunna trycka in checkboxar
+Söka på specifika städer/program/universitet
 
 ##Sidor
 - Index.html --> index.css, nav.css, footer.css | database.js, index.js

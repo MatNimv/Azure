@@ -5,7 +5,7 @@
 
 ##Sidor
 - Index.html
-- Info.html
+- Info.html --> info.js
 
 ##Funktioner
 

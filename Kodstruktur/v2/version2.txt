@@ -2,6 +2,7 @@
 
 ##Funktionaliteter
 Navigera mellan hem och informationssidan
+Scrolla i informationslistan (städer, program, universitet)
 
 ##Sidor
 - Index.html --> index.css, nav.css, footer.css, | database.js, index.js
