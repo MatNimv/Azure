@@ -1,6 +1,5 @@
 "use strict";
 
-CollectAllCityInfo();
 function CollectAllCityInfo() {
 
     let cityArray = [];
@@ -48,7 +47,7 @@ cityArray.push(cityObject)
 
 })
 
-console.log(cityArray)
+//console.log(cityArray)
 
 
     /*namn på Stad och Land + landets flagga
@@ -60,6 +59,49 @@ console.log(cityArray)
 }
 
 function CollectAllProgramInfo() {
+    let programArray = [];
+
+
+    DB.PROGRAMMES.forEach(element => {
+
+        let programLanguageCombo = DB.LANGUAGES.find(function (language) {
+            return language.id === element.languageID;
+        });
+
+        let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels) {
+            return arrayOfLevels[element.level];
+        });
+        console.log()
+
+        let UniversityCityCombo = DB.UNIVERSITIES.find(function (university) {
+            return university.id === element.id;
+        });
+
+        let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.find(function (entertainment) {
+            return entertainment.id === element.id;
+        });
+    
+        
+
+
+        let programObject =
+        {
+            Program: element.name,
+            Language: programLanguageCombo,
+            Level: programeLevelCombo
+        }
+
+        programArray.push(programObject)
+        
+    })
+    
+    console.log(programObject)
+
+    /* namn på pogram
+    språk / level / unversitet som erbjuder programmet
+    ratings på studenter / lärare / kurser
+    avklaringsgrad - år + procent
+    en lista av alla recensioner (recenionen + namn, efternamn, datum) */
 
 }
 
