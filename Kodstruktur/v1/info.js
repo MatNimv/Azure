@@ -1,5 +1,6 @@
 "use strict";
 
+CollectAllCityInfo();
 function CollectAllCityInfo() {
 
     let cityArray = [];
@@ -58,6 +59,7 @@ cityArray.push(cityObject)
     en lista av alla aktiviteter i staden*/
 }
 
+CollectAllProgramInfo();
 function CollectAllProgramInfo() {
     let programArray = [];
 
@@ -65,37 +67,45 @@ function CollectAllProgramInfo() {
     DB.PROGRAMMES.forEach(element => {
 
         let programLanguageCombo = DB.LANGUAGES.find(function (language) {
-            return language.id === element.languageID;
+            return language.id === element.language;
         });
 
         let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels) {
-            return arrayOfLevels[element.level];
+            return arrayOfLevels === element.level;
         });
-        console.log()
+        //console.log(DDSFD)
 
-        let UniversityCityCombo = DB.UNIVERSITIES.find(function (university) {
-            return university.id === element.id;
+        /* let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels, index) {
+            return index === element.level;
+        });
+        console.log(programeLevelCombo) */
+
+        let UniversityProgramCombo = DB.UNIVERSITIES.find(function (university) {
+            return university.id === element.universityID;
         });
 
-        let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.find(function (entertainment) {
-            return entertainment.id === element.id;
+        let CommentProgramCombo = COMMENTS_PROGRAMME.find(function (program) {
+            return program.id === element.id;
         });
-    
+        //console.log(CommentProgramCombo)
         
 
 
         let programObject =
         {
             Program: element.name,
-            Language: programLanguageCombo,
-            Level: programeLevelCombo
+            Language: programLanguageCombo.name,
+            Level: programeLevelCombo, // måste fixas
+            RatingTeachers: CommentProgramCombo.stars.teachers,
+            RatingStudents: CommentProgramCombo.stars.students,
+            RatingCourses: CommentProgramCombo.stars.courses
         }
 
         programArray.push(programObject)
         
     })
-    
-    console.log(programObject)
+
+    console.log(programArray)
 
     /* namn på pogram
     språk / level / unversitet som erbjuder programmet
