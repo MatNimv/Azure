@@ -103,8 +103,6 @@ function CollectAllProgramInfo() {
         
     })
 
-    console.log(programArray)
-
     /* namn på pogram
     språk / level / unversitet som erbjuder programmet
     ratings på studenter / lärare / kurser
@@ -112,7 +110,59 @@ function CollectAllProgramInfo() {
     en lista av alla recensioner (recenionen + namn, efternamn, datum) */
 
 }
-
+CollectAllUniversityInfo();
 function CollectAllUniversityInfo() {
+    let UniversityArray = [];
+    let filteredLanguageArray = [];
+    let languageArray = [];
 
+
+    DB.UNIVERSITIES.forEach(element => {
+
+        let UniversityCityCombo = DB.CITIES.find(function (city) {
+            return city.id === element.cityID /*&& DB.COUNTRIES.id === city.countryID*/;
+        });
+        
+        let UniversityCountryCombo = DB.COUNTRIES.find(function (country) {
+            return country.id === UniversityCityCombo.countryID;
+        });
+
+        //kopplar programmen som finns inom universitet
+        let UniversityProgrammeCombo = DB.PROGRAMMES.find(function (programme) {
+            return programme.universityID === element.id;
+        });
+        //console.log(UniversityProgrammeCombo);
+
+        let ProgrammeLanguageCombo = DB.LANGUAGES.find(function (language) {
+            return UniversityProgrammeCombo.language === language.id;
+        });
+        
+        languageArray.push(ProgrammeLanguageCombo.name)
+        languageArray.find(function(element){
+            if (!filteredLanguageArray.includes(element)){
+                filteredLanguageArray.push(element);
+            };
+        });   
+        
+        let universityObject =
+        {
+            University: element.name,
+            Flag: UniversityCountryCombo.flag,
+            City: UniversityCityCombo.name,
+            Language: filteredLanguageArray,
+            Images: UniversityCountryCombo.imagesBig[0],
+            Programmes: UniversityProgrammeCombo.name
+        }
+        
+        /*
+        Universitetets namn + flagga
+        stad och språk för programmen
+        lista över programnman för universitetet
+        STORRRR bild (stadsbild)
+        */
+
+UniversityArray.push(universityObject)
+//console.log(UniversityArray)
+    })
+    console.log(UniversityArray)
 }
