@@ -4,15 +4,7 @@ CollectAllCityInfo();
 function CollectAllCityInfo() {
 
     let CityArray = [];
-    let EntertainmentArray = [];
 
-    let StarsOutArray = []
-
-    let StarsFoodArray = []
-
-    let StarsAccomodationArray = []
-
-    let UniversitiesArray = []
 
     DB.CITIES.forEach(element => {
 
@@ -20,24 +12,38 @@ function CollectAllCityInfo() {
             return country.id === element.countryID;
         });
 
-        let RatingCityCombo = DB.COMMENTS_CITY.find(function (city) {
-            return city.id === element.id;
+        let RatingCityCombo = DB.COMMENTS_CITY.filter(function (city) {
+            return city.cityID === element.id;
         });
 
-        let UniversityCityCombo = DB.UNIVERSITIES.find(function (university) {
-            return university.id === element.id;
+        let UniversityCityCombo = DB.UNIVERSITIES.filter(function (university) {
+            return university.cityID === element.id;
         });
 
-        let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.find(function (entertainment) {
-            return entertainment.id === element.id;
+        let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.filter(function (entertainment) {
+            return entertainment.cityID === element.id;
         });
 
-        EntertainmentArray.push(EntertainmentCityCombo.name)
-        UniversitiesArray.push(UniversityCityCombo.name)
-        StarsOutArray.push(RatingCityCombo.stars.out)
-        StarsFoodArray.push(RatingCityCombo.stars.food)
-        StarsAccomodationArray.push(RatingCityCombo.stars.accomodation)
 
+        let StarsOutArray = RatingCityCombo.map(function (obj) {
+            return obj.stars.out;
+        })
+
+        let StarsFoodArray = RatingCityCombo.map(function (obj) {
+            return obj.stars.food;
+        })
+
+        let StarsAccomodationArray = RatingCityCombo.map(function (obj) {
+            return obj.stars.accomodation;
+        })
+
+        let UniversitiesArray = UniversityCityCombo.map(function (obj) {
+            return obj.name;
+        })
+
+        let EntertainmentArray = EntertainmentCityCombo.map(function (obj) {
+            return obj.name;
+        })
 
         let CityObject =
         {
@@ -64,7 +70,6 @@ function CollectAllCityInfo() {
 
 
 
-
     /*namn på Stad och Land + landets flagga
     rating för boende / mat / uteliv
     informationstext om staden
@@ -79,12 +84,7 @@ function CollectAllCityInfo() {
 CollectAllProgramInfo();
 function CollectAllProgramInfo() {
     let programArray = [];
-let CommentTextArray = []
-let CommentNameArray = []
-let CommentDateArray = []
-let RatingTeachersArray = []
-let RatingStudentsArray = []
-let RatingCoursesArray = []
+
 
     DB.PROGRAMMES.forEach(element => {
 
@@ -96,29 +96,49 @@ let RatingCoursesArray = []
             return index === element.level;
         });
 
-        let CommentProgramCombo = COMMENTS_PROGRAMME.find(function (program) {
-            return program.programmeID === element.id;
-        });
-        
-        CommentTextArray.push(CommentProgramCombo.text)
-        CommentNameArray.push(CommentProgramCombo.alias)
-        CommentDateArray.push(CommentProgramCombo.date)
-        RatingTeachersArray.push(CommentProgramCombo.stars.teachers)
-        RatingStudentsArray.push(CommentProgramCombo.stars.students)
-        RatingCoursesArray.push(CommentProgramCombo.stars.courses)
+
+        let CommentProgramCombo = COMMENTS_PROGRAMME.filter(function (object) {
+            return object.programmeID === element.id;
+        })
+
+        let CommentTextArray = CommentProgramCombo.map(function (obj) {
+            return obj.text;
+        })
+
+
+        let CommentNameArray = CommentProgramCombo.map(function (obj) {
+            return obj.alias;
+        })
+
+        let CommentDateArray = CommentProgramCombo.map(function (obj) {
+            return obj.date;
+        })
+
+        let RatingTeachersArray = CommentProgramCombo.map(function (obj) {
+            return obj.stars.teachers;
+        })
+
+        let RatingStudentsArray = CommentProgramCombo.map(function (obj) {
+            return obj.stars.students;
+        })
+
+        let RatingCoursesArray = CommentProgramCombo.map(function (obj) {
+            return obj.stars.courses;
+        })
+
 
         let programObject =
         {
             Program: element.name,
             Language: programLanguageCombo.name,
             Level: programeLevelCombo,
-            Ratings:{
+            Ratings: {
                 RatingTeachers: RatingTeachersArray,
                 RatingStudents: RatingStudentsArray,
                 RatingCourses: RatingCoursesArray,
             },
             SuccessRate: element.successRate,
-            Review:{
+            Review: {
                 ReviewText: CommentTextArray,
                 ReviewName: CommentNameArray,
                 ReviewDate: CommentDateArray
@@ -128,7 +148,7 @@ let RatingCoursesArray = []
         programArray.push(programObject)
 
     })
-console.log(programArray)
+
     /* namn på pogram
     språk / level / unversitet som erbjuder programmet
     ratings på studenter / lärare / kurser
@@ -136,6 +156,8 @@ console.log(programArray)
     en lista av alla recensioner (recenionen + namn, efternamn, datum) */
 
 }
+
+
 CollectAllUniversityInfo();
 function CollectAllUniversityInfo() {
     let UniversityArray = [];
@@ -146,7 +168,7 @@ function CollectAllUniversityInfo() {
     DB.UNIVERSITIES.forEach(element => {
 
         let UniversityCityCombo = DB.CITIES.find(function (city) {
-            return city.id === element.cityID /*&& DB.COUNTRIES.id === city.countryID*/;
+            return city.id === element.cityID;
         });
 
         let UniversityCountryCombo = DB.COUNTRIES.find(function (country) {
@@ -154,30 +176,35 @@ function CollectAllUniversityInfo() {
         });
 
         //kopplar programmen som finns inom universitet
-        let UniversityProgrammeCombo = DB.PROGRAMMES.find(function (programme) {
+        let UniversityProgrammeCombo = DB.PROGRAMMES.filter(function (programme) {
             return programme.universityID === element.id;
         });
-        //console.log(UniversityProgrammeCombo);
+        
+        let UniversityProgrammeArray = UniversityProgrammeCombo.map(function(obj){
+            return obj;
+        })
 
-        let ProgrammeLanguageCombo = DB.LANGUAGES.find(function (language) {
-            return UniversityProgrammeCombo.language === language.id;
+        let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (language) {
+            return UniversityProgrammeCombo.language === element.id;
         });
 
-        languageArray.push(ProgrammeLanguageCombo.name)
-        languageArray.find(function (element) {
-            if (!filteredLanguageArray.includes(element)) {
-                filteredLanguageArray.push(element);
-            };
-        });
+
+
+
+        let LanguageArray = ProgrammeLanguageCombo.map(function(obj){
+            return obj.name;
+        })
+
+     
 
         let universityObject =
         {
             University: element.name,
             Flag: UniversityCountryCombo.flag,
             City: UniversityCityCombo.name,
-            Language: filteredLanguageArray,
+            Language: LanguageArray,
             Images: UniversityCountryCombo.imagesBig[0],
-            Programmes: UniversityProgrammeCombo.name
+            Programmes: UniversityProgrammeArray
         }
 
         /*
@@ -191,4 +218,5 @@ function CollectAllUniversityInfo() {
         //console.log(UniversityArray)
     })
 
+    console.log(UniversityArray)
 }
