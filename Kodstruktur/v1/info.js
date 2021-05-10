@@ -70,15 +70,10 @@ function CollectAllProgramInfo() {
             return language.id === element.language;
         });
 
-        let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels) {
-            return arrayOfLevels === element.level;
-        });
-        //console.log(DDSFD)
-
-        /* let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels, index) {
+        let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels, index) {
             return index === element.level;
         });
-        console.log(programeLevelCombo) */
+        //console.log(programeLevelCombo) 
 
         let UniversityProgramCombo = DB.UNIVERSITIES.find(function (university) {
             return university.id === element.universityID;
@@ -88,17 +83,20 @@ function CollectAllProgramInfo() {
             return program.id === element.id;
         });
         //console.log(CommentProgramCombo)
-        
-
 
         let programObject =
         {
             Program: element.name,
             Language: programLanguageCombo.name,
-            Level: programeLevelCombo, // måste fixas
+            Level: programeLevelCombo,
             RatingTeachers: CommentProgramCombo.stars.teachers,
             RatingStudents: CommentProgramCombo.stars.students,
-            RatingCourses: CommentProgramCombo.stars.courses
+            RatingCourses: CommentProgramCombo.stars.courses,
+            SuccessRate: element.successRate,
+            Review: CommentProgramCombo.text,
+            ReviewName: CommentProgramCombo.alias,
+            ReviewDate: CommentProgramCombo.date
+
         }
 
         programArray.push(programObject)
