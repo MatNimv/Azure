@@ -1,10 +1,16 @@
 "use strict";
 
-//adderar CSSen som gäller för createProgramCardvarna
-let programCSS = document.createElement("link");
+//adderar CSSen som gäller för createProgramCard:en
+/*let programCSS = document.createElement("link");
 programCSS.setAttribute("href", "program.css");
 document.querySelector("head").append(programCSS);
 programCSS.setAttribute("rel", "stylesheet");
+*/
+//adderar CSSen som gäller för createUniversitiesCard:en
+let universitiesCSS = document.createElement("link");
+universitiesCSS.setAttribute("href", "universities.css");
+document.querySelector("head").append(universitiesCSS);
+universitiesCSS.setAttribute("rel", "stylesheet");
 
 CollectAllCityInfo();
 function CollectAllCityInfo() {
@@ -86,11 +92,8 @@ function CollectAllCityInfo() {
 
 }
 
-
-
-function CollectAllProgramCard(databas) {
+function CollectAllProgramInfo(databas) {
     let programArray = [];
-    let programObject = {};
 
     DB.PROGRAMMES.forEach(element => {
 
@@ -137,7 +140,7 @@ function CollectAllProgramCard(databas) {
         })
 
 
-        programObject =
+        let programObject =
         {
             Program: element.name,
             Language: programLanguageCombo.name,
@@ -158,15 +161,14 @@ function CollectAllProgramCard(databas) {
 
         programArray.push(programObject)
     })
-    console.log(programObject)
     /* namn på pogram
     språk / level / unversitet som erbjuder programmet
     ratings på studenter / lärare / kurser
     avklaringsgrad - år + procent
     en lista av alla recensioner (recenionen + namn, efternamn, datum) */
+
     return programArray;
 }
-
 
 CollectAllUniversityInfo();
 function CollectAllUniversityInfo() {
@@ -185,11 +187,9 @@ function CollectAllUniversityInfo() {
             return country.id === UniversityCityCombo.countryID;
         });
 
-        //kopplar programmen som finns inom universitet
         let UniversityProgrammeCombo = DB.PROGRAMMES.filter(function (programme) {
             return programme.universityID === element.id;
         });
-        //console.log(UniversityProgrammeCombo)
         
         let UniversityProgrammeArray = UniversityProgrammeCombo.map(function(obj){
             return obj;
@@ -199,14 +199,9 @@ function CollectAllUniversityInfo() {
             return UniversityProgrammeCombo.language === element.id;
         });
 
-
-
-
         let LanguageArray = ProgrammeLanguageCombo.map(function(obj){
             return obj.name;
         })
-
-     
 
         let universityObject =
         {
@@ -228,11 +223,37 @@ function CollectAllUniversityInfo() {
         UniversityArray.push(universityObject)
         //console.log(UniversityArray)
     })
-
     console.log(UniversityArray)
+    return UniversityArray;
 }
 
-CollectAllProgramCard(DB).forEach(programCard => {
+//denna är klar förutom alla programnamn och bilder.
+CollectAllUniversityInfo(DB).forEach(universityCard => {
+    let createUniversityCard = document.createElement("div");
+    createUniversityCard.classList.add("createUniversityCard");
+    document.getElementById("wrapper").append(createUniversityCard);
+
+    createUniversityCard.innerHTML = `
+        <h1>${universityCard.University}<img src="${universityCard.Flag}"></h1>
+        <div class="universityContent">
+            <div><img src="${universityCard.Images}"></div>
+            <div class="infoOchProgram">
+                <div class="stadOchSprak">
+                    <div>${universityCard.City}</div>
+                    <div>Spåk/Språk</div>
+                </div>
+                <p>Program:</p>
+                <div class="allaProgram">
+                    <div>${universityCard.Programmes[0].name} (ska skriva ut alla)</div>
+                </div>
+            </div>
+        </div>
+    `;
+})
+
+
+//tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
+/*CollectAllProgramInfo(DB).forEach(programCard => {
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
     document.getElementById("wrapper").append(createProgramCard);
@@ -247,9 +268,9 @@ CollectAllProgramCard(DB).forEach(programCard => {
         </div>
         <div class="studentRatings">
             <div>Tidigare studenters betyg:</div>
-            <p><img src="star.png"><span>(Lärarna)</span></p>
-            <p><img src="star.png"><span>(Klasskamrater)</span></p>
-            <p><img src="star.png"><span>(Kurserna)</span></p>
+            <p><img src="star.png">3,6<span>(Lärarna)</span></p>
+            <p><img src="star.png">3,6<span>(Klasskamrater)</span></p>
+            <p><img src="star.png">3,6<span>(Kurserna)</span></p>
         </div>
         <div class="successOchReview">
             <div class="successRateDiv">
@@ -270,49 +291,4 @@ CollectAllProgramCard(DB).forEach(programCard => {
             </div>
         </div>
 `
-
-})
-CreatecreateProgramCard(CollectAllProgramCard());
-function CreatecreateProgramCard(programCard){
-
-}
-
-/*let CreatecreateProgramCard = CITIES.forEach(function(programCard){
-    let createProgramCard = document.createElement("div");
-    createProgramCard.classList.add("createProgramCard")
-
-    createProgramCard.innerHTML = 
-    `
-        <h1>${programCard.Program}</h1>
-        <div class="infoProgram">
-            <div>${programCard.Language}</div>
-            <div>${programCard.Level}</div>
-            <div>${programCard.University}</div>
-        </div>
-        <div class="studentRatings">
-            <div>Tidigare studenters betyg:</div>
-            <div><img src="star.png">(Lärarna)</div>
-            <div><img src="star.png">(Klasskamraterna)</div>
-            <div><img src="star.png">(Kurserna)</div>
-        </div>
-        <div class="successOchReview">
-            <div class="successRateDiv">
-                <h4>Avklaringsgrad</h4>
-                <div class="nmbrOchYear">
-                    <p><span>2020</span><span> ${programCard.SuccessRate[0]}</span></p>
-                    <p><span>2019</span><span> 3,6%</span></p>
-                    <p><span>2018</span><span> 3,6%</span></p>
-                    <p><span>2017</span><span> 3,6%</span></p>
-                    <p><span>2016</span><span> 3,6%</span></p>
-                </div>
-            </div class="reviews">
-                <div class="oneReview">
-                    <p>${programCard.Review.ReviewText}---</p>
-                    <p>${programCard.Review.ReviewName}---</p>
-                    <p>${programCard.Review.ReviewDate.year}, ${programCard.Review.ReviewDate.month}${programCard.Review.ReviewDate.day}</p>
-                </div>
-            </div>
-        </div>
-`;
-document.getElementById("wrapper").append(createProgramCard);
-});*/
+})*/
