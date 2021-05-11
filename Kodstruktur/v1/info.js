@@ -1,12 +1,10 @@
 "use strict";
 
-CollectAllCityInfo();
-function CollectAllCityInfo() {
-
+function CollectAllCityInfo(databas) {
     let CityArray = [];
+    
 
-
-    DB.CITIES.forEach(element => {
+    databas.CITIES.forEach(element => {
 
         let CityCountryCombo = DB.COUNTRIES.find(function (country) {
             return country.id === element.countryID;
@@ -60,26 +58,15 @@ function CollectAllCityInfo() {
             Images: CityCountryCombo.imagesNormal[0],
             Entertainment: EntertainmentArray
         }
-
-
-
-
+        
         CityArray.push(CityObject)
-
+        
     })
 
+    CityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1) //sorterar de i bokstavsordning
 
-
-    /*namn på Stad och Land + landets flagga
-    rating för boende / mat / uteliv
-    informationstext om staden
-    alla universitet för staden
-    bild på stad
-    en lista av alla aktiviteter i staden*/
-
-
-}
-
+    return CityArray;
+} 
 
 CollectAllProgramInfo();
 function CollectAllProgramInfo() {
@@ -219,5 +206,35 @@ function CollectAllUniversityInfo() {
         //console.log(UniversityArray)
     })
 
-    console.log(UniversityArray)
 }
+
+// Här börjar kodning för stadssida
+
+
+// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
+CollectAllCityInfo(DB).forEach(cityCard => {
+    let createCityCard = document.createElement("div");
+    document.querySelector(".wrapper").append(createCityCard);
+
+    createCityCard.innerHTML = `
+    <div class="cityCard">
+        <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}"> </h1>
+        <div class="ratingsByStudents"> 
+            <p> Tidigare studenters betyg: </p>
+            <p> "3,5"/5 (Boende)</p> 
+            <p> "3,5"/5 (Mat)</p>
+            <p> "3,5"/5 (Uteliv)</p>
+        </div>
+        <p class="cityText"> ${cityCard.CityInfo} </p>
+        <div class="uniBoxes"> ${cityCard.Universities[0]}</div>
+        <div class="imageAndScroll">
+            <img src="../Filer/Images/${cityCard.Images}">
+            <div class="entertainmentPlaces"> 
+                <p>${cityCard.Entertainment}</p>
+            </div>
+        </div>
+    </div>
+    `
+})
+
+console.log(CollectAllCityInfo(DB)) // kollar in stadsarrayerna

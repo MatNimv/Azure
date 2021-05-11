@@ -1,0 +1,102 @@
+
+:root {
+    /* sizes */
+    --screenSize1: 60%;
+    --screenSize2: 80%;
+    --screenSize3: 100%;
+
+    --fSizeXS: 10px;
+    --fSizeS: 14px;
+    --fSizeM: 20px;
+    --fSizeL: 30px;
+    --fSizeXL: 40px;
+
+    /* colors */
+    --colorBG: lightgrey;
+    --colorBG2: grey;
+    --colorBG3: white;
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 0;
+    height: var(--screenSize3);
+}
+
+.wrapper {
+    width: var(--screenSize1);
+}
+
+.cityCard {
+    padding: var(--fSizeS);
+    margin-bottom: var(--fSizeS);
+
+    background-color: var(--colorBG);
+}
+
+.cityNames {
+    font-size: var(--fSizeM);
+}
+
+.ratingsByStudents {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+} 
+.ratingsByStudents p {
+    margin: 0;
+     
+    display: flex;
+    align-items: center;
+   
+}
+
+.ratingsByStudents p, .cityText, .imageAndScroll p, .uniBoxes {
+    font-size: var(--fSizeS);
+}
+
+/* kan göra något med grid osv. när jag vet hur man för de individuella boxarna så det inte blir en lång bakgrundsfärg */
+.uniBoxes {
+    background-color: var(--colorBG2);
+    
+
+    margin-top: var(--fSizeXS);
+    margin-bottom: var(--fSizeXS);
+    padding-top: var(--fSizeXS);
+    padding-bottom: var(--fSizeXS);
+    border-radius: 10px;
+}
+
+.imageAndScroll {
+    display: flex;
+    flex-direction: row;
+
+    margin: 0;
+    width: var(--screenSize3);
+    height: var(--screenSize3);
+    overflow-y: scroll;
+}
+
+.imageAndScroll img {
+    width: 50%;
+}
+
+.entertainmentPlaces {
+    height: 100%;
+    width: 90%;
+    overflow-y: scroll;
+
+    background-color: var(--colorBG2);
+    padding: var(--fSizeXS);
+    margin-left: var(--fSizeS);
+}
+
+/*
+.entertainmentPlaces p {
+    background-color: var(--colorBG3);
+} */
+
