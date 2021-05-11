@@ -184,16 +184,17 @@ function CollectAllUniversityInfo() {
             return obj;
         })
 
-        let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (language) {
-            return UniversityProgrammeCombo.language === element.id;
+        let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (speech) {
+            return speech.id === UniversityProgrammeArray.language;
         });
-
+        //console.log(ProgrammeLanguageCombo)
 
 
 
         let LanguageArray = ProgrammeLanguageCombo.map(function(obj){
             return obj.name;
         })
+        //console.log(LanguageArray)
 
      
 
