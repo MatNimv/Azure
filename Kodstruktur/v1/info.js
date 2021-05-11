@@ -1,6 +1,10 @@
 "use strict";
 
-let programCSS = document.createElement("div");
+//adderar CSSen som gäller för createProgramCardvarna
+let programCSS = document.createElement("link");
+programCSS.setAttribute("href", "program.css");
+document.querySelector("head").append(programCSS);
+programCSS.setAttribute("rel", "stylesheet");
 
 CollectAllCityInfo();
 function CollectAllCityInfo() {
@@ -83,8 +87,8 @@ function CollectAllCityInfo() {
 }
 
 
-CollectAllProgramInfo();
-function CollectAllProgramInfo() {
+
+function CollectAllProgramCard(databas) {
     let programArray = [];
     let programObject = {};
 
@@ -154,13 +158,13 @@ function CollectAllProgramInfo() {
 
         programArray.push(programObject)
     })
-
+    console.log(programObject)
     /* namn på pogram
     språk / level / unversitet som erbjuder programmet
     ratings på studenter / lärare / kurser
     avklaringsgrad - år + procent
     en lista av alla recensioner (recenionen + namn, efternamn, datum) */
-    return programObject;
+    return programArray;
 }
 
 
@@ -228,43 +232,87 @@ function CollectAllUniversityInfo() {
     console.log(UniversityArray)
 }
 
-CreateProgramDiv(CollectAllProgramInfo());
-function CreateProgramDiv(programInfo){
-    let ProgramDiv = document.createElement("div");
-    ProgramDiv.classList.add("programDiv")
+CollectAllProgramCard(DB).forEach(programCard => {
+    let createProgramCard = document.createElement("div");
+    createProgramCard.classList.add("createProgramCard");
+    document.getElementById("wrapper").append(createProgramCard);
 
-    ProgramDiv.innerHTML = 
+    createProgramCard.innerHTML = 
     `
-        <h1>${programInfo.Program}</h1>
-        <div class="infoProgram>
-            <div>${programInfo.Language}</div>
-            <div>${programInfo.Level}</div>
-            <div>${programInfo.University}</div>
+        <h1>${programCard.Program}</h1>
+        <div class="infoProgram">
+            <div>${programCard.Language}</div>
+            <div>${programCard.Level}</div>
+            <div>${programCard.University}</div>
         </div>
-        <div class="studentRatings>
+        <div class="studentRatings">
             <div>Tidigare studenters betyg:</div>
-            <div><img src="star.png>(Lärarna)</div>
-            <div><img src="star.png>(Klasskamraterna)</div>
-            <div><img src="star.png>(Kurserna)</div>
+            <p><img src="star.png"><span>(Lärarna)</span></p>
+            <p><img src="star.png"><span>(Klasskamrater)</span></p>
+            <p><img src="star.png"><span>(Kurserna)</span></p>
         </div>
-        <div>
+        <div class="successOchReview">
             <div class="successRateDiv">
                 <h4>Avklaringsgrad</h4>
                 <div class="nmbrOchYear">
-                    <p>2020</p><p>%%</p>
-                    <p>2019</p><p>%%</p>
-                    <p>2018</p><p>%%</p>
-                    <p>2017</p><p>%%</p>
-                    <p>2016</p><p>%%</p>
+                    <p><span>2020 </span><span> ${programCard.SuccessRate[0]}%</span></p>
+                    <p><span>2019 </span><span> ${programCard.SuccessRate[1]}%</span></p>
+                    <p><span>2018 </span><span> ${programCard.SuccessRate[2]}%</span></p>
+                    <p><span>2017 </span><span> ${programCard.SuccessRate[3]}%</span></p>
+                    <p><span>2016 </span><span> ${programCard.SuccessRate[4]}%</span></p>
+                </div>
+            </div>
+            <div class="reviews">
+                <div class="oneReview">
+                    <p>${programCard.Review.ReviewText[0]}</p>
+                    <p>${programCard.Review.ReviewName[0]}, ${programCard.Review.ReviewDate[0].year}, ${programCard.Review.ReviewDate[0].month}/${programCard.Review.ReviewDate[0].day}</p>
+                </div>
+            </div>
+        </div>
+`
+
+})
+CreatecreateProgramCard(CollectAllProgramCard());
+function CreatecreateProgramCard(programCard){
+
+}
+
+/*let CreatecreateProgramCard = CITIES.forEach(function(programCard){
+    let createProgramCard = document.createElement("div");
+    createProgramCard.classList.add("createProgramCard")
+
+    createProgramCard.innerHTML = 
+    `
+        <h1>${programCard.Program}</h1>
+        <div class="infoProgram">
+            <div>${programCard.Language}</div>
+            <div>${programCard.Level}</div>
+            <div>${programCard.University}</div>
+        </div>
+        <div class="studentRatings">
+            <div>Tidigare studenters betyg:</div>
+            <div><img src="star.png">(Lärarna)</div>
+            <div><img src="star.png">(Klasskamraterna)</div>
+            <div><img src="star.png">(Kurserna)</div>
+        </div>
+        <div class="successOchReview">
+            <div class="successRateDiv">
+                <h4>Avklaringsgrad</h4>
+                <div class="nmbrOchYear">
+                    <p><span>2020</span><span> ${programCard.SuccessRate[0]}</span></p>
+                    <p><span>2019</span><span> 3,6%</span></p>
+                    <p><span>2018</span><span> 3,6%</span></p>
+                    <p><span>2017</span><span> 3,6%</span></p>
+                    <p><span>2016</span><span> 3,6%</span></p>
                 </div>
             </div class="reviews">
                 <div class="oneReview">
-                    <p>${programInfo.Review.ReviewText}</p>
-                    <p>${programInfo.Review.ReviewName}</p>
-                    <p>${programInfo.Review.ReviewDate.year}, ${programInfo.Review.ReviewDate.month}${programInfo.Review.ReviewDate.day}</p>
+                    <p>${programCard.Review.ReviewText}---</p>
+                    <p>${programCard.Review.ReviewName}---</p>
+                    <p>${programCard.Review.ReviewDate.year}, ${programCard.Review.ReviewDate.month}${programCard.Review.ReviewDate.day}</p>
                 </div>
+            </div>
         </div>
-    </div>
-`
-document.getElementById("wrapper").append(ProgramDiv);
-}
+`;
+document.getElementById("wrapper").append(createProgramCard);
+});*/
