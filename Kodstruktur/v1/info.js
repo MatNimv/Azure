@@ -179,10 +179,12 @@ function CollectAllUniversityInfo() {
         let UniversityProgrammeCombo = DB.PROGRAMMES.filter(function (programme) {
             return programme.universityID === element.id;
         });
+        //console.log(UniversityProgrammeCombo)
         
         let UniversityProgrammeArray = UniversityProgrammeCombo.map(function(obj){
             return obj;
         })
+        console.log(UniversityProgrammeArray)
 
         let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (language) {
             return UniversityProgrammeCombo.language === element.id;
