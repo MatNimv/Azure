@@ -1,5 +1,7 @@
 "use strict";
 
+let programCSS = document.createElement("div");
+
 CollectAllCityInfo();
 function CollectAllCityInfo() {
 
@@ -84,7 +86,7 @@ function CollectAllCityInfo() {
 CollectAllProgramInfo();
 function CollectAllProgramInfo() {
     let programArray = [];
-
+    let programObject = {};
 
     DB.PROGRAMMES.forEach(element => {
 
@@ -94,6 +96,10 @@ function CollectAllProgramInfo() {
 
         let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels, index) {
             return index === element.level;
+        });
+
+        let ProgrammeUniversityCombo = DB.UNIVERSITIES.find(function (university) {
+            return university.id === element.universityID;
         });
 
 
@@ -127,11 +133,12 @@ function CollectAllProgramInfo() {
         })
 
 
-        let programObject =
+        programObject =
         {
             Program: element.name,
             Language: programLanguageCombo.name,
             Level: programeLevelCombo,
+            University: ProgrammeUniversityCombo.name,
             Ratings: {
                 RatingTeachers: RatingTeachersArray,
                 RatingStudents: RatingStudentsArray,
@@ -146,7 +153,6 @@ function CollectAllProgramInfo() {
         }
 
         programArray.push(programObject)
-
     })
 
     /* namn på pogram
@@ -154,7 +160,7 @@ function CollectAllProgramInfo() {
     ratings på studenter / lärare / kurser
     avklaringsgrad - år + procent
     en lista av alla recensioner (recenionen + namn, efternamn, datum) */
-
+    return programObject;
 }
 
 
@@ -184,7 +190,6 @@ function CollectAllUniversityInfo() {
         let UniversityProgrammeArray = UniversityProgrammeCombo.map(function(obj){
             return obj;
         })
-        console.log(UniversityProgrammeArray)
 
         let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (language) {
             return UniversityProgrammeCombo.language === element.id;
@@ -221,4 +226,45 @@ function CollectAllUniversityInfo() {
     })
 
     console.log(UniversityArray)
+}
+
+CreateProgramDiv(CollectAllProgramInfo());
+function CreateProgramDiv(programInfo){
+    let ProgramDiv = document.createElement("div");
+    ProgramDiv.classList.add("programDiv")
+
+    ProgramDiv.innerHTML = 
+    `
+        <h1>${programInfo.Program}</h1>
+        <div class="infoProgram>
+            <div>${programInfo.Language}</div>
+            <div>${programInfo.Level}</div>
+            <div>${programInfo.University}</div>
+        </div>
+        <div class="studentRatings>
+            <div>Tidigare studenters betyg:</div>
+            <div><img src="star.png>(Lärarna)</div>
+            <div><img src="star.png>(Klasskamraterna)</div>
+            <div><img src="star.png>(Kurserna)</div>
+        </div>
+        <div>
+            <div class="successRateDiv">
+                <h4>Avklaringsgrad</h4>
+                <div class="nmbrOchYear">
+                    <p>2020</p><p>%%</p>
+                    <p>2019</p><p>%%</p>
+                    <p>2018</p><p>%%</p>
+                    <p>2017</p><p>%%</p>
+                    <p>2016</p><p>%%</p>
+                </div>
+            </div class="reviews">
+                <div class="oneReview">
+                    <p>${programInfo.Review.ReviewText}</p>
+                    <p>${programInfo.Review.ReviewName}</p>
+                    <p>${programInfo.Review.ReviewDate.year}, ${programInfo.Review.ReviewDate.month}${programInfo.Review.ReviewDate.day}</p>
+                </div>
+        </div>
+    </div>
+`
+document.getElementById("wrapper").append(ProgramDiv);
 }
