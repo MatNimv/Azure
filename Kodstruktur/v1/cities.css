@@ -29,6 +29,10 @@ body {
 
 .wrapper {
     width: var(--screenSize1);
+    height: 100vh;
+    overflow-y: scroll;
+
+    padding: var(--fSizeS);
 }
 
 .cityCard {
