@@ -1,0 +1,23 @@
+
+
+
+footer{
+
+}
+
+footer > div{
+    display: flex;
+    height: 10vw;
+    width: 100vw;
+}
+
+footer > div > div{
+display: flex;
+flex-basis: 0;
+flex-grow: 1;
+}
+
+footer > div > div:nth-child(2) > img{
+height: 50px;
+width: 50px;
+}
