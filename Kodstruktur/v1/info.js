@@ -1,96 +1,29 @@
 "use strict";
 
 //adderar CSSen som gäller för createProgramCard:en
-/*let programCSS = document.createElement("link");
+let programCSS = document.createElement("link");
 programCSS.setAttribute("href", "program.css");
 document.querySelector("head").append(programCSS);
 programCSS.setAttribute("rel", "stylesheet");
-*/
+
 //adderar CSSen som gäller för createUniversitiesCard:en
-let universitiesCSS = document.createElement("link");
+/*let universitiesCSS = document.createElement("link");
 universitiesCSS.setAttribute("href", "universities.css");
 document.querySelector("head").append(universitiesCSS);
 universitiesCSS.setAttribute("rel", "stylesheet");
-
-CollectAllCityInfo();
-function CollectAllCityInfo() {
-
-    let CityArray = [];
-
-
-    DB.CITIES.forEach(element => {
-
-        let CityCountryCombo = DB.COUNTRIES.find(function (country) {
-            return country.id === element.countryID;
-        });
-
-        let RatingCityCombo = DB.COMMENTS_CITY.filter(function (city) {
-            return city.cityID === element.id;
-        });
-
-        let UniversityCityCombo = DB.UNIVERSITIES.filter(function (university) {
-            return university.cityID === element.id;
-        });
-
-        let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.filter(function (entertainment) {
-            return entertainment.cityID === element.id;
-        });
-
-
-        let StarsOutArray = RatingCityCombo.map(function (obj) {
-            return obj.stars.out;
-        })
-
-        let StarsFoodArray = RatingCityCombo.map(function (obj) {
-            return obj.stars.food;
-        })
-
-        let StarsAccomodationArray = RatingCityCombo.map(function (obj) {
-            return obj.stars.accomodation;
-        })
-
-        let UniversitiesArray = UniversityCityCombo.map(function (obj) {
-            return obj.name;
-        })
-
-        let EntertainmentArray = EntertainmentCityCombo.map(function (obj) {
-            return obj.name;
-        })
-
-        let CityObject =
-        {
-            City: element.name,
-            Country: CityCountryCombo.name,
-            Flag: CityCountryCombo.flag,
-            Stars: {
-                StarsOut: StarsOutArray,
-                StarsFood: StarsFoodArray,
-                StarsAccomodation: StarsAccomodationArray
-            },
-            CityInfo: element.text,
-            Universities: UniversitiesArray,
-            Images: CityCountryCombo.imagesNormal[0],
-            Entertainment: EntertainmentArray
-        }
-
-
-
-
-        CityArray.push(CityObject)
-
-    })
-
-
-
-    /*namn på Stad och Land + landets flagga
-    rating för boende / mat / uteliv
-    informationstext om staden
-    alla universitet för staden
-    bild på stad
-    en lista av alla aktiviteter i staden*/
-
-
-}
+*/
+let mainWrapper = document.createElement("div");
+mainWrapper.innerHTML = `
+<main>
+<nav>
+    <div>Städer<button></button></div>
+    <div>Program<button></button></div>
+    <div>Universitet<button></button></div>
+</nav>
+<div id="wrapper"></div>
+</main>
+`;
+document.querySelector("main").append(mainWrapper);
 
 function CollectAllProgramInfo(databas) {
     let programArray = [];
@@ -228,15 +161,15 @@ function CollectAllUniversityInfo() {
 }
 
 //denna är klar förutom alla programnamn och bilder.
-CollectAllUniversityInfo(DB).forEach(universityCard => {
+/*CollectAllUniversityInfo(DB).forEach(universityCard => {
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
     document.getElementById("wrapper").append(createUniversityCard);
 
     createUniversityCard.innerHTML = `
-        <h1>${universityCard.University}<img src="${universityCard.Flag}"></h1>
+        <h1>${universityCard.University}<img src=../../Kodstruktur/Filer/Images/"${universityCard.Flag}"></h1>
         <div class="universityContent">
-            <div><img src="${universityCard.Images}"></div>
+            <div><img src=../../Kodstruktur/Filer/Images/"${universityCard.Images}"></div>
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
                     <div>${universityCard.City}</div>
@@ -249,11 +182,11 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
             </div>
         </div>
     `;
-})
+})*/
 
 
 //tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
-/*CollectAllProgramInfo(DB).forEach(programCard => {
+CollectAllProgramInfo(DB).forEach(programCard => {
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
     document.getElementById("wrapper").append(createProgramCard);
@@ -268,9 +201,9 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
         </div>
         <div class="studentRatings">
             <div>Tidigare studenters betyg:</div>
-            <p><img src="star.png">3,6<span>(Lärarna)</span></p>
-            <p><img src="star.png">3,6<span>(Klasskamrater)</span></p>
-            <p><img src="star.png">3,6<span>(Kurserna)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Lärarna)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Klasskamrater)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Kurserna)</span></p>
         </div>
         <div class="successOchReview">
             <div class="successRateDiv">
@@ -291,4 +224,4 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
             </div>
         </div>
 `
-})*/
+});
