@@ -8,6 +8,7 @@
 
 let ImagePlayImageArray = [];
 let ImagePlayNameArray = [];
+let ImageIndex = 0;
 
 AddWebsiteContent();
 //Add DOM element function
@@ -17,11 +18,15 @@ function AddWebsiteContent() {
         `
     <div id="ImageRollWrapper">
         <div id="ImageRollCell">
+            <div class="ImageButtonHolder">
             <div id="ImageRollBackward">Previous Slide</div>
+            </div>
             <div id="ImageRoll"></div>
+            <div class="ImageButtonHolder">
             <div id="ImageRollPhotoForward">Next Slide</div>
+            </div>
         </div>
-    <p id="NameOfImageRoll">ImagePlayNameArray[number]</p>
+    <p id="NameOfImageRoll"></p>
     </div>
     
     
@@ -73,31 +78,38 @@ function AddWebsiteContent() {
 
 
 
-
-
-GetDBImages(DB);
-function GetDBImages(db, number = 0){
-  
-   
+GetDBImages();
+function GetDBImages(i){
     
-    db.CITIES.forEach(function(element){
+    DB.CITIES.forEach(function(element){
         ImagePlayImageArray.push(element.imagesNormal[0])
+        ImagePlayNameArray.push(element.name)
     })
 
-    document.querySelector("#ImageRoll").style.backgroundImage = `url(ImagePlayImageArray[number])`;
-  
+    //Display image
+    document.querySelector("#ImageRoll").style.backgroundImage = `url(../Filer/Images/${ImagePlayImageArray[ImageIndex]})`;
+
+    //Display Text
+    document.querySelector("#NameOfImageRoll").innerText = `${ImagePlayNameArray[ImageIndex]}`
 }
 
 // NameOfImageRoll needs to change per city
 
-
+//Main button to info
+document.querySelector("#MainPageButton").addEventListener("click", function(){
+    location.href = 'info.html'
+})
 
 //Previous picture function
 document.querySelector("#ImageRollBackward").addEventListener("click", function () {
-    GetDBImages(DB, number)
+    if(ImageIndex <= 0) ImageIndex = ImagePlayImageArray.length;
+    ImageIndex--
+    return GetDBImages(ImageIndex)
 })
 
 //Next picture function
 document.querySelector("#ImageRollPhotoForward").addEventListener("click", function () {
-    GetDBImages(DB, number)
+    if(ImageIndex <= 0) ImageIndex = ImagePlayImageArray.length;
+    ImageIndex++
+    return GetDBImages(ImageIndex)
 })

@@ -9,13 +9,16 @@ footer{
     margin-top: 50px;
 }
 
-
 main{
+    margin: 50px auto; 
+    
+}
+main > div{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+ 
 }
 
 #LeftAdImage{
@@ -42,20 +45,52 @@ main{
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 20vw;
-    width:  50vw;
+
 }
 
 #ImageRollCell{
+    width: 60vw;
     display: flex;
+   justify-content: center;
 }
 
 #ImageRoll{
-    width: 30vw;
-    height: 20vh
+    width: 35vw;
+    height: 35vh;
+    background-position: center;
+    background-size: auto;
+    border: 1px solid black;
 }
 
 
+.ImageButtonHolder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+#ImageRollBackward{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    background-image: grey;
+    box-shadow: 10px 5px 5px grey;
+    height: 30%;
+    width: 100%;
+    text-align: center;
+}
+
+#ImageRollPhotoForward{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    background-image: grey;
+    box-shadow: 10px 5px 5px grey;
+    height: 30%;
+    width: 100%;
+}
 
 
 #PluggaWrapper{
@@ -63,9 +98,7 @@ main{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 20vh;
-    width: 50vw;
-    flex-wrap: wrap;
+
 }
 
 #PluggaWrapper > p{
@@ -81,9 +114,7 @@ main{
 
 #ReviewWrapper{
     display: flex;
-    width: 50vw;
     flex-direction: column;
-    
 }
 
 #ReviewWrapper > p{
@@ -92,27 +123,22 @@ text-align: center;
 
 #ReviewCellWrapper{
     display: flex;
-    flex-direction: flex;
+    justify-content: space-around;
 }
+
 
 .ReviewCell{
     border-radius: 200px;
-    flex-basis: 0;
-    flex-grow: 1;
     background-color: grey;
     border: 1px solid black;
     display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-
-#ReviewWrapper > #ReviewCellWrapper {
-display: flex;
-align-items: center;
-justify-content: center;
-}
 
 #ReviewWrapper > #ReviewCell > #ReviewProgramCity{
  

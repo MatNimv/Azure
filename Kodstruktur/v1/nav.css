@@ -4,7 +4,6 @@ header > div{
     display: flex;
     flex-direction: flex;
     height: 5vh;
-    width: 100vw;
 }
 
 header > div > div{

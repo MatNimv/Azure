@@ -13,5 +13,11 @@ function AddNavigation(){
 }
 
 
+document.querySelector("#HomeNav").addEventListener("click", function(){
+    location.href = 'index.html'
+})
 
+document.querySelector("#InfoNav").addEventListener("click", function(){
+    location.href = 'info.html'
+})
  
