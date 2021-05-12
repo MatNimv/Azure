@@ -1,13 +1,8 @@
 
 
-
-footer{
-
-}
-
 footer > div{
     display: flex;
-    height: 10vw;
+    height: 5vw;
     width: 100vw;
 }
 
@@ -15,6 +10,8 @@ footer > div > div{
 display: flex;
 flex-basis: 0;
 flex-grow: 1;
+justify-content: center;
+align-items: center;
 }
 
 footer > div > div:nth-child(2) > img{

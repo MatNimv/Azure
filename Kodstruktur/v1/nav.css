@@ -1,12 +1,9 @@
-header {
-   
-}
 
 
 header > div{
     display: flex;
     flex-direction: flex;
-    height: 10vh;
+    height: 5vh;
     width: 100vw;
 }
 

@@ -2,7 +2,11 @@
     
 }
 header{
-    margin-bottom: 20vh;
+   margin-bottom: 50px;
+}
+
+footer{
+    margin-top: 50px;
 }
 
 
@@ -37,41 +41,104 @@ main{
 {
     display: flex;
     align-items: center;
+    flex-direction: column;
     height: 20vw;
     width:  50vw;
-    justify-content: space-around;
+}
+
+#ImageRollCell{
+    display: flex;
 }
 
 #ImageRoll{
-    background-image: url(../Filer/Images/canberra_big_1.jpg);
-    height: 25vh;
-    width: 25vw;
+    width: 30vw;
+    height: 20vh
 }
+
+
+
 
 #PluggaWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 30vh;
+    height: 20vh;
     width: 50vw;
     flex-wrap: wrap;
 }
 
-
-#ReviewWrapper{
-    display: flex;
-    height: 30vh;
-    width: 50vw;
-    flex-wrap: wrap;
+#PluggaWrapper > p{
+    text-align: center;
 }
 
-#ReviewWrapper > div{
-   flex-basis: 0;
-  flex-grow: 1;
-}
+
 
 #NameOfImageRoll{
     text-align: center;
 }
 
+
+#ReviewWrapper{
+    display: flex;
+    width: 50vw;
+    flex-direction: column;
+    
+}
+
+#ReviewWrapper > p{
+text-align: center;
+}
+
+#ReviewCellWrapper{
+    display: flex;
+    flex-direction: flex;
+}
+
+.ReviewCell{
+    border-radius: 200px;
+    flex-basis: 0;
+    flex-grow: 1;
+    background-color: grey;
+    border: 1px solid black;
+    display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+
+#ReviewWrapper > #ReviewCellWrapper {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+#ReviewWrapper > #ReviewCell > #ReviewProgramCity{
+ 
+ }
+
+ #ReviewWrapper > #ReviewCell > #ReviewText{
+ 
+}
+
+#ReviewWrapper >  #ReviewCell > #ReviewNameDate{
+ 
+}
+
+#ReviewWrapper > #ReviewCell > #ReviewStars{
+    display: flex;
+    align-items: center;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+#ReviewStars{
+    display: flex;
+}
+.ReviewStarShapes{
+    background-color: yellow;
+    height: 30px;
+    width: 30px;
+    border-radius: 300px;
+}
