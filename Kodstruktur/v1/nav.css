@@ -1,0 +1,16 @@
+
+
+header > div{
+    display: flex;
+    flex-direction: flex;
+    height: 5vh;
+}
+
+header > div > div{
+    flex-basis: 0;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

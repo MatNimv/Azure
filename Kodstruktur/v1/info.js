@@ -25,6 +25,82 @@ mainWrapper.innerHTML = `
 `;
 document.querySelector("main").append(mainWrapper);
 
+function CollectAllCityInfo(databas) {
+    let CityArray = [];
+    
+
+    databas.CITIES.forEach(element => {
+
+        let CityCountryCombo = DB.COUNTRIES.find(function (country) {
+            return country.id === element.countryID;
+        });
+
+        let RatingCityCombo = DB.COMMENTS_CITY.filter(function (city) {
+            return city.cityID === element.id;
+        });
+
+        let UniversityCityCombo = DB.UNIVERSITIES.filter(function (university) {
+            return university.cityID === element.id;
+        });
+
+        let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.filter(function (entertainment) {
+            return entertainment.cityID === element.id;
+        });
+
+
+        let StarsOutArray = RatingCityCombo.map(function (obj) {
+            return obj.stars.out;
+        })
+
+        let StarsFoodArray = RatingCityCombo.map(function (obj) {
+            return obj.stars.food;
+        })
+
+        let StarsAccomodationArray = RatingCityCombo.map(function (obj) {
+            return obj.stars.accomodation;
+        })
+
+        let UniversitiesArray = UniversityCityCombo.map(function (obj) {
+            return obj.name;
+        })
+
+        let EntertainmentArray = EntertainmentCityCombo.map(function (obj) {
+            return obj.name;
+        })
+
+        let CityObject =
+        {
+            City: element.name,
+            Country: CityCountryCombo.name,
+            Flag: CityCountryCombo.flag,
+            Stars: {
+                StarsOut: StarsOutArray,
+                StarsFood: StarsFoodArray,
+                StarsAccomodation: StarsAccomodationArray
+            },
+            CityInfo: element.text,
+            Universities: UniversitiesArray,
+            Images: CityCountryCombo.imagesNormal[0],
+            Entertainment: EntertainmentArray
+        }
+        
+        CityArray.push(CityObject)
+        
+    })
+
+    CityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1) //sorterar de i bokstavsordning
+
+
+    /*namn på Stad och Land + landets flagga
+    rating för boende / mat / uteliv
+    informationstext om staden
+    alla universitet för staden
+    bild på stad
+    en lista av alla aktiviteter i staden*/
+
+
+}
+
 function CollectAllProgramInfo(databas) {
     let programArray = [];
 
@@ -128,13 +204,14 @@ function CollectAllUniversityInfo() {
             return obj;
         })
 
-        let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (language) {
-            return UniversityProgrammeCombo.language === element.id;
+        let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (speech) {
+            return speech.id === UniversityProgrammeArray.language;
         });
 
         let LanguageArray = ProgrammeLanguageCombo.map(function(obj){
             return obj.name;
         })
+        //console.log(LanguageArray)
 
         let universityObject =
         {
@@ -224,4 +301,44 @@ CollectAllProgramInfo(DB).forEach(programCard => {
             </div>
         </div>
 `
-});*/
+});
+})
+
+}*/
+
+// Här börjar kodning för stadssida
+
+
+// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
+CollectAllCityInfo(DB).forEach(cityCard => {
+    let createCityCard = document.createElement("div");
+    document.querySelector(".wrapper").append(createCityCard);
+
+    let uniBox = cityCard.Universities.forEach(name => {
+        let div = document.createElement("div");
+        div.classList.add("uniBoxes");
+        div.innerHTML = name;
+    }) // denna är fel och ger undefined :(
+
+    createCityCard.innerHTML = `
+    <div class="cityCard">
+        <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}"> </h1>
+        <div class="ratingsByStudents"> 
+            <p> Tidigare studenters betyg: </p>
+            <p> "3,5"/5 (Boende)</p> 
+            <p> "3,5"/5 (Mat)</p>
+            <p> "3,5"/5 (Uteliv)</p>
+        </div>
+        <p class="cityText"> ${cityCard.CityInfo} </p>
+        <div class="uniBoxes"> ${uniBox}</div>
+        <div class="imageAndScroll">
+            <img src="../Filer/Images/${cityCard.Images}">
+            <div class="entertainmentPlaces"> 
+                <p>${cityCard.Entertainment}</p>
+            </div>
+        </div>
+    </div>
+    `
+})
+
+console.log(CollectAllCityInfo(DB)) // kollar in stadsarrayerna
