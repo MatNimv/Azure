@@ -12,6 +12,18 @@ universitiesCSS.setAttribute("href", "universities.css");
 document.querySelector("head").append(universitiesCSS);
 universitiesCSS.setAttribute("rel", "stylesheet");
 
+let mainWrapper = document.createElement("div");
+mainWrapper.innerHTML = `
+<main>
+<nav>
+    <div>Städer<button></button></div>
+    <div>Program<button></button></div>
+    <div>Universitet<button></button></div>
+</nav>
+<div id="wrapper"></div>
+</main>
+`;
+document.querySelector("main").append(mainWrapper);
 
 function CollectAllCityInfo(databas) {
     let CityArray = [];
@@ -232,9 +244,9 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
     document.getElementById("wrapper").append(createUniversityCard);
 
     createUniversityCard.innerHTML = `
-        <h1>${universityCard.University}<img src="${universityCard.Flag}"></h1>
+        <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
-            <div><img src="${universityCard.Images}"></div>
+            <div><img src="../Filer/Images/${universityCard.Images}"></div>
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
                     <div>${universityCard.City}</div>
@@ -249,9 +261,9 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
     `;
 })
 
-
+/*
 //tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
-/*CollectAllProgramInfo(DB).forEach(programCard => {
+CollectAllProgramInfo(DB).forEach(programCard => {
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
     document.getElementById("wrapper").append(createProgramCard);
@@ -266,9 +278,9 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
         </div>
         <div class="studentRatings">
             <div>Tidigare studenters betyg:</div>
-            <p><img src="star.png">3,6<span>(Lärarna)</span></p>
-            <p><img src="star.png">3,6<span>(Klasskamrater)</span></p>
-            <p><img src="star.png">3,6<span>(Kurserna)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Lärarna)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Klasskamrater)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Kurserna)</span></p>
         </div>
         <div class="successOchReview">
             <div class="successRateDiv">
@@ -289,6 +301,7 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
             </div>
         </div>
 `
+});
 })
 
 }*/
