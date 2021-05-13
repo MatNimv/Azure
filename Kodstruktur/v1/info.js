@@ -216,6 +216,12 @@ CollectAllCityInfo(DB).forEach(cityCard => {
     let createCityCard = document.createElement("div");
     document.querySelector(".wrapper").append(createCityCard);
 
+    let uniBox = cityCard.Universities.forEach(name => {
+        let div = document.createElement("div");
+        div.classList.add("uniBoxes");
+        div.innerHTML = name;
+    }) // denna är fel och ger undefined :(
+
     createCityCard.innerHTML = `
     <div class="cityCard">
         <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}"> </h1>
@@ -226,7 +232,7 @@ CollectAllCityInfo(DB).forEach(cityCard => {
             <p> "3,5"/5 (Uteliv)</p>
         </div>
         <p class="cityText"> ${cityCard.CityInfo} </p>
-        <div class="uniBoxes"> ${cityCard.Universities[0]}</div>
+        <div class="uniBoxes"> ${uniBox}</div>
         <div class="imageAndScroll">
             <img src="../Filer/Images/${cityCard.Images}">
             <div class="entertainmentPlaces"> 
