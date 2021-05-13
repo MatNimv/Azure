@@ -7,18 +7,15 @@ document.querySelector("head").append(programCSS);
 programCSS.setAttribute("rel", "stylesheet");
 */
 //adderar CSSen som gäller för createUniversitiesCard:en
-let universitiesCSS = document.createElement("link");
-universitiesCSS.setAttribute("href", "universities.css");
-document.querySelector("head").append(universitiesCSS);
-universitiesCSS.setAttribute("rel", "stylesheet");
+
 
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <main>
 <nav>
-    <div>Städer<button></button></div>
-    <div>Program<button></button></div>
-    <div>Universitet<button></button></div>
+    <button id="City">City</button>
+    <button id="Program">Program</button>
+    <button id="University">University</button>
 </nav>
 <div id="wrapper"></div>
 </main>
@@ -223,22 +220,27 @@ function CollectAllUniversityInfo() {
             Programmes: UniversityProgrammeArray
         }
 
-        /*
-        Universitetets namn + flagga
-        stad och språk för programmen
-        lista över programnman för universitetet
-        STORRRR bild (stadsbild)
-        */
+       
+        //Universitetets namn + flagga
+        //stad och språk för programmen
+        //lista över programnman för universitetet
+        //STORRRR bild (stadsbild)
+       
 
         UniversityArray.push(universityObject)
         //console.log(UniversityArray)
     })
-    console.log(UniversityArray)
+    console.log("University")
     return UniversityArray;
 }
 
+
+
 //denna är klar förutom alla programnamn och bilder.
+function ShowUniversities(){
+    document.querySelector("#wrapper").innerHTML = "";
 CollectAllUniversityInfo(DB).forEach(universityCard => {
+    
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
     document.getElementById("wrapper").append(createUniversityCard);
@@ -260,10 +262,14 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
         </div>
     `;
 })
+}
 
-/*
 //tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
+function ShowProgram(){
+    document.querySelector("#wrapper").innerHTML = "";
+
 CollectAllProgramInfo(DB).forEach(programCard => {
+  
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
     document.getElementById("wrapper").append(createProgramCard);
@@ -302,17 +308,21 @@ CollectAllProgramInfo(DB).forEach(programCard => {
         </div>
 `
 });
-})
 
-}*/
+}
+
 
 // Här börjar kodning för stadssida
 
 
 // här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
+ShowCities()
+function ShowCities(){
+    document.querySelector("#wrapper").innerHTML = "";
 CollectAllCityInfo(DB).forEach(cityCard => {
+    
     let createCityCard = document.createElement("div");
-    document.querySelector(".wrapper").append(createCityCard);
+    document.querySelector("#wrapper").append(createCityCard);
 
     let uniBox = cityCard.Universities.forEach(name => {
         let div = document.createElement("div");
@@ -339,6 +349,48 @@ CollectAllCityInfo(DB).forEach(cityCard => {
         </div>
     </div>
     `
+    console.log("city") // kollar in stadsarrayerna
+})
+}
+
+
+
+
+
+//CSS intro
+let StyleCSS = document.createElement("link");
+StyleCSS.setAttribute("href", `City.css`);
+document.querySelector("head").append(StyleCSS);
+StyleCSS.setAttribute("rel", "stylesheet");
+
+
+//Checkbox Buttons
+document.querySelector(`#City`).addEventListener("click", function(){
+    StyleCSS.remove();
+    let click = this.innerText;
+    StyleCSS.setAttribute("href", `${click}.css`);
+    document.querySelector("head").append(StyleCSS);
+    StyleCSS.setAttribute("rel", "stylesheet");
+    ShowCities()
 })
 
-console.log(CollectAllCityInfo(DB)) // kollar in stadsarrayerna
+
+document.querySelector(`#Program`).addEventListener("click", function(){
+    StyleCSS.remove();
+    let click = this.innerText;
+    StyleCSS.setAttribute("href", `${click}.css`);
+    document.querySelector("head").append(StyleCSS);
+    StyleCSS.setAttribute("rel", "stylesheet");
+    ShowProgram()
+})
+
+
+document.querySelector(`#University`).addEventListener("click", function(){
+    StyleCSS.remove();
+    let click = this.innerText;
+    StyleCSS.setAttribute("href", `${click}.css`);
+    document.querySelector("head").append(StyleCSS);
+    StyleCSS.setAttribute("rel", "stylesheet");
+    ShowUniversities()
+})
+
