@@ -1,17 +1,17 @@
 "use strict";
 
 //adderar CSSen som gäller för createProgramCard:en
-let programCSS = document.createElement("link");
+/*let programCSS = document.createElement("link");
 programCSS.setAttribute("href", "program.css");
 document.querySelector("head").append(programCSS);
 programCSS.setAttribute("rel", "stylesheet");
-
+*/
 //adderar CSSen som gäller för createUniversitiesCard:en
-/*let universitiesCSS = document.createElement("link");
+let universitiesCSS = document.createElement("link");
 universitiesCSS.setAttribute("href", "universities.css");
 document.querySelector("head").append(universitiesCSS);
 universitiesCSS.setAttribute("rel", "stylesheet");
-*/
+
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <main>
@@ -161,15 +161,15 @@ function CollectAllUniversityInfo() {
 }
 
 //denna är klar förutom alla programnamn och bilder.
-/*CollectAllUniversityInfo(DB).forEach(universityCard => {
+CollectAllUniversityInfo(DB).forEach(universityCard => {
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
     document.getElementById("wrapper").append(createUniversityCard);
 
     createUniversityCard.innerHTML = `
-        <h1>${universityCard.University}<img src=../../Kodstruktur/Filer/Images/"${universityCard.Flag}"></h1>
+        <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
-            <div><img src=../../Kodstruktur/Filer/Images/"${universityCard.Images}"></div>
+            <div><img src="../Filer/Images/${universityCard.Images}"></div>
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
                     <div>${universityCard.City}</div>
@@ -182,9 +182,9 @@ function CollectAllUniversityInfo() {
             </div>
         </div>
     `;
-})*/
+})
 
-
+/*
 //tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
 CollectAllProgramInfo(DB).forEach(programCard => {
     let createProgramCard = document.createElement("div");
@@ -224,4 +224,4 @@ CollectAllProgramInfo(DB).forEach(programCard => {
             </div>
         </div>
 `
-});
+});*/
