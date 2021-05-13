@@ -79,7 +79,7 @@ function AddWebsiteContent() {
 
 
 GetDBImages();
-function GetDBImages(i){
+function GetDBImages(){
     
     DB.CITIES.forEach(function(element){
         ImagePlayImageArray.push(element.imagesNormal[0])
@@ -104,12 +104,12 @@ document.querySelector("#MainPageButton").addEventListener("click", function(){
 document.querySelector("#ImageRollBackward").addEventListener("click", function () {
     if(ImageIndex <= 0) ImageIndex = ImagePlayImageArray.length;
     ImageIndex--
-    return GetDBImages(ImageIndex)
+    return GetDBImages()
 })
 
 //Next picture function
 document.querySelector("#ImageRollPhotoForward").addEventListener("click", function () {
     if(ImageIndex <= 0) ImageIndex = ImagePlayImageArray.length;
     ImageIndex++
-    return GetDBImages(ImageIndex)
+    return GetDBImages()
 })
