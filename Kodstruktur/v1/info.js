@@ -85,7 +85,7 @@ function CollectAllCityInfo(databas) {
     alla universitet för staden
     bild på stad
     en lista av alla aktiviteter i staden*/
-
+    return CityArray;
 
 }
 
