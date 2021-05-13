@@ -1,0 +1,85 @@
+*{
+    --bColor1: white;
+    --bColor2: black;
+    --bColor3:rgb(214, 214, 214);
+    --accColor1: rgb(216, 153, 216);
+    --accColor2: gray;
+}
+
+body{ 
+    margin:0px;
+    display:flex;
+    justify-content: center;
+}
+p, h1, h4{ margin: 0px;}
+
+#wrapper{
+    width: 60vw;
+}
+.createProgramCard{ 
+    display:flex; 
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--bColor3);
+    margin-bottom: 15px;
+}
+
+.infoProgram{
+    display:flex;
+    flex-direction: row;
+    margin: 10px 0px 10px 0px;
+}
+.infoProgram > div{
+    background-color: var(--accColor2);
+    padding: 15px;
+    margin-right: 5px;
+    border-radius: 30px;
+}
+
+.studentRatings{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.studentRatings > div:first-child{
+    padding-top:1px;
+}
+.studentRatings > p{
+    display:flex;
+    align-items: center;
+    padding-bottom: 3px;
+}
+
+.successOchReview{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.successRateDiv{
+    display:flex;
+
+    flex-direction: column;
+}
+.nmbrOchYear{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.nmbrOchYear > p > span:last-child{ padding-left: 28px;}
+.nmbrOchYear > p > span:first-child{padding-left: 5px;}
+.nmbrOchYear > p{ 
+    background-color: var(--accColor2);
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 2px;
+}
+.reviews{
+    border: 1px solid var(--bColor2);
+    width: 100%;
+    margin-left: 30px;
+}
+.oneReview{
+    margin: 5px 8px 5px 8px;
+    border-bottom: 1px solid var(--bColor2);
+}
+.oneReview > p:last-child{font-style: italic;}

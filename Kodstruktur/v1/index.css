@@ -1,0 +1,170 @@
+*{
+    
+}
+header{
+   margin-bottom: 50px;
+}
+
+footer{
+    margin-top: 50px;
+}
+
+main{
+    margin: 50px auto; 
+    
+}
+main > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+#LeftAdImage{
+    background-image: url(../Filer/Images/australia_normal_1.jpg);
+    width: 50px;
+    height: 100%;
+}
+
+
+#RightAdImage{
+    background-image: url(../Filer/Images/argentina_normal_1.jpg);
+    width: 50px;
+    height: 100%;
+}
+
+#MiddleAdImage{
+    background-image: url(../Filer/Images/boston_normal_1.jpg);
+    width: 50px;
+    height: 50px;
+}
+
+#ImageRollWrapper
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+#ImageRollCell{
+    width: 60vw;
+    display: flex;
+   justify-content: center;
+}
+
+#ImageRoll{
+    width: 35vw;
+    height: 35vh;
+    background-position: center;
+    background-size: auto;
+    border: 1px solid black;
+}
+
+
+.ImageButtonHolder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+#ImageRollBackward{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    background-image: grey;
+    box-shadow: 10px 5px 5px grey;
+    height: 30%;
+    width: 100%;
+    text-align: center;
+}
+
+#ImageRollPhotoForward{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    background-image: grey;
+    box-shadow: 10px 5px 5px grey;
+    height: 30%;
+    width: 100%;
+}
+
+
+#PluggaWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+#PluggaWrapper > p{
+    text-align: center;
+}
+
+
+
+#NameOfImageRoll{
+    text-align: center;
+}
+
+
+#ReviewWrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+#ReviewWrapper > p{
+text-align: center;
+}
+
+#ReviewCellWrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.ReviewCell{
+    border-radius: 200px;
+    background-color: grey;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+#ReviewWrapper > #ReviewCell > #ReviewProgramCity{
+ 
+ }
+
+ #ReviewWrapper > #ReviewCell > #ReviewText{
+ 
+}
+
+#ReviewWrapper >  #ReviewCell > #ReviewNameDate{
+ 
+}
+
+#ReviewWrapper > #ReviewCell > #ReviewStars{
+    display: flex;
+    align-items: center;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+#ReviewStars{
+    display: flex;
+}
+.ReviewStarShapes{
+    background-color: yellow;
+    height: 30px;
+    width: 30px;
+    border-radius: 300px;
+}
