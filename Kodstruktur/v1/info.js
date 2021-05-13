@@ -11,14 +11,12 @@ programCSS.setAttribute("rel", "stylesheet");
 
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
-<main>
 <nav>
     <button id="City">City</button>
     <button id="Program">Program</button>
     <button id="University">University</button>
 </nav>
 <div id="wrapper"></div>
-</main>
 `;
 document.querySelector("main").append(mainWrapper);
 

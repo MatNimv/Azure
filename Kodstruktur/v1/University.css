@@ -1,38 +1,60 @@
 *{
-    --bColor1: white;
-    --bColor2: black;
-    --bColor3:rgb(214, 214, 214);
-    --accColor1: rgb(216, 153, 216);
-    --accColor2: gray;
+    /* sizes */
+    --screenSize1: 60%;
+    --screenSize2: 80%;
+    --screenSize3: 100%;
+
+    --fSizeXS: 10px;
+    --fSizeS: 14px;
+    --fSizeM: 20px;
+    --fSizeL: 30px;
+    --fSizeXL: 40px;
+
+    /* colors */
+    --colorBG: lightgrey;
+    --colorBG2: grey;
+    --colorBG3: white;
+    --colorBG4: black;
 }
 
 body{ 
-    margin:0px;
-    display:flex;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    
+    margin: 0;
+    height: var(--screenSize3);
 }
+
+header > div{height: 75px;}
+nav{padding-bottom: 40px;}
+#HomeNav{ background-color:var(--colorBG);}
 p, h1, h4{ margin: 0px;}
+p, div{font-size: var(--fSizeS);}
 
 #wrapper{
-    width: 60vw;
+    width: var(--screenSize1);
+    height: 100vh;
+    overflow-y: scroll;
+
+    padding: var(--fSizeS);
+}
+.createUniversityCard{ 
+    padding: var(--fSizeS);
+    margin-bottom: var(--fSizeS);
+
+    background-color: var(--colorBG);
 }
 
-.createUniversityCard{
-    display:flex; 
-    flex-direction: column;
-    padding: 20px;
-    background-color: var(--bColor3);
-    margin-bottom: 15px;
-}
 
-h1{padding-bottom: 20px;}
-h1 > img {padding-left: 3px;}
+h1{padding-bottom: 20px; font-size: var(--fSizeM);}
+h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 
 .universityContent{
     display:flex;
 }
 .universityContent > div:first-child{width: 55%;}
-.universityContent > div:first-child > img{height:100%; width: 100%;}
+.universityContent > div:first-child > img{width: 100%;}
 
 .infoOchProgram{
     padding-left: 20px;
@@ -44,18 +66,18 @@ h1 > img {padding-left: 3px;}
 }
 
 .stadOchSprak > div{
-    background-color: var(--accColor2);
+    background-color: var(--colorBG2);
     padding: 15px;
     margin-right: 5px;
     border-radius: 30px;
 }
 
 .allaProgram{
-    border: 1px solid var(--bColor2);
-    height: 200px;
+    border: 1px solid var(--colorBG4);
+    height: 100px;
 }
 .allaProgram > div{
-    background-color: var(--accColor2);
+    background-color: var(--colorBG2);
     border-radius: 10px;
     margin:5px;
     padding: 3px;
