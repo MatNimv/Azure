@@ -107,3 +107,5 @@ p, div{font-size: var(--fSizeS);}
     border-bottom: 1px solid var(--colorBG4);
 }
 .oneReview > p:last-child{font-style: italic;}
+
+footer{ background-color: var(--colorBG);}

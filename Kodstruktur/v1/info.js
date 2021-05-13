@@ -165,6 +165,7 @@ function CollectAllProgramInfo(databas) {
 
         programArray.push(programObject)
     })
+    programArray.sort((n1, n2) => n2.Program < n1.Program ? 1 : -1)
     /* namn på pogram
     språk / level / unversitet som erbjuder programmet
     ratings på studenter / lärare / kurser
@@ -226,9 +227,8 @@ function CollectAllUniversityInfo() {
        
 
         UniversityArray.push(universityObject)
-        //console.log(UniversityArray)
     })
-    console.log("University")
+    UniversityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1)
     return UniversityArray;
 }
 
@@ -254,7 +254,7 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
                 </div>
                 <p>Program:</p>
                 <div class="allaProgram">
-                    <div>${universityCard.Programmes[0].name} (ska skriva ut alla)</div>
+                    <div>${universityCard.Programmes[0].name}(ska skriva ut alla)</div>
                 </div>
             </div>
         </div>
@@ -314,7 +314,7 @@ CollectAllProgramInfo(DB).forEach(programCard => {
 
 
 // här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
-ShowCities()
+ShowCities() //en platshållare
 function ShowCities(){
     document.querySelector("#wrapper").innerHTML = "";
 CollectAllCityInfo(DB).forEach(cityCard => {

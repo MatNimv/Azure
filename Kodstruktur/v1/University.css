@@ -83,3 +83,5 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     padding: 3px;
     
 }
+
+footer{ background-color: var(--colorBG);}
