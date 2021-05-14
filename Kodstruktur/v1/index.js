@@ -226,6 +226,7 @@ function BestReviewFetcher() {
         })
 
     })
+    console.log(Programs)
     let CommentProgramsCombo = DB.COMMENTS_PROGRAMME.filter(function (CommentObj) {
         return Programs.find(function (ProgramObj) {
             return ProgramObj.id === CommentObj.programmeID;
@@ -240,7 +241,7 @@ function BestReviewFetcher() {
 
     //Workaround for zero reveiw for city
     if(RatingCityCombo.length <= 0){
-        ReviewCreator(CurrentCity.name, "No Review Found", undefined, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars )
+        ReviewCreator(CurrentCity.name, "No Review Found", undefined, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars, "" ,CommentProgramsCombo[0].alias )
     }else{
         ReviewCreator(CurrentCity.name, RatingCityCombo[0].text, RatingCityCombo[0].stars, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars,RatingCityCombo[0].alias,CommentProgramsCombo[0].alias)
     }
