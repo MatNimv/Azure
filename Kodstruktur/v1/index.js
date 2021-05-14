@@ -50,7 +50,7 @@ function AddWebsiteContent() {
 }
 
 
-function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, ProgramText, ProgramRatings) {
+function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, ProgramText, ProgramRatings, ReviewNameDate) {
     let ReviewCell = document.createElement("div");
     ReviewCell.classList.add("ReviewCell");
     ReviewCell.innerHTML =
@@ -79,7 +79,7 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
         `
     <p id="ProgramName">${ProgramName}</p>
     <p id="ProgramText">${ProgramText}</p>
-    <div id="ReviewNameDate"></div>
+    <div id="ReviewNameDate">${ReviewNameDate}</div>
 
     <div id="ProgramStarsSection1">
         <p class="RatingTitle">Teachers</p>    
@@ -241,7 +241,7 @@ function BestReviewFetcher() {
     if(RatingCityCombo.length <= 0){
         ReviewCreator(CurrentCity.name, "No Review Found", undefined, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars )
     }else{
-        ReviewCreator(CurrentCity.name, RatingCityCombo[0].text, RatingCityCombo[0].stars, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars)
+        ReviewCreator(CurrentCity.name, RatingCityCombo[0].text, RatingCityCombo[0].stars, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars, CommentProgramsCombo[0].alias)
     }
 
 
