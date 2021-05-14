@@ -84,7 +84,8 @@ function CollectAllCityInfo(databas) {
     })
 
     CityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1) //sorterar de i bokstavsordning
-
+   
+    return CityArray;
 
     /*namn på Stad och Land + landets flagga
     rating för boende / mat / uteliv
@@ -92,9 +93,8 @@ function CollectAllCityInfo(databas) {
     alla universitet för staden
     bild på stad
     en lista av alla aktiviteter i staden*/
-    return CityArray;
-
 }
+console.log(CollectAllCityInfo(DB)) // kollar in stadsarrayerna
 
 function CollectAllProgramInfo(databas) {
     let programArray = [];
@@ -315,41 +315,33 @@ CollectAllProgramInfo(DB).forEach(programCard => {
 ShowCities() //en platshållare
 function ShowCities(){
     document.querySelector("#wrapper").innerHTML = "";
-CollectAllCityInfo(DB).forEach(cityCard => {
-    
-    let createCityCard = document.createElement("div");
-    document.querySelector("#wrapper").append(createCityCard);
 
-    let uniBox = cityCard.Universities.forEach(name => {
-        let div = document.createElement("div");
-        div.classList.add("uniBoxes");
-        div.innerHTML = name;
-    }) // denna är fel och ger undefined :(
+    CollectAllCityInfo(DB).forEach(cityCard => {
 
-    createCityCard.innerHTML = `
-    <div class="cityCard">
-        <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}"> </h1>
-        <div class="ratingsByStudents"> 
-            <p> Tidigare studenters betyg: </p>
-            <p> "3,5"/5 (Boende)</p> 
-            <p> "3,5"/5 (Mat)</p>
-            <p> "3,5"/5 (Uteliv)</p>
-        </div>
-        <p class="cityText"> ${cityCard.CityInfo} </p>
-        <div class="uniBoxes"> ${uniBox}</div>
-        <div class="imageAndScroll">
-            <img src="../Filer/Images/${cityCard.Images}">
-            <div class="entertainmentPlaces"> 
-                <p>${cityCard.Entertainment}</p>
+        let createCityCard = document.createElement("div");
+        document.querySelector("#wrapper").append(createCityCard);
+
+        createCityCard.innerHTML = `
+        <div class="cityCard">
+            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
+            <div class="ratingsByStudents"> 
+                <p> Tidigare studenters betyg: </p>
+                <p> "3,5"/5 (Boende)</p> 
+                <p> "3,5"/5 (Mat)</p>
+                <p> "3,5"/5 (Uteliv)</p>
+            </div>
+            <p class="cityText"> ${cityCard.CityInfo} </p>
+            <div class="uniBoxes"> ${cityCard.Universities}</div>
+            <div class="imageAndScroll">
+                <img src="../Filer/Images/${cityCard.Images}">
+                <div class="entertainmentPlaces"> 
+                    <p>${cityCard.Entertainment}</p>
+                </div>
             </div>
         </div>
-    </div>
-    `
-    console.log("city") // kollar in stadsarrayerna
-})
+        `   
+    })
 }
-
-
 
 
 

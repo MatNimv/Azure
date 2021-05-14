@@ -10,6 +10,7 @@
     --fSizeM: 20px;
     --fSizeL: 30px;
     --fSizeXL: 40px;
+    --veryBigSize: 100px;
 
     /* colors */
     --colorBG: lightgrey;
@@ -18,18 +19,16 @@
 
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    margin: 0;
-    height: var(--screenSize3);
+nav {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
 }
+
 
 #wrapper {
     width: var(--screenSize1);
-    height: 100vh;
+    height: 100vh; 
     overflow-y: scroll;
 
     padding: var(--fSizeS);
@@ -40,6 +39,11 @@ body {
     margin-bottom: var(--fSizeS);
 
     background-color: var(--colorBG);
+}
+
+.flag {
+    height: 20px;
+    width: 35px;
 }
 
 .cityNames {
