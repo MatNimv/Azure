@@ -207,7 +207,6 @@ function CollectAllUniversityInfo() {
         let LanguageArray = ProgrammeLanguageCombo.map(function(obj){
             return obj.name;
         })
-        //console.log(LanguageArray)
 
         let universityObject =
         {
@@ -218,7 +217,6 @@ function CollectAllUniversityInfo() {
             Images: UniversityCountryCombo.imagesBig[0],
             Programmes: UniversityProgrammeArray
         }
-
        
         //Universitetets namn + flagga
         //stad och språk för programmen
@@ -254,7 +252,7 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
                 </div>
                 <p>Program:</p>
                 <div class="allaProgram">
-                    <div>${universityCard.Programmes[0].name}(ska skriva ut alla)</div>
+                <div class="oneProgram">${universityCard.Programmes[0].name}</div>
                 </div>
             </div>
         </div>
