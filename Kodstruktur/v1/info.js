@@ -7,15 +7,46 @@ mainWrapper.innerHTML = `
     <button id="Program">Program</button>
     <button id="University">University</button>
 </nav>
+<div id="searchDiv"><input id="searchBar" type="text"></div>
 <div id="wrapper"></div>
 `;
 document.querySelector("main").append(mainWrapper);
 
+
+//Sökfunktion
+function FilterSearch(keyName, CollectDB, CollectFunction){
+    let data = {
+        baseArray: CollectDB, //array som ska filtreras från collektfunktionen
+        filterKey: keyName, //input som searchbaren utgår från
+        filterLabelKey: "", //sökord
+        DOMCreator: CollectFunction //vilken av collectfunktionerna som kallas
+    }
+    console.log(data);
+
+    // Event Keyup on input
+    let input = document.querySelector("#searchBar");
+    input.addEventListener("keyup", function(){
+        // FYLL_I_HÄR_RÄTT_KOD
+        document.querySelector("#wrapper").innerHTML = "";
+
+        if (this.value !== ""){
+            data.filterLabelKey = input.value.toLowerCase();
+            console.log(data.filterLabelKey);
+            let filterLabelKeyAlt = data.filterLabelKey[0].toUpperCase() + data.filterLabelKey.slice(1);
+            let newArray = data.baseArray.filter(obj => obj[data.filterKey].includes(data.filterLabelKey) || obj[data.filterKey].includes(filterLabelKeyAlt));
+
+            newArray.forEach(obj => data.DOMCreator(obj));
+        }
+    });
+    return 
+}
+
+CollectAllCityInfo(DB);
 function CollectAllCityInfo(databas) {
     let CityArray = [];
-    
 
-    databas.CITIES.forEach(element => {
+
+    DB.CITIES.forEach(element => {
 
         let CityCountryCombo = DB.COUNTRIES.find(function (country) {
             return country.id === element.countryID;
@@ -86,6 +117,7 @@ function CollectAllCityInfo(databas) {
     en lista av alla aktiviteter i staden*/
 }
 
+CollectAllProgramInfo(DB)
 function CollectAllProgramInfo(databas) {
     let programArray = [];
 
@@ -161,12 +193,11 @@ function CollectAllProgramInfo(databas) {
     ratings på studenter / lärare / kurser
     avklaringsgrad - år + procent
     en lista av alla recensioner (recenionen + namn, efternamn, datum) */
-
     return programArray;
 }
 
-CollectAllUniversityInfo();
-function CollectAllUniversityInfo() {
+CollectAllUniversityInfo(DB)
+function CollectAllUniversityInfo(databas) {
     let UniversityArray = [];
     let filteredLanguageArray = [];
     let languageArray = [];
@@ -207,20 +238,15 @@ function CollectAllUniversityInfo() {
             Images: UniversityCountryCombo.imagesBig[0],
             Programmes: UniversityProgrammeArray
         }
-       
         //Universitetets namn + flagga
         //stad och språk för programmen
         //lista över programnman för universitetet
         //STORRRR bild (stadsbild)
-       
-
         UniversityArray.push(universityObject)
     })
     UniversityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1)
     return UniversityArray;
 }
-
-
 
 //denna är klar förutom alla programnamn
 function ShowUniversities(){
@@ -251,7 +277,7 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
         oneProgramDiv.innerHTML = `${program.name}`;
         oneProgramDiv.classList.add("oneProgram");
         document.querySelector(".allaProgram").append(oneProgramDiv)
-        console.log("ett program");
+        //console.log("ett program");
     })
 })
 }
@@ -261,7 +287,6 @@ function ShowProgram(){
     document.querySelector("#wrapper").innerHTML = "";
 
 CollectAllProgramInfo(DB).forEach(programCard => {
-  
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
     document.getElementById("wrapper").append(createProgramCard);
@@ -299,14 +324,33 @@ CollectAllProgramInfo(DB).forEach(programCard => {
             </div>
         </div>
 `
+/*let oneReview = document.createElement("div");
+document.querySelector(".oneReview").append(oneReview);
+
+programCard.Review.ReviewText.forEach(function(text){
+    let oneText = document.createElement("p");
+    oneText.innerHTML = `${text}`
+    oneReview.append(oneText)
+    console.log("en text");
+})
+programCard.Review.ReviewName.forEach(function(name){
+    let oneName = document.createElement("p");
+    oneName.innerHTML = `${name}`
+    oneReview.append(oneName);
+    console.log("ett namn");
+})
+programCard.Review.ReviewDate.forEach(function(date){
+    let oneName = document.createElement("p");
+    oneName.innerHTML = `${date.year}, ${date.month} ${date.day}`
+    oneReview.append(oneName);
+    console.log("ett datum");
+})*/
 });
 
 }
 
 
 // Här börjar kodning för stadssida
-
-
 // här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
 ShowCities() //en platshållare
 function ShowCities(){
@@ -339,8 +383,6 @@ function ShowCities(){
     })
 }
 
-
-
 //CSS intro
 let StyleCSS = document.createElement("link");
 StyleCSS.setAttribute("href", `City.css`);
@@ -349,12 +391,15 @@ StyleCSS.setAttribute("rel", "stylesheet");
 
 
 //Checkbox Buttons
+//document.querySelector(`#City`).click();
 document.querySelector(`#City`).addEventListener("click", function(){
     StyleCSS.remove();
     let click = this.innerText;
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.getElementById("searchBar").innerText = ``;
+    FilterSearch("City", CollectAllCityInfo(DB), CollectAllCityInfo);
     ShowCities()
 })
 
@@ -365,6 +410,8 @@ document.querySelector(`#Program`).addEventListener("click", function(){
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#searchBar").innerText =``;
+    FilterSearch("Program", CollectAllProgramInfo(DB), CollectAllProgramInfo);
     ShowProgram()
 })
 
@@ -375,6 +422,8 @@ document.querySelector(`#University`).addEventListener("click", function(){
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#searchBar").innerText = ``;
+    FilterSearch("University", CollectAllUniversityInfo(DB), CollectAllUniversityInfo);
     ShowUniversities()
 })
 
