@@ -1,6 +1,7 @@
 "use strict";
 
-
+//Add name and date to reveiwcells
+//Change names to swedish
 
 //<img src="../../Kodstruktur/Filer/Images/star.png">
 
