@@ -50,14 +50,14 @@ function AddWebsiteContent() {
 }
 
 
-function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, ProgramText, ProgramRatings, ReviewNameDate) {
+function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, ProgramText, ProgramRatings, ReviewNameDate, ProgramReviewName) {
     let ReviewCell = document.createElement("div");
     ReviewCell.classList.add("ReviewCell");
     ReviewCell.innerHTML =
         `
     <p id="ReviewProgramCityName">${ReviewProgramCityName}</p>
     <p id="ReviewText">${ReviewText}</p>
-    <div id="ReviewNameDate"></div>
+    <div id="ReviewNameDate">${ReviewNameDate}</div>
 
     <div id="ReviewStarsSection1">
         <p class="RatingTitle">Outside Activities</p>    
@@ -79,7 +79,7 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
         `
     <p id="ProgramName">${ProgramName}</p>
     <p id="ProgramText">${ProgramText}</p>
-    <div id="ReviewNameDate">${ReviewNameDate}</div>
+    <div id="ProgramReviewName">${ProgramReviewName}</div>
 
     <div id="ProgramStarsSection1">
         <p class="RatingTitle">Teachers</p>    
@@ -119,6 +119,7 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
             ReviewSection1.classList.add("ReviewStarShape");
         }
     }else{
+        document.querySelector("#ReviewNameDate").innerText = "";
         document.querySelector("#ReviewStarsSection1").innerText = "";
         document.querySelector("#ReviewStarsSection2").innerText = "";
         document.querySelector("#ReviewStarsSection3").innerText = "";
@@ -241,7 +242,7 @@ function BestReviewFetcher() {
     if(RatingCityCombo.length <= 0){
         ReviewCreator(CurrentCity.name, "No Review Found", undefined, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars )
     }else{
-        ReviewCreator(CurrentCity.name, RatingCityCombo[0].text, RatingCityCombo[0].stars, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars, CommentProgramsCombo[0].alias)
+        ReviewCreator(CurrentCity.name, RatingCityCombo[0].text, RatingCityCombo[0].stars, BestProgram.name, CommentProgramsCombo[0].text, CommentProgramsCombo[0].stars,RatingCityCombo[0].alias,CommentProgramsCombo[0].alias)
     }
 
 
