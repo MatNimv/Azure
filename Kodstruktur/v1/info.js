@@ -18,6 +18,7 @@ mainWrapper.innerHTML = `
 </nav>
 <div id="wrapper"></div>
 `;
+
 document.querySelector("main").append(mainWrapper);
 
 function CollectAllCityInfo(databas) {
@@ -318,6 +319,8 @@ function ShowCities(){
 
     CollectAllCityInfo(DB).forEach(cityCard => {
 
+
+
         let createCityCard = document.createElement("div");
         document.querySelector("#wrapper").append(createCityCard);
 
@@ -342,7 +345,6 @@ function ShowCities(){
         `   
     })
 }
-
 
 
 //CSS intro
