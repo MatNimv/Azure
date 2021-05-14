@@ -26,9 +26,9 @@ body{
     height: var(--screenSize3);
 }
 
-header > div{height: 75px;}
-nav{padding-bottom: 40px;}
 #HomeNav{ background-color:var(--colorBG);}
+#InfoNav{ background-color: var(--colorBG3);}
+nav{padding-bottom: 40px;}
 p, h1, h4{ margin: 0px;}
 p, div{font-size: var(--fSizeS);}
 
@@ -84,5 +84,3 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     padding: 3px;
 
 }
-
-footer{ background-color: var(--colorBG);}

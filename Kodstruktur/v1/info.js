@@ -326,9 +326,9 @@ function ShowCities(){
             <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
             <div class="ratingsByStudents"> 
                 <p> Tidigare studenters betyg: </p>
-                <p> "3,5"/5 (Boende)</p> 
-                <p> "3,5"/5 (Mat)</p>
-                <p> "3,5"/5 (Uteliv)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
             </div>
             <p class="cityText"> ${cityCard.CityInfo} </p>
             <div class="uniBoxes"> ${cityCard.Universities}</div>

@@ -2,7 +2,7 @@
 
 
 
-
+//<img src="../../Kodstruktur/Filer/Images/star.png">
 
 //ImagePlay function
 

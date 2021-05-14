@@ -1,9 +1,28 @@
-*{
-    
+
+:root {
+    /* sizes */
+    --screenSize1: 60%;
+    --screenSize2: 80%;
+    --screenSize3: 100%;
+
+    --fSizeXS: 10px;
+    --fSizeS: 14px;
+    --fSizeM: 20px;
+    --fSizeL: 30px;
+    --fSizeXL: 40px;
+    --veryBigSize: 100px;
+
+    /* colors */
+    --colorBG: lightgrey;
+    --colorBG2: grey;
+    --colorBG3: white;
+
 }
+
 header{
    margin-bottom: 50px;
 }
+#InfoNav{ background-color: var(--colorBG);}
 
 footer{
     margin-top: 50px;

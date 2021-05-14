@@ -21,14 +21,14 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
     margin: 0;
     height: var(--screenSize3);
 }
 
-header > div{height: 75px;}
-nav{padding-bottom: 40px;}
 #HomeNav{ background-color:var(--colorBG);}
+#InfoNav{ background-color: var(--colorBG3);}
+nav{padding-bottom: 40px;}
+
 p, h1, h4{ margin: 0px;}
 h1{font-size: var(--fSizeM);}
 p, div{font-size: var(--fSizeS);}
@@ -107,5 +107,3 @@ p, div{font-size: var(--fSizeS);}
     border-bottom: 1px solid var(--colorBG4);
 }
 .oneReview > p:last-child{font-style: italic;}
-
-footer{ background-color: var(--colorBG);}
