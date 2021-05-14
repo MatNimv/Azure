@@ -7,39 +7,62 @@ mainWrapper.innerHTML = `
     <button id="Program">Program</button>
     <button id="University">University</button>
 </nav>
-<div id="searchDiv"><input id="searchBar" type="text"></div>
-<div id="wrapper"></div>
+<div id="searchDiv"><input id="searchBar" type="text" placeholder="search..."></div>
+<div id="mainWrapper"></div>
 `;
 document.querySelector("main").append(mainWrapper);
-
+document.querySelector(`#City`).click();
 
 //Sökfunktion
-function FilterSearch(keyName, CollectDB, CollectFunction){
+function FilterSearch(keyName, CollectDB, ShowArrays){
     let data = {
         baseArray: CollectDB, //array som ska filtreras från collektfunktionen
         filterKey: keyName, //input som searchbaren utgår från
         filterLabelKey: "", //sökord
-        DOMCreator: CollectFunction //vilken av collectfunktionerna som kallas
+        DOMCreator: ShowArrays //vilken av collectfunktionerna som kallas
     }
     console.log(data);
 
-    // Event Keyup on input
-    let input = document.querySelector("#searchBar");
-    input.addEventListener("keyup", function(){
-        // FYLL_I_HÄR_RÄTT_KOD
-        document.querySelector("#wrapper").innerHTML = "";
+let container = document.createElement("div");
 
-        if (this.value !== ""){
-            data.filterLabelKey = input.value.toLowerCase();
-            console.log(data.filterLabelKey);
-            let filterLabelKeyAlt = data.filterLabelKey[0].toUpperCase() + data.filterLabelKey.slice(1);
-            let newArray = data.baseArray.filter(obj => obj[data.filterKey].includes(data.filterLabelKey) || obj[data.filterKey].includes(filterLabelKeyAlt));
+container.classList.add("filter");
+container.innerHTML = `
+    <label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
 
-            newArray.forEach(obj => data.DOMCreator(obj));
+document.querySelector("#searchBar").addEventListener("keyup", function () {
+    let input = document.querySelector("#searchBar").value;
+    document.querySelector("#mainWrapper").innerHTML = "";
+
+    //If input is empty it does nothing
+    if (input.length <= 0) {
+        return;
+    }
+
+    let filteredArray = data.baseArray.filter(element => {
+        //If the array is the student array its the last name, if its the courses array its the course title and returns it
+        //Element is either student or course array, filterkey is either lastname or title, is in brackets because its variable
+
+        return element[data.filterKey].toLowerCase().includes(input.toLowerCase());
+    })
+    console.log(filteredArray);
+    //Sorts lastname or coursename by ascending order
+    filteredArray.sort(function (elementa, elementb) {
+        if (elementa[data.filterKey] < elementb[data.filterKey]) {
+            return -1
+        } if (elementb[data.filterKey] < elementa[data.filterKey]) {
+            return 1
         }
-    });
-    return 
+        return 0
+    })
+
+    //calls the function and it creates the element
+    filteredArray.forEach(displayCity);
+    document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
+
+});
+return container;
 }
+
 
 CollectAllCityInfo(DB);
 function CollectAllCityInfo(databas) {
@@ -139,6 +162,7 @@ function CollectAllProgramInfo(databas) {
         let CommentProgramCombo = COMMENTS_PROGRAMME.filter(function (object) {
             return object.programmeID === element.id;
         })
+        console.log(CommentProgramCombo)
 
         let CommentTextArray = CommentProgramCombo.map(function (obj) {
             return obj.text;
@@ -250,12 +274,12 @@ function CollectAllUniversityInfo(databas) {
 
 //denna är klar förutom alla programnamn
 function ShowUniversities(){
-    document.querySelector("#wrapper").innerHTML = "";
+    document.querySelector("#mainWrapper").innerHTML = "";
 CollectAllUniversityInfo(DB).forEach(universityCard => {
     
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
-    document.getElementById("wrapper").append(createUniversityCard);
+    document.getElementById("mainWrapper").append(createUniversityCard);
     createUniversityCard.innerHTML = `
         <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
@@ -284,12 +308,12 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
 
 //tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
 function ShowProgram(){
-    document.querySelector("#wrapper").innerHTML = "";
+    document.querySelector("#mainWrapper").innerHTML = "";
 
 CollectAllProgramInfo(DB).forEach(programCard => {
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
-    document.getElementById("wrapper").append(createProgramCard);
+    document.getElementById("mainWrapper").append(createProgramCard);
 
     createProgramCard.innerHTML = 
     `
@@ -348,18 +372,49 @@ programCard.Review.ReviewDate.forEach(function(date){
 });
 
 }
+//display(..) = collect(..)info ska skapa 1 div med nödvändig innerhtml element och info
+//parameter för funktionen är från collect(..)info arrayena
+//filteredArray ska kalla på display(..)
 
+function displayCity(){
+    let cityCard = CollectAllCityInfo(DB);
+    console.log(cityCard.City)
+    let createCityCard = document.createElement("div");
+
+        createCityCard.innerHTML = `
+        <div class="cityCard">
+            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
+            <div class="ratingsByStudents"> 
+                <p> Tidigare studenters betyg: </p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+            </div>
+            <p class="cityText"> ${cityCard.CityInfo} </p>
+            <div class="uniBoxes"> ${cityCard.Universities}</div>
+            <div class="imageAndScroll">
+                <img src="../Filer/Images/${cityCard.Images}">
+                <div class="entertainmentPlaces"> 
+                    <p>${cityCard.Entertainment}</p>
+                </div>
+            </div>
+        </div>
+        `;
+
+        return createCityCard;
+}
 
 // Här börjar kodning för stadssida
 // här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
-ShowCities() //en platshållare
+/*ShowCities() //en platshållare
 function ShowCities(){
-    document.querySelector("#wrapper").innerHTML = "";
+    document.querySelector("#mainWrapper").innerHTML = "";
 
     CollectAllCityInfo(DB).forEach(cityCard => {
 
+        //filteredArray.forEach(CollectAllCityInfo)
         let createCityCard = document.createElement("div");
-        document.querySelector("#wrapper").append(createCityCard);
+        document.querySelector("#mainWrapper").append(createCityCard);
 
         createCityCard.innerHTML = `
         <div class="cityCard">
@@ -381,7 +436,7 @@ function ShowCities(){
         </div>
         `   
     })
-}
+}*/
 
 //CSS intro
 let StyleCSS = document.createElement("link");
@@ -391,16 +446,15 @@ StyleCSS.setAttribute("rel", "stylesheet");
 
 
 //Checkbox Buttons
-//document.querySelector(`#City`).click();
+let placeHolder = "Sök efter städer...";
 document.querySelector(`#City`).addEventListener("click", function(){
     StyleCSS.remove();
     let click = this.innerText;
+    let placeHolder = "Sök efter städer...";
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
-    document.getElementById("searchBar").innerText = ``;
-    FilterSearch("City", CollectAllCityInfo(DB), CollectAllCityInfo);
-    ShowCities()
+    FilterSearch("City", CollectAllCityInfo(DB), displayCity);
 })
 
 
@@ -410,9 +464,7 @@ document.querySelector(`#Program`).addEventListener("click", function(){
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
-    document.querySelector("#searchBar").innerText =``;
-    FilterSearch("Program", CollectAllProgramInfo(DB), CollectAllProgramInfo);
-    ShowProgram()
+    FilterSearch("Program", CollectAllProgramInfo(DB), ShowProgram);
 })
 
 
@@ -422,8 +474,6 @@ document.querySelector(`#University`).addEventListener("click", function(){
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
-    document.querySelector("#searchBar").innerText = ``;
-    FilterSearch("University", CollectAllUniversityInfo(DB), CollectAllUniversityInfo);
-    ShowUniversities()
+    FilterSearch("University", CollectAllUniversityInfo(DB), ShowUniversities);
 })
 
