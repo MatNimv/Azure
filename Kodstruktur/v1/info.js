@@ -1,14 +1,5 @@
 "use strict";
 
-//adderar CSSen som gäller för createProgramCard:en
-/*let programCSS = document.createElement("link");
-programCSS.setAttribute("href", "program.css");
-document.querySelector("head").append(programCSS);
-programCSS.setAttribute("rel", "stylesheet");
-*/
-//adderar CSSen som gäller för createUniversitiesCard:en
-
-
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
@@ -94,7 +85,6 @@ function CollectAllCityInfo(databas) {
     bild på stad
     en lista av alla aktiviteter i staden*/
 }
-console.log(CollectAllCityInfo(DB)) // kollar in stadsarrayerna
 
 function CollectAllProgramInfo(databas) {
     let programArray = [];
@@ -232,7 +222,7 @@ function CollectAllUniversityInfo() {
 
 
 
-//denna är klar förutom alla programnamn och bilder.
+//denna är klar förutom alla programnamn
 function ShowUniversities(){
     document.querySelector("#wrapper").innerHTML = "";
 CollectAllUniversityInfo(DB).forEach(universityCard => {
@@ -240,7 +230,6 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
     document.getElementById("wrapper").append(createUniversityCard);
-
     createUniversityCard.innerHTML = `
         <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
@@ -252,11 +241,18 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
                 </div>
                 <p>Program:</p>
                 <div class="allaProgram">
-                <div class="oneProgram">${universityCard.Programmes[0].name}</div>
+                
                 </div>
             </div>
         </div>
     `;
+    universityCard.Programmes.forEach(function(program){
+        let oneProgramDiv = document.createElement("div");
+        oneProgramDiv.innerHTML = `${program.name}`;
+        oneProgramDiv.classList.add("oneProgram");
+        document.querySelector(".allaProgram").append(oneProgramDiv)
+        console.log("ett program");
+    })
 })
 }
 
