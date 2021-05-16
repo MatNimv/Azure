@@ -29,7 +29,7 @@ nav {
 #HomeNav{ background-color:var(--colorBG);}
 #InfoNav{ background-color: var(--colorBG3);}
 
-#wrapper {
+#mainWrapper {
     width: var(--screenSize1);
     height: 100vh; 
     overflow-y: scroll;

@@ -1,5 +1,6 @@
 "use strict";
 
+let placeHolder = "Sök efter städer...";
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
@@ -7,35 +8,36 @@ mainWrapper.innerHTML = `
     <button id="Program">Program</button>
     <button id="University">University</button>
 </nav>
-<div id="searchDiv"><input id="searchBar" type="text" placeholder="search..."></div>
+<div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
 <div id="mainWrapper"></div>
 `;
 document.querySelector("main").append(mainWrapper);
-document.querySelector(`#City`).click();
+//document.getElementById(`City`).click();
 
-//Sökfunktion
-function FilterSearch(keyName, CollectDB, ShowArrays){
+//Sökfunktion 
+function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar){
     let data = {
         baseArray: CollectDB, //array som ska filtreras från collektfunktionen
         filterKey: keyName, //input som searchbaren utgår från
         filterLabelKey: "", //sökord
-        DOMCreator: ShowArrays //vilken av collectfunktionerna som kallas
+        DOMCreator: ShowArrays //vilken av displayfunktionerna som kallas
     }
     console.log(data);
 
 let container = document.createElement("div");
 
 container.classList.add("filter");
-container.innerHTML = `
-    <label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
+container.innerHTML = 
+    `<label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
 
 document.querySelector("#searchBar").addEventListener("keyup", function () {
     let input = document.querySelector("#searchBar").value;
-    document.querySelector("#mainWrapper").innerHTML = "";
+    document.getElementById("mainWrapper").innerHTML = "";
 
     //If input is empty it does nothing
     if (input.length <= 0) {
-        return;
+        emptySearchBar(); //show(...) funktionen kallas- så alla (...)kort kommer 
+                          //upp i bokstavsordning igen IT WORKS!!! YESSSS
     }
 
     let filteredArray = data.baseArray.filter(element => {
@@ -56,14 +58,25 @@ document.querySelector("#searchBar").addEventListener("keyup", function () {
     })
 
     //calls the function and it creates the element
-    filteredArray.forEach(displayCity);
+    filteredArray.forEach(data.DOMCreator);
     document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
-
 });
 return container;
 }
+//////////////////SAMLING AV DATA och FUNKTIONER//////////////////
+//ger ett medelvärde utav en array med siffror.
+function averageReviewScore(ratingArray){
+    let sumOfNum = 0;
+    for (let i = 0; i < ratingArray.length; i++) {
+        sumOfNum += ratingArray[i];
+    }
+    return Math.floor(sumOfNum / ratingArray.length);
+}
 
 
+///////////////////////////////////////////////////////////////////
+/////////////////////////////STÄDER////////////////////////////////
+///////////////////////////////////////////////////////////////////
 CollectAllCityInfo(DB);
 function CollectAllCityInfo(databas) {
     let CityArray = [];
@@ -140,6 +153,71 @@ function CollectAllCityInfo(databas) {
     en lista av alla aktiviteter i staden*/
 }
 
+// Här börjar kodning för stadssida
+// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i 
+// sina div:ar, samma sak gäller för entertainment places.
+ShowCities() //en platshållare
+function ShowCities(){
+    document.getElementById("mainWrapper").innerHTML = "";
+
+    CollectAllCityInfo(DB).forEach(function (cityCard){
+
+        let createCityCard = document.createElement("div");
+        document.querySelector("#mainWrapper").append(createCityCard);
+
+        createCityCard.innerHTML = `
+        <div class="cityCard">
+            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
+            <div class="ratingsByStudents"> 
+                <p> Tidigare studenters betyg: </p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+            </div>
+            <p class="cityText"> ${cityCard.CityInfo} </p>
+            <div class="uniBoxes"> ${cityCard.Universities}</div>
+            <div class="imageAndScroll">
+                <img src="../Filer/Images/${cityCard.Images}">
+                <div class="entertainmentPlaces"> 
+                    <p>${cityCard.Entertainment}</p>
+                </div>
+            </div>
+        </div>
+        ` 
+        })
+}
+
+function displayCity(){
+    //let cityCard = CollectAllCityInfo(DB);
+    let createCityCard = document.createElement("div");
+    let cityCard = CollectAllCityInfo(DB);
+        createCityCard.innerHTML = 
+        `
+        <div class="cityCard">
+            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
+            <div class="ratingsByStudents"> 
+                <p> Tidigare studenters betyg: </p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+            </div>
+            <p class="cityText"> ${cityCard.CityInfo} </p>
+            <div class="uniBoxes"> ${cityCard.Universities}</div>
+            <div class="imageAndScroll">
+                <img src="../Filer/Images/${cityCard.Images}">
+                <div class="entertainmentPlaces"> 
+                    <p>${cityCard.Entertainment}</p>
+                </div>
+            </div>
+        </div>
+        `;
+    return createCityCard;
+}
+
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////PROGRAM/////////////////////////////////
+///////////////////////////////////////////////////////////////////
 CollectAllProgramInfo(DB)
 function CollectAllProgramInfo(databas) {
     let programArray = [];
@@ -162,7 +240,6 @@ function CollectAllProgramInfo(databas) {
         let CommentProgramCombo = COMMENTS_PROGRAMME.filter(function (object) {
             return object.programmeID === element.id;
         })
-        console.log(CommentProgramCombo)
 
         let CommentTextArray = CommentProgramCombo.map(function (obj) {
             return obj.text;
@@ -220,6 +297,125 @@ function CollectAllProgramInfo(databas) {
     return programArray;
 }
 
+function ShowProgram(){
+    document.getElementById("mainWrapper").innerHTML = "";
+
+CollectAllProgramInfo(DB).forEach(programCard => {
+    let createProgramCard = document.createElement("div");
+    createProgramCard.classList.add("createProgramCard");
+    document.getElementById("mainWrapper").append(createProgramCard);
+    //console.log(averageReviewScore(programCard.Ratings.RatingTeachers));
+    createProgramCard.innerHTML = 
+    `
+        <h1>${programCard.Program}</h1>
+        <div class="infoProgram">
+            <div>${programCard.Language}</div>
+            <div>${programCard.Level}</div>
+            <div>${programCard.University}</div>
+        </div>
+        <div class="studentRatings">
+            <div>Tidigare studenters betyg:</div>
+            <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png"><span>(Lärarna)</span></p>
+            <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingStudents)}<span>(Klasskamrater)</span></p>
+            <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingCourses)}<span>(Kurserna)</span></p>
+        </div>
+        <div class="successOchReview">
+            <div class="successRateDiv">
+                <h4>Avklaringsgrad</h4>
+                <div class="nmbrOchYear">
+                    <p><span>2020 </span><span> ${programCard.SuccessRate[0]}%</span></p>
+                    <p><span>2019 </span><span> ${programCard.SuccessRate[1]}%</span></p>
+                    <p><span>2018 </span><span> ${programCard.SuccessRate[2]}%</span></p>
+                    <p><span>2017 </span><span> ${programCard.SuccessRate[3]}%</span></p>
+                    <p><span>2016 </span><span> ${programCard.SuccessRate[4]}%</span></p>
+                </div>
+            </div>
+            <div class="reviews">
+                <div class="oneReview">
+                    <p>${programCard.Review.ReviewText[0]}</p>
+                    <p>${programCard.Review.ReviewName[0]}, ${programCard.Review.ReviewDate[0].year}, ${programCard.Review.ReviewDate[0].month}/${programCard.Review.ReviewDate[0].day}</p>
+                </div>
+            </div>
+        </div>
+`;
+//går genom alla Ratings och ger ut medelvärde åt vart program
+programCard.Ratings.RatingTeachers.forEach(function(teachers){
+    let teachersRating = document.createElement("span");
+    teachersRating.innerHTML = `${averageReviewScore(teachers)}`;
+    console.log(averageReviewScore(teachers));
+    createProgramCard.querySelector(".teachersRating").append(teachersRating);
+})
+
+//går genom varje review för vart program och (SKA)
+//lägger dom i varsin div.
+let oneReview = document.createElement("div");
+
+programCard.Review.ReviewText.forEach(function(text){
+    let oneText = document.createElement("p");
+    oneText.innerHTML = `${text}`;
+    oneReview.append(oneText);
+})
+programCard.Review.ReviewName.forEach(function(name){
+    let oneName = document.createElement("p");
+    oneName.innerHTML = `${name}`,
+    oneReview.append(oneName);
+})
+programCard.Review.ReviewDate.forEach(function(date){
+    let oneDate = document.createElement("p");
+    oneDate.innerHTML = `${date.year}, ${date.month}/${date.day}`,
+    oneReview.append(oneDate);
+})
+    createProgramCard.querySelector(".oneReview").append(oneReview);
+});
+}
+
+//tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
+function displayProgram(){
+    let createProgramCard = document.createElement("div");
+    createProgramCard.classList.add("createProgramCard");
+    let programCard = CollectAllProgramInfo(DB);
+
+    console.log(programCard.Review)
+    createProgramCard.innerHTML = 
+    `
+        <h1>${programCard.Program}</h1>
+        <div class="infoProgram">
+            <div>${programCard.Language}</div>
+            <div>${programCard.Level}</div>
+            <div>${programCard.University}</div>
+        </div>
+        <div class="studentRatings">
+            <div>Tidigare studenters betyg:</div>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Lärarna)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Klasskamrater)</span></p>
+            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Kurserna)</span></p>
+        </div>
+        <div class="successOchReview">
+            <div class="successRateDiv">
+                <h4>Avklaringsgrad</h4>
+                <div class="nmbrOchYear">
+                    <p><span>2020 </span><span> ${programCard.SuccessRate[0]}%</span></p>
+                    <p><span>2019 </span><span> ${programCard.SuccessRate[1]}%</span></p>
+                    <p><span>2018 </span><span> ${programCard.SuccessRate[2]}%</span></p>
+                    <p><span>2017 </span><span> ${programCard.SuccessRate[3]}%</span></p>
+                    <p><span>2016 </span><span> ${programCard.SuccessRate[4]}%</span></p>
+                </div>
+            </div>
+            <div class="reviews">
+                <div class="oneReview">
+                    <p>${programCard.Review.ReviewText}</p>
+                    <p>${programCard.Review.ReviewName}, ${programCard.Review.ReviewDate.year}, ${programCard.Review.ReviewDate.month}/${programCard.Review.ReviewDate.day}</p>
+                </div>
+            </div>
+        </div>
+    `;
+    return createProgramCard;
+}
+
+
+////////////////////////////////////////////////////////////////////
+///////////////////////////UNIVERSITET//////////////////////////////
+////////////////////////////////////////////////////////////////////
 CollectAllUniversityInfo(DB)
 function CollectAllUniversityInfo(databas) {
     let UniversityArray = [];
@@ -272,15 +468,16 @@ function CollectAllUniversityInfo(databas) {
     return UniversityArray;
 }
 
-//denna är klar förutom alla programnamn
 function ShowUniversities(){
-    document.querySelector("#mainWrapper").innerHTML = "";
+    document.getElementById("mainWrapper").innerHTML = "";
+
 CollectAllUniversityInfo(DB).forEach(universityCard => {
     
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
     document.getElementById("mainWrapper").append(createUniversityCard);
-    createUniversityCard.innerHTML = `
+    createUniversityCard.innerHTML = 
+    `
         <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
             <div><img src="../Filer/Images/${universityCard.Images}"></div>
@@ -296,147 +493,45 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
             </div>
         </div>
     `;
+    //går genom varje element i programArrayen och lägger 
+    //till dom i varsin div. 
     universityCard.Programmes.forEach(function(program){
         let oneProgramDiv = document.createElement("div");
         oneProgramDiv.innerHTML = `${program.name}`;
         oneProgramDiv.classList.add("oneProgram");
-        document.querySelector(".allaProgram").append(oneProgramDiv)
-        //console.log("ett program");
+        createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
     })
 })
 }
 
-//tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
-function ShowProgram(){
-    document.querySelector("#mainWrapper").innerHTML = "";
+function displayUniversity(){
+    let createUniversityCard = document.createElement("div");
+    createUniversityCard.classList.add("createUniversityCard");
+    let universityCard = CollectAllUniversityInfo(DB);
 
-CollectAllProgramInfo(DB).forEach(programCard => {
-    let createProgramCard = document.createElement("div");
-    createProgramCard.classList.add("createProgramCard");
-    document.getElementById("mainWrapper").append(createProgramCard);
-
-    createProgramCard.innerHTML = 
+    createUniversityCard.innerHTML = 
     `
-        <h1>${programCard.Program}</h1>
-        <div class="infoProgram">
-            <div>${programCard.Language}</div>
-            <div>${programCard.Level}</div>
-            <div>${programCard.University}</div>
-        </div>
-        <div class="studentRatings">
-            <div>Tidigare studenters betyg:</div>
-            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Lärarna)</span></p>
-            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Klasskamrater)</span></p>
-            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Kurserna)</span></p>
-        </div>
-        <div class="successOchReview">
-            <div class="successRateDiv">
-                <h4>Avklaringsgrad</h4>
-                <div class="nmbrOchYear">
-                    <p><span>2020 </span><span> ${programCard.SuccessRate[0]}%</span></p>
-                    <p><span>2019 </span><span> ${programCard.SuccessRate[1]}%</span></p>
-                    <p><span>2018 </span><span> ${programCard.SuccessRate[2]}%</span></p>
-                    <p><span>2017 </span><span> ${programCard.SuccessRate[3]}%</span></p>
-                    <p><span>2016 </span><span> ${programCard.SuccessRate[4]}%</span></p>
+        <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
+        <div class="universityContent">
+            <div><img src="../Filer/Images/${universityCard.Images}"></div>
+            <div class="infoOchProgram">
+                <div class="stadOchSprak">
+                    <div>${universityCard.City}</div>
+                    <div>Spåk/Språk</div>
                 </div>
-            </div>
-            <div class="reviews">
-                <div class="oneReview">
-                    <p>${programCard.Review.ReviewText[0]}</p>
-                    <p>${programCard.Review.ReviewName[0]}, ${programCard.Review.ReviewDate[0].year}, ${programCard.Review.ReviewDate[0].month}/${programCard.Review.ReviewDate[0].day}</p>
+                <p>Program:</p>
+                <div class="allaProgram">
+                
                 </div>
             </div>
         </div>
-`
-/*let oneReview = document.createElement("div");
-document.querySelector(".oneReview").append(oneReview);
-
-programCard.Review.ReviewText.forEach(function(text){
-    let oneText = document.createElement("p");
-    oneText.innerHTML = `${text}`
-    oneReview.append(oneText)
-    console.log("en text");
-})
-programCard.Review.ReviewName.forEach(function(name){
-    let oneName = document.createElement("p");
-    oneName.innerHTML = `${name}`
-    oneReview.append(oneName);
-    console.log("ett namn");
-})
-programCard.Review.ReviewDate.forEach(function(date){
-    let oneName = document.createElement("p");
-    oneName.innerHTML = `${date.year}, ${date.month} ${date.day}`
-    oneReview.append(oneName);
-    console.log("ett datum");
-})*/
-});
-
-}
-//display(..) = collect(..)info ska skapa 1 div med nödvändig innerhtml element och info
-//parameter för funktionen är från collect(..)info arrayena
-//filteredArray ska kalla på display(..)
-
-function displayCity(){
-    let cityCard = CollectAllCityInfo(DB);
-    console.log(cityCard.City)
-    let createCityCard = document.createElement("div");
-
-        createCityCard.innerHTML = `
-        <div class="cityCard">
-            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
-            <div class="ratingsByStudents"> 
-                <p> Tidigare studenters betyg: </p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
-            </div>
-            <p class="cityText"> ${cityCard.CityInfo} </p>
-            <div class="uniBoxes"> ${cityCard.Universities}</div>
-            <div class="imageAndScroll">
-                <img src="../Filer/Images/${cityCard.Images}">
-                <div class="entertainmentPlaces"> 
-                    <p>${cityCard.Entertainment}</p>
-                </div>
-            </div>
-        </div>
-        `;
-
-        return createCityCard;
+    `;
+    return createUniversityCard;
 }
 
-// Här börjar kodning för stadssida
-// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
-/*ShowCities() //en platshållare
-function ShowCities(){
-    document.querySelector("#mainWrapper").innerHTML = "";
-
-    CollectAllCityInfo(DB).forEach(cityCard => {
-
-        //filteredArray.forEach(CollectAllCityInfo)
-        let createCityCard = document.createElement("div");
-        document.querySelector("#mainWrapper").append(createCityCard);
-
-        createCityCard.innerHTML = `
-        <div class="cityCard">
-            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
-            <div class="ratingsByStudents"> 
-                <p> Tidigare studenters betyg: </p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
-            </div>
-            <p class="cityText"> ${cityCard.CityInfo} </p>
-            <div class="uniBoxes"> ${cityCard.Universities}</div>
-            <div class="imageAndScroll">
-                <img src="../Filer/Images/${cityCard.Images}">
-                <div class="entertainmentPlaces"> 
-                    <p>${cityCard.Entertainment}</p>
-                </div>
-            </div>
-        </div>
-        `   
-    })
-}*/
+//////////////////////////////////////////////////////////////////////////
+/////////CSS ARBETE + INITIALIZATION (ultrafel stavning) AV KNAPPARNA/////
+//////////////////////////////////////////////////////////////////////////
 
 //CSS intro
 let StyleCSS = document.createElement("link");
@@ -446,34 +541,35 @@ StyleCSS.setAttribute("rel", "stylesheet");
 
 
 //Checkbox Buttons
-let placeHolder = "Sök efter städer...";
 document.querySelector(`#City`).addEventListener("click", function(){
     StyleCSS.remove();
     let click = this.innerText;
-    let placeHolder = "Sök efter städer...";
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
-    FilterSearch("City", CollectAllCityInfo(DB), displayCity);
-})
-
+    ShowCities();
+    FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities);
+});
 
 document.querySelector(`#Program`).addEventListener("click", function(){
     StyleCSS.remove();
     let click = this.innerText;
+    placeHolder = "Sök efter program...";
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
-    FilterSearch("Program", CollectAllProgramInfo(DB), ShowProgram);
-})
-
+    ShowProgram();
+    FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram);
+});
 
 document.querySelector(`#University`).addEventListener("click", function(){
     StyleCSS.remove();
     let click = this.innerText;
+    placeHolder = "Sök efter universitet...";
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
-    FilterSearch("University", CollectAllUniversityInfo(DB), ShowUniversities);
-})
+    ShowUniversities();
+    FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities);
+});
 
