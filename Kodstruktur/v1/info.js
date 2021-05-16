@@ -316,11 +316,9 @@ CollectAllProgramInfo(DB).forEach(programCard => {
 ShowCities() //en platshållare
 function ShowCities(){
     document.querySelector("#wrapper").innerHTML = "";
+    let newCityArray = CollectAllCityInfo(DB);
 
-    CollectAllCityInfo(DB).forEach(cityCard => {
-
-
-
+    newCityArray.forEach(cityCard => {
         let createCityCard = document.createElement("div");
         document.querySelector("#wrapper").append(createCityCard);
 
@@ -334,7 +332,7 @@ function ShowCities(){
                 <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
             </div>
             <p class="cityText"> ${cityCard.CityInfo} </p>
-            <div class="uniBoxes"> ${cityCard.Universities}</div>
+            <div class="uniDiv"></div>
             <div class="imageAndScroll">
                 <img src="../Filer/Images/${cityCard.Images}">
                 <div class="entertainmentPlaces"> 
@@ -342,8 +340,15 @@ function ShowCities(){
                 </div>
             </div>
         </div>
-        `   
-    })
+        ` 
+        
+        cityCard.Universities.forEach(uni => {
+            let createDiv = document.createElement("div");
+            createDiv.innerHTML = uni;
+            createDiv.classList.add("soloUniDiv");
+            createCityCard.querySelector(".uniDiv").append(createDiv)
+        })
+    })   
 }
 
 
