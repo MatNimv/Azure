@@ -11,6 +11,7 @@ mainWrapper.innerHTML = `
 <div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
 <div id="mainWrapper"></div>
 `;
+
 document.querySelector("main").append(mainWrapper);
 //document.getElementById(`City`).click();
 
@@ -528,6 +529,62 @@ function displayUniversity(){
     `;
     return createUniversityCard;
 }
+
+
+// Här börjar kodning för stadssida
+
+
+// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i sina div:ar, samma sak gäller för entertainment places.
+ShowCities() //en platshållare
+function ShowCities(){
+    document.querySelector("#mainWrapper").innerHTML = "";
+    let newCityArray = CollectAllCityInfo(DB);
+
+    newCityArray.forEach(cityCard => {
+        let createCityCard = document.createElement("div");
+        document.querySelector("#mainWrapper").append(createCityCard);
+
+        createCityCard.innerHTML = `
+        <div class="cityCard">
+            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
+            <div class="ratingsByStudents"> 
+                <p> Tidigare studenters betyg: </p>
+                <p class="accRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsAccomodation)}/5 (Boende)</p> 
+                <p class="foodRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsFood)}/5 (Mat)</p>
+                <p class="outRating"> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+            </div>
+            <p class="cityText"> ${cityCard.CityInfo} </p>
+            <div class="uniDiv"></div>
+            <div class="imageAndScroll">
+                <img src="../Filer/Images/${cityCard.Images}">
+                <div class="entertainmentPlaces"> 
+                    <p>${cityCard.Entertainment}</p>
+                </div>
+            </div>
+        </div>
+        ` 
+
+        cityCard.Stars.StarsAccomodation.forEach(acc => {
+            let accRating = document.createElement("span");
+            accRating.innerHTML = `${averageReviewScore(acc)}`;
+            createCityCard.querySelector(".accRating").append(accRating);
+        })
+
+        cityCard.Stars.StarsFood.forEach(food => {
+            let foodRating = document.createElement("span");
+            foodRating.innerHTML = `${averageReviewScore(food)}`;
+            createCityCard.querySelector(".foodRating").append(foodRating);
+        })
+
+        cityCard.Universities.forEach(uni => {
+            let createDiv = document.createElement("div");
+            createDiv.innerHTML = uni;
+            createDiv.classList.add("soloUniDiv");
+            createCityCard.querySelector(".uniDiv").append(createDiv)
+        })
+    })   
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 /////////CSS ARBETE + INITIALIZATION (ultrafel stavning) AV KNAPPARNA/////
