@@ -1,44 +1,9 @@
-*{
-    /* sizes */
-    --screenSize1: 60%;
-    --screenSize2: 80%;
-    --screenSize3: 100%;
-
-    --fSizeXS: 10px;
-    --fSizeS: 14px;
-    --fSizeM: 20px;
-    --fSizeL: 30px;
-    --fSizeXL: 40px;
-
-    /* colors */
-    --colorBG: lightgrey;
-    --colorBG2: grey;
-    --colorBG3: white;
-    --colorBG4: black;
-}
-
-body{ 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    margin: 0;
-    height: var(--screenSize3);
-}
-
 #HomeNav{ background-color:var(--colorBG);}
 #InfoNav{ background-color: var(--colorBG3);}
 nav{padding-bottom: 40px;}
 p, h1, h4{ margin: 0px;}
-p, div{font-size: var(--fSizeS);}
+.stadOchSprak div, .allaProgram div{font-size: var(--fSizeS);}
 
-#mainWrapper{
-    width: var(--screenSize1);
-    height: 100vh;
-    overflow-y: scroll;
-
-    padding: var(--fSizeS);
-}
 .createUniversityCard{ 
     padding: var(--fSizeS);
     margin-bottom: var(--fSizeS);
@@ -82,5 +47,4 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     border-radius: 10px;
     margin:5px;
     padding: 3px;
-
 }

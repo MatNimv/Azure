@@ -25,12 +25,11 @@ function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar){
     console.log(data);
 
 let container = document.createElement("div");
-
 container.classList.add("filter");
 container.innerHTML = 
     `<label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
 
-document.querySelector("#searchBar").addEventListener("keyup", function () {
+document.querySelector("#searchBar").addEventListener("keyup", function() {
     let input = document.querySelector("#searchBar").value;
     document.getElementById("mainWrapper").innerHTML = "";
 
@@ -63,14 +62,24 @@ document.querySelector("#searchBar").addEventListener("keyup", function () {
 });
 return container;
 }
+//////////////////////////////////////////////////////////////////
 //////////////////SAMLING AV DATA och FUNKTIONER//////////////////
+//////////////////////////////////////////////////////////////////
+
 //ger ett medelvärde utav en array med siffror.
 function averageReviewScore(ratingArray){
+    // parameter 1 är värdet som ska avrundas- parameter 2 är hur 
+    // många decimaler värdet ska avrundas till.
+    function runda(value, precision) {
+        var multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
+    }
+
     let sumOfNum = 0;
     for (let i = 0; i < ratingArray.length; i++) {
         sumOfNum += ratingArray[i];
     }
-    return Math.floor(sumOfNum / ratingArray.length);
+    return runda(sumOfNum / ratingArray.length, 1);
 }
 
 
@@ -154,9 +163,7 @@ function CollectAllCityInfo(databas) {
 }
 
 // Här börjar kodning för stadssida
-// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i 
-// sina div:ar, samma sak gäller för entertainment places.
-ShowCities() //en platshållare
+ShowCities() //en platshållare. Syns direkt när man kommer in på info.html
 function ShowCities(){
     document.getElementById("mainWrapper").innerHTML = "";
 
@@ -297,6 +304,7 @@ function CollectAllProgramInfo(databas) {
     return programArray;
 }
 
+//tillsvidare. Denna är klar förutom reviews som inte läggs i ordning.
 function ShowProgram(){
     document.getElementById("mainWrapper").innerHTML = "";
 
@@ -315,9 +323,9 @@ CollectAllProgramInfo(DB).forEach(programCard => {
         </div>
         <div class="studentRatings">
             <div>Tidigare studenters betyg:</div>
-            <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png"><span>(Lärarna)</span></p>
-            <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingStudents)}<span>(Klasskamrater)</span></p>
-            <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingCourses)}<span>(Kurserna)</span></p>
+            <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingTeachers)}/5 <span> (Lärarna)</span></p>
+            <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingStudents)}/5 (Klasskamrater)</span></p>
+            <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingCourses)}/5 (Kurserna)</span></p>
         </div>
         <div class="successOchReview">
             <div class="successRateDiv">
@@ -331,45 +339,25 @@ CollectAllProgramInfo(DB).forEach(programCard => {
                 </div>
             </div>
             <div class="reviews">
-                <div class="oneReview">
-                    <p>${programCard.Review.ReviewText[0]}</p>
-                    <p>${programCard.Review.ReviewName[0]}, ${programCard.Review.ReviewDate[0].year}, ${programCard.Review.ReviewDate[0].month}/${programCard.Review.ReviewDate[0].day}</p>
-                </div>
             </div>
         </div>
 `;
-//går genom alla Ratings och ger ut medelvärde åt vart program
-programCard.Ratings.RatingTeachers.forEach(function(teachers){
-    let teachersRating = document.createElement("span");
-    teachersRating.innerHTML = `${averageReviewScore(teachers)}`;
-    console.log(averageReviewScore(teachers));
-    createProgramCard.querySelector(".teachersRating").append(teachersRating);
-})
-
-//går genom varje review för vart program och (SKA)
+//går genom varje review för vart program och
 //lägger dom i varsin div.
-let oneReview = document.createElement("div");
-
-programCard.Review.ReviewText.forEach(function(text){
-    let oneText = document.createElement("p");
-    oneText.innerHTML = `${text}`;
-    oneReview.append(oneText);
-})
-programCard.Review.ReviewName.forEach(function(name){
-    let oneName = document.createElement("p");
-    oneName.innerHTML = `${name}`,
-    oneReview.append(oneName);
-})
-programCard.Review.ReviewDate.forEach(function(date){
-    let oneDate = document.createElement("p");
-    oneDate.innerHTML = `${date.year}, ${date.month}/${date.day}`,
-    oneReview.append(oneDate);
-})
-    createProgramCard.querySelector(".oneReview").append(oneReview);
+for (let i = 0; i < programCard.Review.ReviewText.length; i++) {
+    let oneReview = document.createElement("div");
+    oneReview.classList.add("oneReview");
+    oneReview.innerHTML =
+    `
+    <p class="oneText">${programCard.Review.ReviewText[i]}</p>
+    <p class="oneNameAndDate">— ${programCard.Review.ReviewName[i]}, ${programCard.Review.ReviewDate[i].year} - ${programCard.Review.ReviewDate[i].month}/${programCard.Review.ReviewDate[i].day}</p>
+    `;
+    createProgramCard.querySelector(".reviews").append(oneReview);
+    }
 });
 }
 
-//tillsvidare. Denna är klar förutom reviews som endast visar 1 åt gången.
+
 function displayProgram(){
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
@@ -500,8 +488,8 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
         oneProgramDiv.innerHTML = `${program.name}`;
         oneProgramDiv.classList.add("oneProgram");
         createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
-    })
-})
+    });
+});
 }
 
 function displayUniversity(){

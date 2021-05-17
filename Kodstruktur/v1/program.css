@@ -1,45 +1,8 @@
-*{
-    /* sizes */
-    --screenSize1: 60%;
-    --screenSize2: 80%;
-    --screenSize3: 100%;
-
-    --fSizeXS: 10px;
-    --fSizeS: 14px;
-    --fSizeM: 20px;
-    --fSizeL: 30px;
-    --fSizeXL: 40px;
-
-    /* colors */
-    --colorBG: lightgrey;
-    --colorBG2: grey;
-    --colorBG3: white;
-    --colorBG4: black;
-}
-
-body{ 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0;
-    height: var(--screenSize3);
-}
-
-#HomeNav{ background-color:var(--colorBG);}
-#InfoNav{ background-color: var(--colorBG3);}
-nav{padding-bottom: 40px;}
-
 p, h1, h4{ margin: 0px;}
 h1{font-size: var(--fSizeM);}
-p, div{font-size: var(--fSizeS);}
+.infoProgram div, .studentRatings p, .studentRatings div, 
+.successOchReview p, .nmbrOchYear span{font-size: var(--fSizeS);}
 
-#mainWrapper{
-    width: var(--screenSize1);
-    height: 100vh;
-    overflow-y: scroll;
-
-    padding: var(--fSizeS);
-}
 .createProgramCard{ 
     padding: var(--fSizeS);
     margin-bottom: var(--fSizeS);
@@ -101,9 +64,12 @@ p, div{font-size: var(--fSizeS);}
     border: 1px solid var(--colorBG4);
     width: 100%;
     margin-left: 30px;
+    overflow-y: scroll;
+    height: 200px;
 }
+.reviews > div:last-child{border:none;}
 .oneReview{
     margin: 5px 8px 5px 8px;
     border-bottom: 1px solid var(--colorBG4);
 }
-.oneReview > p:last-child{font-style: italic;}
+.oneNameAndDate{font-style: italic; font-weight: bold; padding-bottom: 5px;}
