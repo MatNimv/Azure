@@ -450,6 +450,8 @@ function CollectAllUniversityInfo(databas) {
             return obj.name;
         })
 
+        // här ska språk som universitet erbjuder göras
+
         let universityObject =
         {
             University: element.name,
@@ -459,6 +461,13 @@ function CollectAllUniversityInfo(databas) {
             Images: UniversityCountryCombo.imagesBig[0],
             Programmes: UniversityProgrammeArray
         }
+
+        let programSubjectID = universityObject.Programmes.find(program => {
+            return program.subjectID === DB.FIELDS.id;
+        })
+        
+        console.log(programSubjectID)
+        
         //Universitetets namn + flagga
         //stad och språk för programmen
         //lista över programnman för universitetet
@@ -469,16 +478,16 @@ function CollectAllUniversityInfo(databas) {
     return UniversityArray;
 }
 
-function ShowUniversities(){
+function ShowUniversities() {
     document.getElementById("mainWrapper").innerHTML = "";
 
-CollectAllUniversityInfo(DB).forEach(universityCard => {
-    
-    let createUniversityCard = document.createElement("div");
-    createUniversityCard.classList.add("createUniversityCard");
-    document.getElementById("mainWrapper").append(createUniversityCard);
-    createUniversityCard.innerHTML = 
-    `
+    CollectAllUniversityInfo(DB).forEach(universityCard => {
+
+        let createUniversityCard = document.createElement("div");
+        createUniversityCard.classList.add("createUniversityCard");
+        document.getElementById("mainWrapper").append(createUniversityCard);
+        createUniversityCard.innerHTML =
+            `
         <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
             <div><img src="../Filer/Images/${universityCard.Images}"></div>
@@ -487,6 +496,7 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
                     <div>${universityCard.City}</div>
                     <div>Spåk/Språk</div>
                 </div>
+                <div class="subject">hello</div>
                 <p>Program:</p>
                 <div class="allaProgram">
                 
@@ -494,24 +504,24 @@ CollectAllUniversityInfo(DB).forEach(universityCard => {
             </div>
         </div>
     `;
-    //går genom varje element i programArrayen och lägger 
-    //till dom i varsin div. 
-    universityCard.Programmes.forEach(function(program){
-        let oneProgramDiv = document.createElement("div");
-        oneProgramDiv.innerHTML = `${program.name}`;
-        oneProgramDiv.classList.add("oneProgram");
-        createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
+        //går genom varje element i programArrayen och lägger 
+        //till dom i varsin div. 
+        universityCard.Programmes.forEach(function (program) {
+            let oneProgramDiv = document.createElement("div");
+            oneProgramDiv.innerHTML = `${program.name}`;
+            oneProgramDiv.classList.add("oneProgram");
+            createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
+        })
     })
-})
 }
 
-function displayUniversity(){
+function displayUniversity() {
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
     let universityCard = CollectAllUniversityInfo(DB);
 
-    createUniversityCard.innerHTML = 
-    `
+    createUniversityCard.innerHTML =
+        `
         <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
         <div class="universityContent">
             <div><img src="../Filer/Images/${universityCard.Images}"></div>
