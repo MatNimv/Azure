@@ -3,6 +3,15 @@
     margin-bottom: var(--fSizeS);
 
     background-color: var(--colorBG);
+    opacity: 0.6;
+    box-shadow: 0px;
+    transition: opacity 1s, box-shadow 1s;
+}
+
+.cityCard:hover {
+    opacity: 1;
+    transition: opacity .3s, box-shadow .3s;
+    box-shadow: 0px 0px 10px 0px var(--colorBG4);
 }
 
 .flag {
@@ -33,15 +42,21 @@
 }
 
 /* kan göra något med grid osv. när jag vet hur man för de individuella boxarna så det inte blir en lång bakgrundsfärg */
-.uniBoxes {
-    background-color: var(--colorBG2);
-    
+.uniDiv {
+    display: flex;
+    flex-direction: row;
+}
 
-    margin-top: var(--fSizeXS);
-    margin-bottom: var(--fSizeXS);
-    padding-top: var(--fSizeXS);
-    padding-bottom: var(--fSizeXS);
-    border-radius: 10px;
+.soloUniDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--colorBG2);
+    margin: var(--fSizeXS) var(--fSizeXL) var(--fSizeXS) 0;
+    padding: var(--fSizeXS) var(--fSizeM);
+    border-radius: 15px;
+    font-size: var(--fSizeS);
 }
 
 .imageAndScroll {
@@ -68,8 +83,5 @@
     margin-left: var(--fSizeS);
 }
 
-/*
-.entertainmentPlaces p {
-    background-color: var(--colorBG3);
-} */
+
 
