@@ -15,6 +15,15 @@
     --colorBG2: grey;
     --colorBG3: white;
     --colorBG4: black;
+
+    /* subject colors */
+    --colorMath: rgb(179, 231, 158);
+    --colorTech: rgb(190, 190, 190);
+    --colorLaw: rgb(164, 193, 226);
+    --colorMed: white;
+    --colorSoc: rgb(216, 159, 159);
+    --colorFil: rgb(255, 255, 179);
+    --colorDes: rgb(248, 201, 158);
 }
 
 body{ 
@@ -74,6 +83,43 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     flex-direction: row;
 }
 
+/* ämnen */
+.subjects {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    margin: var(--fSizeXS);
+}
+
+.subject span {
+    display: inline-block;
+    height: var(--fSizeXS);
+    width: var(--fSizeXS);
+
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.subject {
+    margin-bottom: var(--fSizeXS);
+    display: flex;
+    align-items: center;
+}
+
+.subject:first-child > span {background-color: var(--colorMath);}
+.subject:nth-child(2) > span {background-color: var(--colorTech);}
+.subject:nth-child(3) > span {background-color: var(--colorLaw);}
+.subject:nth-child(4) > span {background-color: var(--colorMed);}
+.subject:nth-child(5) > span {background-color: var(--colorSoc);}
+.subject:nth-child(6) > span {background-color: var(--colorFil);}
+.subject:last-child > span {background-color: var(--colorDes);}
+
+.subject {
+    font-size: var(--fSizeXS);
+}
+
+/* Språk */
 .stadOchSprak > div{
     background-color: var(--colorBG2);
     padding: 15px;
@@ -81,6 +127,7 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     border-radius: 30px;
 }
 
+/* Program */
 .allaProgram{
     border: 1px solid var(--colorBG4);
     height: 100px;
