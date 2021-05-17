@@ -21,6 +21,14 @@ mainWrapper.innerHTML = `
 
 document.querySelector("main").append(mainWrapper);
 
+function averageReviewScore(ratingArray){
+    let sumOfNum = 0;
+    for (let i = 0; i < ratingArray.length; i++) {
+        sumOfNum += ratingArray[i];
+    }
+    return Math.floor(sumOfNum / ratingArray.length);
+}
+
 function CollectAllCityInfo(databas) {
     let CityArray = [];
     
@@ -327,9 +335,9 @@ function ShowCities(){
             <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
             <div class="ratingsByStudents"> 
                 <p> Tidigare studenters betyg: </p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+                <p class="accRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsAccomodation)}/5 (Boende)</p> 
+                <p class="foodRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsFood)}/5 (Mat)</p>
+                <p class="outRating"> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
             </div>
             <p class="cityText"> ${cityCard.CityInfo} </p>
             <div class="uniDiv"></div>
@@ -341,7 +349,19 @@ function ShowCities(){
             </div>
         </div>
         ` 
-        
+
+        cityCard.Stars.StarsAccomodation.forEach(acc => {
+            let accRating = document.createElement("span");
+            accRating.innerHTML = `${averageReviewScore(acc)}`;
+            createCityCard.querySelector(".accRating").append(accRating);
+        })
+
+        cityCard.Stars.StarsFood.forEach(food => {
+            let foodRating = document.createElement("span");
+            foodRating.innerHTML = `${averageReviewScore(food)}`;
+            createCityCard.querySelector(".foodRating").append(foodRating);
+        })
+
         cityCard.Universities.forEach(uni => {
             let createDiv = document.createElement("div");
             createDiv.innerHTML = uni;
