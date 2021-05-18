@@ -1,49 +1,24 @@
-*{
-    /* sizes */
-    --screenSize1: 60%;
-    --screenSize2: 80%;
-    --screenSize3: 100%;
-
-    --fSizeXS: 10px;
-    --fSizeS: 14px;
-    --fSizeM: 20px;
-    --fSizeL: 30px;
-    --fSizeXL: 40px;
-
-    /* colors */
-    --colorBG: lightgrey;
-    --colorBG2: grey;
-    --colorBG3: white;
-    --colorBG4: black;
-}
-
-body{ 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    margin: 0;
-    height: var(--screenSize3);
-}
 
 #HomeNav{ background-color:var(--colorBG);}
 #InfoNav{ background-color: var(--colorBG3);}
 nav{padding-bottom: 40px;}
 p, h1, h4{ margin: 0px;}
-p, div{font-size: var(--fSizeS);}
+.stadOchSprak div, .allaProgram div{font-size: var(--fSizeS);}
 
-#wrapper{
-    width: var(--screenSize1);
-    height: 100vh;
-    overflow-y: scroll;
-
-    padding: var(--fSizeS);
-}
 .createUniversityCard{ 
     padding: var(--fSizeS);
     margin-bottom: var(--fSizeS);
-
+    
     background-color: var(--colorBG);
+    opacity: 0.6;
+    box-shadow: 0px;
+    transition: opacity 1s, box-shadow 1s;
+}
+    
+.createUniversityCard:hover {
+    opacity: 1;
+    transition: opacity .3s, box-shadow .3s;
+    box-shadow: 0px 0px 10px 0px var(--colorBG4);
 }
 
 
@@ -65,6 +40,43 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     flex-direction: row;
 }
 
+/* ämnen */
+.subjects {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    margin: var(--fSizeXS);
+}
+
+.subject span {
+    display: inline-block;
+    height: var(--fSizeXS);
+    width: var(--fSizeXS);
+
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.subject {
+    margin-bottom: var(--fSizeXS);
+    display: flex;
+    align-items: center;
+}
+
+.subject:first-child > span {background-color: var(--colorMath);}
+.subject:nth-child(2) > span {background-color: var(--colorTech);}
+.subject:nth-child(3) > span {background-color: var(--colorLaw);}
+.subject:nth-child(4) > span {background-color: var(--colorMed);}
+.subject:nth-child(5) > span {background-color: var(--colorSoc);}
+.subject:nth-child(6) > span {background-color: var(--colorFil);}
+.subject:last-child > span {background-color: var(--colorDes);}
+
+.subject {
+    font-size: var(--fSizeXS);
+}
+
+/* Språk */
 .stadOchSprak > div{
     background-color: var(--colorBG2);
     padding: 15px;
@@ -72,6 +84,7 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     border-radius: 30px;
 }
 
+/* Program */
 .allaProgram{
     border: 1px solid var(--colorBG4);
     height: 100px;
@@ -82,5 +95,4 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     border-radius: 10px;
     margin:5px;
     padding: 3px;
-
 }

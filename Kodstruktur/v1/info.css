@@ -1,0 +1,44 @@
+:root {
+    /* sizes */
+    --screenSize1: 60%;
+    --screenSize2: 80%;
+    --screenSize3: 100%;
+
+    --fSizeXS: 10px;
+    --fSizeS: 14px;
+    --fSizeM: 20px;
+    --fSizeL: 30px;
+    --fSizeXL: 40px;
+    --veryBigSize: 100px;
+
+    /* colors */
+    --colorBG: lightgrey;
+    --colorBG2: grey;
+    --colorBG3: white;
+    --colorBG4: black;
+
+}
+
+body{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px;
+    height: var(--screenSize4);
+}
+
+nav {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+}
+#HomeNav{ background-color:var(--colorBG);}
+#InfoNav{ background-color: var(--colorBG3);}
+
+#mainWrapper {
+    width: var(--screenSize1);
+    height: 100vh; 
+    overflow-y: scroll;
+
+    padding: var(--fSizeS);
+}
