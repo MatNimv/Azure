@@ -3,7 +3,7 @@
 //Add name and date to reveiwcells
 //Change names to swedish
 
-//<img src="../../Kodstruktur/Filer/Images/star.png">
+
 
 //ImagePlay function
 
@@ -17,6 +17,9 @@ function AddWebsiteContent() {
     let div = document.createElement("div");
     div.innerHTML =
         `
+        <div id="SideAdsLeft">PLACEHOLDERTEXT</div>
+        <div id="SideAdsRight">PLACEHOLDERTEXT</div>
+    
     <div id="ImageRollWrapper">
         <div id="ImageRollCell">
             <div class="ImageButtonHolder">
@@ -29,8 +32,9 @@ function AddWebsiteContent() {
         </div>
     <p id="NameOfImageRoll"></p>
     </div>
-    
-    
+
+    <div id="MiddleAds">PLACEHOLDERTEXT</div>
+
     <div id="PluggaWrapper">
         <p>sugen på att plugga?</p>
         <button id="MainPageButton">Klicka här!</button>
@@ -103,18 +107,21 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
     if(Ratings){
         for (let i = 0; i < Ratings.out; i++) {
             let ReviewSection1 = document.createElement("div");
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
             document.querySelector("#ReviewStarsSection1").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
     
         for (let i = 0; i < Ratings.food; i++) {
             let ReviewSection1 = document.createElement("div");
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
             document.querySelector("#ReviewStarsSection2").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
     
         for (let i = 0; i < Ratings.accomodation; i++) {
             let ReviewSection1 = document.createElement("div");
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
             document.querySelector("#ReviewStarsSection3").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
@@ -132,18 +139,21 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
     // For loops for program review stars ------------------
     for (let i = 0; i < ProgramRatings.teachers; i++) {
         let ReviewSection1 = document.createElement("div");
+        ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
         document.querySelector("#ProgramStarsSection1").append(ReviewSection1);
         ReviewSection1.classList.add("ReviewStarShape");
     }
 
     for (let i = 0; i < ProgramRatings.students; i++) {
         let ReviewSection1 = document.createElement("div");
+        ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
         document.querySelector("#ProgramStarsSection2").append(ReviewSection1);
         ReviewSection1.classList.add("ReviewStarShape");
     }
 
     for (let i = 0; i < ProgramRatings.courses; i++) {
         let ReviewSection1 = document.createElement("div");
+        ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
         document.querySelector("#ProgramStarsSection3").append(ReviewSection1);
         ReviewSection1.classList.add("ReviewStarShape");
     }

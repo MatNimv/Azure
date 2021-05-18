@@ -22,7 +22,9 @@
 header{
    margin-bottom: 50px;
 }
-#InfoNav{ background-color: var(--colorBG);}
+#InfoNav{ 
+    background-color: var(--colorBG);
+}
 
 footer{
     margin-top: 50px;
@@ -40,24 +42,6 @@ main > div{
     align-items: center;
 }
 
-#LeftAdImage{
-    background-image: url(../Filer/Images/australia_normal_1.jpg);
-    width: 50px;
-    height: 100%;
-}
-
-
-#RightAdImage{
-    background-image: url(../Filer/Images/argentina_normal_1.jpg);
-    width: 50px;
-    height: 100%;
-}
-
-#MiddleAdImage{
-    background-image: url(../Filer/Images/boston_normal_1.jpg);
-    width: 50px;
-    height: 50px;
-}
 
 #ImageRollWrapper
 {
@@ -70,15 +54,15 @@ main > div{
 #ImageRollCell{
     width: 60vw;
     display: flex;
-   justify-content: center;
+    justify-content: center;
 }
 
 #ImageRoll{
     width: 35vw;
     height: 35vh;
     background-position: center;
-    background-size: auto;
     border: 1px solid black;
+    background-size: cover;
 }
 
 
@@ -86,7 +70,7 @@ main > div{
     display: flex;
     justify-content: center;
     align-items: center;
-    }
+}
 
 #ImageRollBackward{
     display: flex;
@@ -98,6 +82,7 @@ main > div{
     height: 30%;
     width: 100%;
     text-align: center;
+    margin: 10px;
 }
 
 #ImageRollPhotoForward{
@@ -109,6 +94,8 @@ main > div{
     box-shadow: 10px 5px 5px grey;
     height: 30%;
     width: 100%;
+    margin: 10px;
+    text-align: center;
 }
 
 
@@ -186,10 +173,50 @@ text-align: center;
 
 
 .ReviewStarShape{
-    background-color: yellow;
+  
     height: 30px;
     width: 30px;
     border-radius: 300px;
     display: inline-block;
 }
 
+
+#AdsWrapper{
+    position: relative;
+}
+
+.SideAds{
+    width: 10vw;
+    height: 20vh;
+    background-color: grey;
+    position: sticky;
+}
+
+#SideAdsLeft{
+    width: 10vw;
+    height: 20vh;
+    background-color: grey;
+    position: absolute;
+    left: 0px;
+    top: 50vh;
+}
+
+#SideAdsRight{
+    width: 10vw;
+    height: 20vh;
+    background-color: grey;
+    position: absolute;
+    right: 0px;
+    top: 50vh;
+}
+
+#MiddleAds{
+    width: 15vw;
+    height: 10vh;
+    background-color: grey;
+    overflow-wrap: break-word;
+}
+
+img{
+    width: 15px;
+}
