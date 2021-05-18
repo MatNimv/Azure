@@ -458,9 +458,7 @@ function CollectAllUniversityInfo(databas) {
         let LanguageArray = ProgrammeLanguageCombo.map(function (obj) {
             return obj.name;
         })
-        
-        // här ska språk som universitet erbjuder göras
-        
+
         let universityObject =
         {
             University: element.name,
@@ -479,10 +477,7 @@ function CollectAllUniversityInfo(databas) {
     })
     UniversityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1)
     return UniversityArray;
- 
 }
-
-console.log(CollectAllUniversityInfo(DB))
 
 function ShowUniversities() {
     document.getElementById("mainWrapper").innerHTML = "";
