@@ -1,6 +1,6 @@
 "use strict";
 
-let placeHolder = "Sök efter städer...";
+let placeHolder = "";
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
@@ -25,29 +25,21 @@ function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar) {
     }
     console.log(data);
 
-let container = document.createElement("div");
-container.classList.add("filter");
-container.innerHTML = 
-    `<label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
-
 document.querySelector("#searchBar").addEventListener("keyup", function() {
     let input = document.querySelector("#searchBar").value;
     document.getElementById("mainWrapper").innerHTML = "";
 
-        //If input is empty it does nothing
+        //If input is empty it calls the whole array of content. (city, programme, university)
         if (input.length <= 0) {
-            emptySearchBar(); //show(...) funktionen kallas- så alla (...)kort kommer 
-            //upp i bokstavsordning igen IT WORKS!!! YESSSS
+            emptySearchBar();
         }
 
         let filteredArray = data.baseArray.filter(element => {
-            //If the array is the student array its the last name, if its the courses array its the course title and returns it
-            //Element is either student or course array, filterkey is either lastname or title, is in brackets because its variable
-
             return element[data.filterKey].toLowerCase().includes(input.toLowerCase());
         })
+
         console.log(filteredArray);
-        //Sorts lastname or coursename by ascending order
+        //Sorts the filtered array - city, university and programme names A-Ö
         filteredArray.sort(function (elementa, elementb) {
             if (elementa[data.filterKey] < elementb[data.filterKey]) {
                 return -1
@@ -58,10 +50,9 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
         })
 
         //calls the function and it creates the element
-        filteredArray.forEach(data.DOMCreator);
+        filteredArray.forEach(element => document.getElementById("mainWrapper").append(data.DOMCreator(element)));
         document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
     });
-    return container;
 }
 //////////////////////////////////////////////////////////////////
 //////////////////SAMLING AV DATA och FUNKTIONER//////////////////
@@ -78,7 +69,12 @@ function averageReviewScore(ratingArray){
 
     let sumOfNum = 0;
     for (let i = 0; i < ratingArray.length; i++) {
-        sumOfNum += ratingArray[i];
+        sumOfNum += ratingArray[i] ;
+    }
+    //vissa program o städer har ingen rating.
+    if (ratingArray.length === 0){
+        let noDataDiv = "No data ";
+        return noDataDiv;
     }
     return runda(sumOfNum / ratingArray.length, 1);
 }
@@ -164,82 +160,43 @@ function CollectAllCityInfo(databas) {
 }
 
 // Här börjar kodning för stadssida
-// här måste universitet fixas i innerHTML, vill att de ska uppstå enskilt i 
-// sina div:ar, samma sak gäller för entertainment places.
 ShowCities() //en platshållare
 function ShowCities() {
     document.querySelector("#mainWrapper").innerHTML = "";
-    let newCityArray = CollectAllCityInfo(DB);
-
-    newCityArray.forEach(cityCard => {
-        let createCityCard = document.createElement("div");
-        document.querySelector("#mainWrapper").append(createCityCard);
-
-        createCityCard.innerHTML = `
-        <div class="cityCard">
-            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
-            <div class="ratingsByStudents"> 
-                <p> Tidigare studenters betyg: </p>
-                <p class="accRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsAccomodation)}/5 (Boende)</p> 
-                <p class="foodRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsFood)}/5 (Mat)</p>
-                <p class="outRating"> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
-            </div>
-            <p class="cityText"> ${cityCard.CityInfo} </p>
-            <div class="uniDiv"></div>
-            <div class="imageAndScroll">
-                <img src="../Filer/Images/${cityCard.Images}">
-                <div class="entertainmentPlaces"> 
-                    <p>${cityCard.Entertainment}</p>
-                </div>
-            </div>
-        </div>
-        `
-
-        cityCard.Stars.StarsAccomodation.forEach(acc => {
-            let accRating = document.createElement("span");
-            accRating.innerHTML = `${averageReviewScore(acc)}`;
-            createCityCard.querySelector(".accRating").append(accRating);
-        })
-
-        cityCard.Stars.StarsFood.forEach(food => {
-            let foodRating = document.createElement("span");
-            foodRating.innerHTML = `${averageReviewScore(food)}`;
-            createCityCard.querySelector(".foodRating").append(foodRating);
-        })
-
-        cityCard.Universities.forEach(uni => {
-            let createDiv = document.createElement("div");
-            createDiv.innerHTML = uni;
-            createDiv.classList.add("soloUniDiv");
-            createCityCard.querySelector(".uniDiv").append(createDiv)
-        })
-    })
+    CollectAllCityInfo(DB).forEach(element => document.getElementById("mainWrapper").append(displayCity(element)));
 }
 
-function displayCity() {
-    //let cityCard = CollectAllCityInfo(DB);
+function displayCity(city) {
     let createCityCard = document.createElement("div");
-    let cityCard = CollectAllCityInfo(DB);
+    createCityCard.classList.add("createCityCard");
     createCityCard.innerHTML =
         `
         <div class="cityCard">
-            <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
+            <h1 class="cityNames"> ${city.City}, ${city.Country} <img src="../Filer/Images/${city.Flag}" class="flag"> </h1>
             <div class="ratingsByStudents"> 
                 <p> Tidigare studenters betyg: </p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Boende)</p> 
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Mat)</p>
-                <p> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsAccomodation)}/5 (Boende)</p> 
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsFood)}/5 (Mat)</p>
+                <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsOut)}/5 (Uteliv)</p>
             </div>
-            <p class="cityText"> ${cityCard.CityInfo} </p>
-            <div class="uniBoxes"> ${cityCard.Universities}</div>
+            <p class="cityText"> ${city.CityInfo} </p>
+            <div class="uniDiv"></div>
             <div class="imageAndScroll">
-                <img src="../Filer/Images/${cityCard.Images}">
+                <img src="../Filer/Images/${city.Images}">
                 <div class="entertainmentPlaces"> 
-                    <p>${cityCard.Entertainment}</p>
+                    <p>${city.Entertainment}</p>
                 </div>
             </div>
         </div>
         `;
+
+        city.Universities.forEach(uni => {
+            let createDiv = document.createElement("div");
+            createDiv.innerHTML = uni;
+            createDiv.classList.add("soloUniDiv");
+            createCityCard.querySelector(".uniDiv").append(createDiv);
+        })
+
     return createCityCard;
 }
 
@@ -326,100 +283,56 @@ function CollectAllProgramInfo(databas) {
     return programArray;
 }
 
-//tillsvidare. Denna är klar förutom reviews som inte läggs i ordning.
 function ShowProgram(){
     document.getElementById("mainWrapper").innerHTML = "";
+    CollectAllProgramInfo(DB).forEach(element => document.getElementById("mainWrapper").append(displayProgram(element)));
+}
 
-    CollectAllProgramInfo(DB).forEach(programCard => {
-        let createProgramCard = document.createElement("div");
-        createProgramCard.classList.add("createProgramCard");
-        document.getElementById("mainWrapper").append(createProgramCard);
-        //console.log(averageReviewScore(programCard.Ratings.RatingTeachers));
-        createProgramCard.innerHTML =
-            `
-        <h1>${programCard.Program}</h1>
-        <div class="infoProgram">
-            <div>${programCard.Language}</div>
-            <div>${programCard.Level}</div>
-            <div>${programCard.University}</div>
-        </div>
-        <div class="studentRatings">
-            <div>Tidigare studenters betyg:</div>
-            <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingTeachers)}/5 <span> (Lärarna)</span></p>
-            <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingStudents)}/5 (Klasskamrater)</span></p>
-            <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(programCard.Ratings.RatingCourses)}/5 (Kurserna)</span></p>
-        </div>
-        <div class="successOchReview">
-            <div class="successRateDiv">
-                <h4>Avklaringsgrad</h4>
-                <div class="nmbrOchYear">
-                    <p><span>2020 </span><span> ${programCard.SuccessRate[0]}%</span></p>
-                    <p><span>2019 </span><span> ${programCard.SuccessRate[1]}%</span></p>
-                    <p><span>2018 </span><span> ${programCard.SuccessRate[2]}%</span></p>
-                    <p><span>2017 </span><span> ${programCard.SuccessRate[3]}%</span></p>
-                    <p><span>2016 </span><span> ${programCard.SuccessRate[4]}%</span></p>
-                </div>
-            </div>
-            <div class="reviews">
+function displayProgram(program){
+    let createProgramCard = document.createElement("div");
+    createProgramCard.classList.add("createProgramCard");
+    createProgramCard.innerHTML =
+    `
+    <h1>${program.Program}</h1>
+    <div class="infoProgram">
+        <div>${program.Language}</div>
+        <div>${program.Level}</div>
+        <div>${program.University}</div>
+    </div>
+    <div class="studentRatings">
+        <div>Tidigare studenters betyg:</div>
+        <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingTeachers)}/5 <span> (Lärarna)</span></p>
+        <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingStudents)}/5 (Klasskamrater)</span></p>
+        <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingCourses)}/5 (Kurserna)</span></p>
+    </div>
+    <div class="successOchReview">
+        <div class="successRateDiv">
+            <h4>Avklaringsgrad</h4>
+            <div class="nmbrOchYear">
+                <p><span>2020 </span><span> ${program.SuccessRate[0]}%</span></p>
+                <p><span>2019 </span><span> ${program.SuccessRate[1]}%</span></p>
+                <p><span>2018 </span><span> ${program.SuccessRate[2]}%</span></p>
+                <p><span>2017 </span><span> ${program.SuccessRate[3]}%</span></p>
+                <p><span>2016 </span><span> ${program.SuccessRate[4]}%</span></p>
             </div>
         </div>
-`;
-//går genom varje review för vart program och
-//lägger dom i varsin div.
-for (let i = 0; i < programCard.Review.ReviewText.length; i++) {
+        <div class="reviews">
+        </div>
+    </div>
+    `;
+    //går genom varje review för vart program och
+    //lägger dom i varsin div.
+    /*for (let i = 0; i < program.Review.ReviewText.length; i++) {
     let oneReview = document.createElement("div");
     oneReview.classList.add("oneReview");
     oneReview.innerHTML =
     `
-    <p class="oneText">${programCard.Review.ReviewText[i]}</p>
-    <p class="oneNameAndDate">— ${programCard.Review.ReviewName[i]}, ${programCard.Review.ReviewDate[i].year} - ${programCard.Review.ReviewDate[i].month}/${programCard.Review.ReviewDate[i].day}</p>
+    <p class="oneText">${program.Review.ReviewText[i]}</p>
+    <p class="oneNameAndDate">— ${program.Review.ReviewName[i]}, ${program.Review.ReviewDate[i].year} - ${program.Review.ReviewDate[i].month}/${program.Review.ReviewDate[i].day}</p>
     `;
     createProgramCard.querySelector(".reviews").append(oneReview);
     }
-});
-}
-
-
-function displayProgram(){
-    let createProgramCard = document.createElement("div");
-    createProgramCard.classList.add("createProgramCard");
-    let programCard = CollectAllProgramInfo(DB);
-
-    console.log(programCard.Review)
-    createProgramCard.innerHTML =
-        `
-        <h1>${programCard.Program}</h1>
-        <div class="infoProgram">
-            <div>${programCard.Language}</div>
-            <div>${programCard.Level}</div>
-            <div>${programCard.University}</div>
-        </div>
-        <div class="studentRatings">
-            <div>Tidigare studenters betyg:</div>
-            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Lärarna)</span></p>
-            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Klasskamrater)</span></p>
-            <p><img src="../../Kodstruktur/Filer/Images/star.png">3,6<span>(Kurserna)</span></p>
-        </div>
-        <div class="successOchReview">
-            <div class="successRateDiv">
-                <h4>Avklaringsgrad</h4>
-                <div class="nmbrOchYear">
-                    <p><span>2020 </span><span> ${programCard.SuccessRate[0]}%</span></p>
-                    <p><span>2019 </span><span> ${programCard.SuccessRate[1]}%</span></p>
-                    <p><span>2018 </span><span> ${programCard.SuccessRate[2]}%</span></p>
-                    <p><span>2017 </span><span> ${programCard.SuccessRate[3]}%</span></p>
-                    <p><span>2016 </span><span> ${programCard.SuccessRate[4]}%</span></p>
-                </div>
-            </div>
-            <div class="reviews">
-                <div class="oneReview">
-                    <p>${programCard.Review.ReviewText}</p>
-                    <p>${programCard.Review.ReviewName}, ${programCard.Review.ReviewDate.year}, ${programCard.Review.ReviewDate.month}/${programCard.Review.ReviewDate.day}</p>
-                </div>
-            </div>
-        </div>
-    `;
-    return createProgramCard;
+    return createProgramCard;*/
 }
 
 
@@ -481,30 +394,23 @@ function CollectAllUniversityInfo(databas) {
 
 function ShowUniversities() {
     document.getElementById("mainWrapper").innerHTML = "";
+    CollectAllUniversityInfo(DB).forEach(element => document.getElementById("mainWrapper").append(displayUniversity(element)));
+}     
 
-    CollectAllUniversityInfo(DB).forEach(universityCard => {
 
-        let createUniversityCard = document.createElement("div");
-        createUniversityCard.classList.add("createUniversityCard");
-        document.getElementById("mainWrapper").append(createUniversityCard);
-        createUniversityCard.innerHTML =
-            `
-        <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
+function displayUniversity(university) {
+    let createUniversityCard = document.createElement("div");
+    createUniversityCard.classList.add("createUniversityCard");
+
+    createUniversityCard.innerHTML =
+        `
+        <h1>${university.University}<img src="../Filer/Images/${university.Flag}"></h1>
         <div class="universityContent">
-            <div><img src="../Filer/Images/${universityCard.Images}"></div>
+            <div><img src="../Filer/Images/${university.Images}"></div>
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
-                    <div>${universityCard.City}</div>
+                    <div>${university.City}</div>
                     <div>Spåk/Språk</div>
-                </div>
-                <div class="subjects">
-                    <p class="subject"><span></span>${DB.FIELDS[0].name}</p>
-                    <p class="subject"><span></span>${DB.FIELDS[1].name}</p>
-                    <p class="subject"><span></span>${DB.FIELDS[2].name}</p>
-                    <p class="subject"><span></span>${DB.FIELDS[3].name}</p>
-                    <p class="subject"><span></span>${DB.FIELDS[4].name}</p>
-                    <p class="subject"><span></span>${DB.FIELDS[5].name}</p>
-                    <p class="subject"><span></span>${DB.FIELDS[6].name}</p>
                 </div>
                 <p>Program:</p>
                 <div class="allaProgram">
@@ -512,25 +418,12 @@ function ShowUniversities() {
                 </div>
             </div>
         </div>
-</div>`;
-    //går genom varje element i programArrayen och lägger 
-    //till dom i varsin div. 
-    universityCard.Programmes.forEach(function(program){
+    `;
+    university.Programmes.forEach(function(program){
         let oneProgramDiv = document.createElement("div");
         oneProgramDiv.innerHTML = `${program.name}`;
         oneProgramDiv.classList.add("oneProgram");
         createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
-    });
-});
-        
-
-        //går genom varje element i programArrayen och lägger 
-        //till dom i varsin div. 
-        universityCard.Programmes.forEach(function (program) {
-            let oneProgramDiv = document.createElement("div");
-            oneProgramDiv.innerHTML = `${program.name}`;
-            oneProgramDiv.classList.add("oneProgram");
-            createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
 
             if (program.subjectID === 0) {
                 oneProgramDiv.style.backgroundColor = "var(--colorMath)";
@@ -549,31 +442,6 @@ function ShowUniversities() {
             }
 
         })
-    }     
-
-
-function displayUniversity() {
-    let createUniversityCard = document.createElement("div");
-    createUniversityCard.classList.add("createUniversityCard");
-    let universityCard = CollectAllUniversityInfo(DB);
-
-    createUniversityCard.innerHTML =
-        `
-        <h1>${universityCard.University}<img src="../Filer/Images/${universityCard.Flag}"></h1>
-        <div class="universityContent">
-            <div><img src="../Filer/Images/${universityCard.Images}"></div>
-            <div class="infoOchProgram">
-                <div class="stadOchSprak">
-                    <div>${universityCard.City}</div>
-                    <div>Spåk/Språk</div>
-                </div>
-                <p>Program:</p>
-                <div class="allaProgram">
-                
-                </div>
-            </div>
-        </div>
-    `;
     return createUniversityCard;
 }
 
@@ -593,6 +461,9 @@ StyleCSS.setAttribute("rel", "stylesheet");
 document.querySelector(`#City`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
+    placeHolder = "Sök efter städer...";
+    document.querySelector("#searchBar").innerText = "";
+
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
@@ -604,6 +475,7 @@ document.querySelector(`#Program`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
     placeHolder = "Sök efter program...";
+
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
@@ -615,6 +487,7 @@ document.querySelector(`#University`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
     placeHolder = "Sök efter universitet...";
+    
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");

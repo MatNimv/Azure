@@ -24,7 +24,7 @@ body{
     flex-direction: column;
     justify-content: center;
     margin: 0px;
-    height: var(--screenSize4);
+    height: var(--screenSize3);
 }
 
 nav {
@@ -42,3 +42,5 @@ nav {
 
     padding: var(--fSizeS);
 }
+
+
