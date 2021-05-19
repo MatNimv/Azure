@@ -1,3 +1,13 @@
+:root {
+    /*subject colors */
+    --colorMath: rgb(179, 231, 158);
+    --colorTech: rgb(190, 190, 190);
+    --colorLaw: rgb(164, 193, 226);
+    --colorMed: white;
+    --colorSoc: rgb(216, 159, 159);
+    --colorFil: rgb(255, 255, 179);
+    --colorDes: rgb(248, 201, 158);
+}
 
 #HomeNav{ background-color:var(--colorBG);}
 #InfoNav{ background-color: var(--colorBG3);}
@@ -40,6 +50,29 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     flex-direction: row;
 }
 
+
+
+/* Språk */
+.stadOchSprak > div{
+    background-color: var(--colorBG2);
+    padding: 15px;
+    margin-right: 5px;
+    border-radius: 30px;
+}
+
+/* Program */
+.allaProgram{
+    border: 1px solid var(--colorBG4);
+    height: 100px;
+    overflow-y: scroll;
+}
+.oneProgram{
+    background-color: var(--colorBG2);
+    border-radius: 10px;
+    margin:5px;
+    padding: 3px;
+}
+
 /* ämnen */
 .subjects {
     display:grid;
@@ -74,25 +107,4 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 
 .subject {
     font-size: var(--fSizeXS);
-}
-
-/* Språk */
-.stadOchSprak > div{
-    background-color: var(--colorBG2);
-    padding: 15px;
-    margin-right: 5px;
-    border-radius: 30px;
-}
-
-/* Program */
-.allaProgram{
-    border: 1px solid var(--colorBG4);
-    height: 100px;
-    overflow-y: scroll;
-}
-.oneProgram{
-    background-color: var(--colorBG2);
-    border-radius: 10px;
-    margin:5px;
-    padding: 3px;
 }

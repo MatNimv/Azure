@@ -25,29 +25,26 @@ function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar) {
     }
     console.log(data);
 
-let container = document.createElement("div");
-container.classList.add("filter");
-container.innerHTML = 
-    `<label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
+    let container = document.createElement("div");
+    container.classList.add("filter");
+    container.innerHTML =
+        `<label>Search ${data.filterLabelName} by ${data.filterLabelKey}</label>`;
 
-document.querySelector("#searchBar").addEventListener("keyup", function() {
-    let input = document.querySelector("#searchBar").value;
-    document.getElementById("mainWrapper").innerHTML = "";
+    document.querySelector("#searchBar").addEventListener("keyup", function () {
+        let input = document.querySelector("#searchBar").value;
+        console.log(input)
+        document.getElementById("mainWrapper").innerHTML = "";
+
 
         //If input is empty it does nothing
         if (input.length <= 0) {
-            emptySearchBar(); //show(...) funktionen kallas- så alla (...)kort kommer 
-            //upp i bokstavsordning igen IT WORKS!!! YESSSS
+            emptySearchBar();
         }
 
         let filteredArray = data.baseArray.filter(element => {
-            //If the array is the student array its the last name, if its the courses array its the course title and returns it
-            //Element is either student or course array, filterkey is either lastname or title, is in brackets because its variable
-
             return element[data.filterKey].toLowerCase().includes(input.toLowerCase());
         })
         console.log(filteredArray);
-        //Sorts lastname or coursename by ascending order
         filteredArray.sort(function (elementa, elementb) {
             if (elementa[data.filterKey] < elementb[data.filterKey]) {
                 return -1
@@ -59,8 +56,10 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 
         //calls the function and it creates the element
         filteredArray.forEach(data.DOMCreator);
+        console.log(data.DOMCreator)
         document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
     });
+
     return container;
 }
 //////////////////////////////////////////////////////////////////
@@ -68,7 +67,7 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 //////////////////////////////////////////////////////////////////
 
 //ger ett medelvärde utav en array med siffror.
-function averageReviewScore(ratingArray){
+function averageReviewScore(ratingArray) {
     // parameter 1 är värdet som ska avrundas- parameter 2 är hur 
     // många decimaler värdet ska avrundas till.
     function runda(value, precision) {
@@ -80,7 +79,9 @@ function averageReviewScore(ratingArray){
     for (let i = 0; i < ratingArray.length; i++) {
         sumOfNum += ratingArray[i];
     }
+
     return runda(sumOfNum / ratingArray.length, 1);
+
 }
 
 
@@ -182,7 +183,7 @@ function ShowCities() {
                 <p> Tidigare studenters betyg: </p>
                 <p class="accRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsAccomodation)}/5 (Boende)</p> 
                 <p class="foodRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsFood)}/5 (Mat)</p>
-                <p class="outRating"> <img src="../../Kodstruktur/Filer/Images/star.png">"3,5"/5 (Uteliv)</p>
+                <p class="outRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsOut)}/5 (Uteliv)</p>
             </div>
             <p class="cityText"> ${cityCard.CityInfo} </p>
             <div class="uniDiv"></div>
@@ -195,18 +196,7 @@ function ShowCities() {
         </div>
         `
 
-        cityCard.Stars.StarsAccomodation.forEach(acc => {
-            let accRating = document.createElement("span");
-            accRating.innerHTML = `${averageReviewScore(acc)}`;
-            createCityCard.querySelector(".accRating").append(accRating);
-        })
-
-        cityCard.Stars.StarsFood.forEach(food => {
-            let foodRating = document.createElement("span");
-            foodRating.innerHTML = `${averageReviewScore(food)}`;
-            createCityCard.querySelector(".foodRating").append(foodRating);
-        })
-
+        // universitet i en egen div
         cityCard.Universities.forEach(uni => {
             let createDiv = document.createElement("div");
             createDiv.innerHTML = uni;
@@ -242,7 +232,7 @@ function displayCity() {
         `;
     return createCityCard;
 }
-
+console.log(displayCity)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////PROGRAM/////////////////////////////////
@@ -327,7 +317,7 @@ function CollectAllProgramInfo(databas) {
 }
 
 //tillsvidare. Denna är klar förutom reviews som inte läggs i ordning.
-function ShowProgram(){
+function ShowProgram() {
     document.getElementById("mainWrapper").innerHTML = "";
 
     CollectAllProgramInfo(DB).forEach(programCard => {
@@ -364,23 +354,23 @@ function ShowProgram(){
             </div>
         </div>
 `;
-//går genom varje review för vart program och
-//lägger dom i varsin div.
-for (let i = 0; i < programCard.Review.ReviewText.length; i++) {
-    let oneReview = document.createElement("div");
-    oneReview.classList.add("oneReview");
-    oneReview.innerHTML =
-    `
-    <p class="oneText">${programCard.Review.ReviewText[i]}</p>
-    <p class="oneNameAndDate">— ${programCard.Review.ReviewName[i]}, ${programCard.Review.ReviewDate[i].year} - ${programCard.Review.ReviewDate[i].month}/${programCard.Review.ReviewDate[i].day}</p>
-    `;
-    createProgramCard.querySelector(".reviews").append(oneReview);
-    }
-});
+        //går genom varje review för vart program och
+        //lägger dom i varsin div.
+        for (let i = 0; i < programCard.Review.ReviewText.length; i++) {
+            let oneReview = document.createElement("div");
+            oneReview.classList.add("oneReview");
+            oneReview.innerHTML =
+            `
+            <p class="oneText">${programCard.Review.ReviewText[i]}</p>
+            <p class="oneNameAndDate">— ${programCard.Review.ReviewName[i]}, ${programCard.Review.ReviewDate[i].year} - ${programCard.Review.ReviewDate[i].month}/${programCard.Review.ReviewDate[i].day}</p>
+            `;
+            createProgramCard.querySelector(".reviews").append(oneReview);
+        }
+    });
 }
 
 
-function displayProgram(){
+function displayProgram() {
     let createProgramCard = document.createElement("div");
     createProgramCard.classList.add("createProgramCard");
     let programCard = CollectAllProgramInfo(DB);
@@ -460,7 +450,7 @@ function CollectAllUniversityInfo(databas) {
         })
         
         // här ska språk som universitet erbjuder göras
-        
+
         let universityObject =
         {
             University: element.name,
@@ -479,7 +469,7 @@ function CollectAllUniversityInfo(databas) {
     })
     UniversityArray.sort((n1, n2) => n2.City < n1.City ? 1 : -1)
     return UniversityArray;
- 
+
 }
 
 console.log(CollectAllUniversityInfo(DB))
@@ -516,18 +506,7 @@ function ShowUniversities() {
                 
                 </div>
             </div>
-        </div>
-</div>`;
-    //går genom varje element i programArrayen och lägger 
-    //till dom i varsin div. 
-    universityCard.Programmes.forEach(function(program){
-        let oneProgramDiv = document.createElement("div");
-        oneProgramDiv.innerHTML = `${program.name}`;
-        oneProgramDiv.classList.add("oneProgram");
-        createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
-    });
-});
-        
+        </div>`;
 
         //går genom varje element i programArrayen och lägger 
         //till dom i varsin div. 
@@ -554,8 +533,9 @@ function ShowUniversities() {
             }
 
         })
-    }     
-
+        
+    })
+}
 
 function displayUniversity() {
     let createUniversityCard = document.createElement("div");
@@ -581,7 +561,6 @@ function displayUniversity() {
     `;
     return createUniversityCard;
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 /////////CSS ARBETE + INITIALIZATION (ultrafel stavning) AV KNAPPARNA/////
