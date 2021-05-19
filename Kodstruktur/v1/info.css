@@ -43,4 +43,9 @@ nav {
     padding: var(--fSizeS);
 }
 
+.selected{
+    background-color: blue;
+    box-shadow: 10px 5px 5px black;
+}
+
 

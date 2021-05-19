@@ -13,7 +13,7 @@ mainWrapper.innerHTML = `
 `;
 
 document.querySelector("main").append(mainWrapper);
-//document.getElementById(`City`).click();
+document.getElementById("City").click();
 
 //Sökfunktion 
 function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar) {
@@ -51,7 +51,7 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 
         //calls the function and it creates the element
         filteredArray.forEach(element => document.getElementById("mainWrapper").append(data.DOMCreator(element)));
-        document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
+        //document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
     });
 }
 //////////////////////////////////////////////////////////////////
@@ -90,39 +90,47 @@ function CollectAllCityInfo(databas) {
 
     DB.CITIES.forEach(element => {
 
+        //kopplar ihop staden med dess land
         let CityCountryCombo = DB.COUNTRIES.find(function (country) {
             return country.id === element.countryID;
         });
 
+        //tar ut alla recensionerna om staden i en array
         let RatingCityCombo = DB.COMMENTS_CITY.filter(function (city) {
             return city.cityID === element.id;
         });
 
+        //tar ut alla universiteten som finns i staden i en array
         let UniversityCityCombo = DB.UNIVERSITIES.filter(function (university) {
             return university.cityID === element.id;
         });
 
+        //tar ut alla entertainment places i staden i en array
         let EntertainmentCityCombo = DB.ENTERTAINMENT_PLACES.filter(function (entertainment) {
             return entertainment.cityID === element.id;
         });
 
-
+        //tar ut endast betyg om uteliv om staden från recension
         let StarsOutArray = RatingCityCombo.map(function (obj) {
             return obj.stars.out;
         })
 
+        //tar ut endast betyg om mat i staden från recension
         let StarsFoodArray = RatingCityCombo.map(function (obj) {
             return obj.stars.food;
         })
 
+        //tar ut endast betyg om boende i staden från recension
         let StarsAccomodationArray = RatingCityCombo.map(function (obj) {
             return obj.stars.accomodation;
         })
 
+        //tar ut endast namnen av universiteten ur universitetsobjektet
         let UniversitiesArray = UniversityCityCombo.map(function (obj) {
             return obj.name;
         })
 
+        //tar ut endast namnet av entertainmentstället ur entertainmentobjektet
         let EntertainmentArray = EntertainmentCityCombo.map(function (obj) {
             return obj.name;
         })
@@ -209,49 +217,55 @@ function CollectAllProgramInfo(databas) {
     let programArray = [];
 
     DB.PROGRAMMES.forEach(element => {
-
+        //kopplar ihop program med språk.
         let programLanguageCombo = DB.LANGUAGES.find(function (language) {
             return language.id === element.language;
         });
 
+        //kopplar ihop vilken "level" programmet har
         let programeLevelCombo = DB.LEVELS.find(function (arrayOfLevels, index) {
             return index === element.level;
         });
 
+        //kopplar ihop vilket universitet programmet ligger i
         let ProgrammeUniversityCombo = DB.UNIVERSITIES.find(function (university) {
             return university.id === element.universityID;
         });
 
-
+        //hittar alla kommentarer (namn, text, datum) som finns om programmet
         let CommentProgramCombo = COMMENTS_PROGRAMME.filter(function (object) {
             return object.programmeID === element.id;
         })
 
+        //tar ut endast texten ur kommentaren
         let CommentTextArray = CommentProgramCombo.map(function (obj) {
             return obj.text;
         })
 
-
+        //tar ut endast namnet ur kommentaren
         let CommentNameArray = CommentProgramCombo.map(function (obj) {
             return obj.alias;
         })
 
+        //tar ut endast datumet ur kommentaren
         let CommentDateArray = CommentProgramCombo.map(function (obj) {
             return obj.date;
         })
 
+        //tar ut endast betyget om läraren ur recensionen
         let RatingTeachersArray = CommentProgramCombo.map(function (obj) {
             return obj.stars.teachers;
         })
 
+        //tar ut endast betyget om studenter ur recensionen
         let RatingStudentsArray = CommentProgramCombo.map(function (obj) {
             return obj.stars.students;
         })
 
+        //tar ut endast betyget om programmet ur recensionen
         let RatingCoursesArray = CommentProgramCombo.map(function (obj) {
             return obj.stars.courses;
         })
-
 
         let programObject =
         {
@@ -322,7 +336,7 @@ function displayProgram(program){
     `;
     //går genom varje review för vart program och
     //lägger dom i varsin div.
-    /*for (let i = 0; i < program.Review.ReviewText.length; i++) {
+    for (let i = 0; i < program.Review.ReviewText.length; i++) {
     let oneReview = document.createElement("div");
     oneReview.classList.add("oneReview");
     oneReview.innerHTML =
@@ -332,7 +346,7 @@ function displayProgram(program){
     `;
     createProgramCard.querySelector(".reviews").append(oneReview);
     }
-    return createProgramCard;*/
+    return createProgramCard;
 }
 
 
@@ -342,46 +356,45 @@ function displayProgram(program){
 CollectAllUniversityInfo(DB)
 function CollectAllUniversityInfo(databas) {
     let UniversityArray = [];
-    let filteredLanguageArray = [];
-    let languageArray = [];
-
 
     DB.UNIVERSITIES.forEach(element => {
 
+        //kopplar ihop universitet med vilken stad de ligger i.
         let UniversityCityCombo = DB.CITIES.find(function (city) {
             return city.id === element.cityID;
         });
 
+        //kopplar ihop vilket land universitetet ligger i.
         let UniversityCountryCombo = DB.COUNTRIES.find(function (country) {
             return country.id === UniversityCityCombo.countryID;
         });
 
+        //kopplar ihop alla programmen för universitetet.
         let UniversityProgrammeCombo = DB.PROGRAMMES.filter(function (programme) {
             return programme.universityID === element.id;
         });
 
+        //skapar ett objekt av alla universiteters program och dess språk.
         let UniversityProgrammeArray = UniversityProgrammeCombo.map(function (obj) {
-            return obj;
-        })
-
-        let ProgrammeLanguageCombo = DB.LANGUAGES.filter(function (speech) {
-            return speech.id === UniversityProgrammeArray.language;
+            let newObj = {
+                Program: obj,
+                Language: DB.LANGUAGES.find(function (language) {
+                    return language.id === obj.language;
+                })
+            }
+            return newObj;
         });
-
-        let LanguageArray = ProgrammeLanguageCombo.map(function (obj) {
-            return obj.name;
-        })
 
         let universityObject =
         {
             University: element.name,
             Flag: UniversityCountryCombo.flag,
             City: UniversityCityCombo.name,
-            Language: LanguageArray,
+            Language: UniversityProgrammeArray.name,
             Images: UniversityCountryCombo.imagesBig[0],
             Programmes: UniversityProgrammeArray
         }
-
+        console.log(universityObject.Programmes)
         //Universitetets namn + flagga
         //stad och språk för programmen
         //lista över programnman för universitetet
@@ -397,7 +410,6 @@ function ShowUniversities() {
     CollectAllUniversityInfo(DB).forEach(element => document.getElementById("mainWrapper").append(displayUniversity(element)));
 }     
 
-
 function displayUniversity(university) {
     let createUniversityCard = document.createElement("div");
     createUniversityCard.classList.add("createUniversityCard");
@@ -410,7 +422,6 @@ function displayUniversity(university) {
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
                     <div>${university.City}</div>
-                    <div>Spåk/Språk</div>
                 </div>
                 <p>Program:</p>
                 <div class="allaProgram">
@@ -421,7 +432,7 @@ function displayUniversity(university) {
     `;
     university.Programmes.forEach(function(program){
         let oneProgramDiv = document.createElement("div");
-        oneProgramDiv.innerHTML = `${program.name}`;
+        oneProgramDiv.innerHTML = `${program.Program.name} (${program.Language.name})`;
         oneProgramDiv.classList.add("oneProgram");
         createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
 
@@ -440,7 +451,6 @@ function displayUniversity(university) {
             } else {
                 oneProgramDiv.style.backgroundColor = "var(--colorDes)"; 
             }
-
         })
     return createUniversityCard;
 }
