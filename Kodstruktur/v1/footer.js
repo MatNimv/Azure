@@ -7,12 +7,12 @@ let div = document.createElement("div")
 div.innerHTML = 
 `
 <div id="FooterTextWrapper">
-<p id="OmOss">Lol här är text om oss</p>
+<p id="OmOss">sample text</p>
 </div>
 <div id="SocialMediaWrapper">
-<img id="FooterImgOne">
-<img id="FooterImgOne">
-<img id="FooterImgOne">
+<img src="../../Kodstruktur/Filer/Images/facebooklogo.png">
+<img src="../../Kodstruktur/Filer/Images/instagramlogo.png">
+<img src="../../Kodstruktur/Filer/Images/twitterlogo.png">
 </div>
 `
 

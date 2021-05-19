@@ -1,7 +1,25 @@
 "use strict";
 
-//Add name and date to reveiwcells
-//Change names to swedish
+
+
+//CSS Implement
+/*
+const cssArray = ["css/courses.css", "css/nav.css", "css/students.css", "css/style.css", "https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap"];
+
+
+
+cssArray.forEach(function (element) {
+    let linkSheet = document.createElement("link");
+    linkSheet.rel = "stylesheet"
+    linkSheet.type = "text/css"
+    linkSheet.href = element
+    //Applies whats inside the  array into href
+
+    //Selects all elements that have head as tag name and selects the first one
+    document.getElementsByTagName("head")[0].append(linkSheet)
+})
+*/
+
 
 
 
@@ -111,21 +129,21 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
     if(Ratings){
         for (let i = 0; i < Ratings.out; i++) {
             let ReviewSection1 = document.createElement("div");
-            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png">`
             document.querySelector("#ReviewStarsSection1").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
     
         for (let i = 0; i < Ratings.food; i++) {
             let ReviewSection1 = document.createElement("div");
-            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png">`
             document.querySelector("#ReviewStarsSection2").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
     
         for (let i = 0; i < Ratings.accomodation; i++) {
             let ReviewSection1 = document.createElement("div");
-            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png">`
             document.querySelector("#ReviewStarsSection3").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
