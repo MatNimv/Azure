@@ -11,6 +11,7 @@ let ImagePlayArray = [];
 
 let ImageIndex = 0;
 
+//Creates website elements save reviews
 AddWebsiteContent();
 //Add DOM element function
 function AddWebsiteContent() {
@@ -38,7 +39,7 @@ function AddWebsiteContent() {
     <div id="MiddleAds">PLACEHOLDERTEXT</div>
 
     <div id="PluggaWrapper">
-        <p>sugen på att plugga?</p>
+        <p>Sugen på att plugga?</p>
         <button id="MainPageButton">Klicka här!</button>
         <p>Se vad andra studender tycker!</p>
     </div>
@@ -56,7 +57,7 @@ function AddWebsiteContent() {
 
 }
 
-
+//Creates the elements for the reviews
 function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, ProgramText, ProgramRatings, ReviewNameDate, ProgramReviewName) {
     let ReviewCell = document.createElement("div");
     ReviewCell.classList.add("ReviewCell");

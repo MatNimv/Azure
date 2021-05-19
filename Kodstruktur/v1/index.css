@@ -103,6 +103,7 @@ main > div{
     margin: 10px;
     padding: 2px;
     box-sizing: border-box;
+    font-size: var(--fSizeS);
 }
 
 #ImageRollBackward:hover{
@@ -125,6 +126,7 @@ main > div{
     height: 15vh;
     margin: 10px;
     text-align: center;
+    font-size: var(--fSizeS);
 }
 
 #ImageRollPhotoForward:hover{
@@ -150,7 +152,7 @@ main > div{
 }
 
 #PluggaWrapper > p:last-child{
-    margin-top: 30px;
+    margin-top: 50px;
    
 }
 
@@ -170,7 +172,7 @@ main > div{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: var(--fSizeS);
 }
 
 
