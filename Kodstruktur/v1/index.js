@@ -30,7 +30,9 @@ function AddWebsiteContent() {
             <div id="ImageRollPhotoForward">Next Slide</div>
             </div>
         </div>
-    <p id="NameOfImageRoll"></p>
+    <div id="NameOfImageRoll">
+    <p></p>
+    </div>
     </div>
 
     <div id="MiddleAds">PLACEHOLDERTEXT</div>
@@ -38,9 +40,10 @@ function AddWebsiteContent() {
     <div id="PluggaWrapper">
         <p>sugen på att plugga?</p>
         <button id="MainPageButton">Klicka här!</button>
+        <p>Se vad andra studender tycker!</p>
     </div>
     <div id="ReviewWrapper">
-      <p>Se vad andra studender tycker!</p>
+      
       <div id="ReviewCellWrapper">
 
       </div>

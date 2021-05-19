@@ -1,6 +1,10 @@
 
 :root {
+    /* Fonts */
+    --quickSand: 'Quicksand', sans-serif;
+
     /* sizes */
+    --screenSize0: 40%;
     --screenSize1: 60%;
     --screenSize2: 80%;
     --screenSize3: 100%;
@@ -13,17 +17,30 @@
     --veryBigSize: 100px;
 
     /* colors */
-    --colorBG: lightgrey;
-    --colorBG2: grey;
-    --colorBG3: white;
+    --colorBG: #405438;
+    --colorBG2: #C3DBBA;
+    --colorBG3: #A0D48C;
+    --colorBG4: #618b50;
+    --colorBG5: #7BA36B;
+    
 
+}
+
+*{
+    font-family: var(--quickSand);
+    font-size: var(--fSizeS);
+}
+body{
+    margin: 0px;
+    background-color: var(--colorBG2);
+   
 }
 
 header{
    margin-bottom: 50px;
 }
 #InfoNav{ 
-    background-color: var(--colorBG);
+    background-color: var(--colorBG4);
 }
 
 footer{
@@ -48,18 +65,20 @@ main > div{
     display: flex;
     align-items: center;
     flex-direction: column;
-
+    width: 60vw;
+    height: 50vh;
 }
 
 #ImageRollCell{
-    width: 60vw;
     display: flex;
     justify-content: center;
+    width: var(--screenSize3);
+    height: var(--screenSize3);
 }
 
 #ImageRoll{
-    width: 35vw;
-    height: 35vh;
+    width: var(--screenSize3);
+    height: var(--screenSize3);
     background-position: center;
     border: 1px solid black;
     background-size: cover;
@@ -77,12 +96,23 @@ main > div{
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    background-image: grey;
-    box-shadow: 10px 5px 5px grey;
-    height: 30%;
-    width: 100%;
+    background-color: var(--colorBG5);
+    width: 100px;
+    height: 100px;
     text-align: center;
     margin: 10px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+#ImageRollBackward:hover{
+    opacity: 1;
+    transition: opacity .3s, box-shadow .3s;
+    box-shadow: 0px 0px 10px 0px var(--colorBG4);
+}
+
+#ImageRollBackward:active{
+    background-color: var(--colorBG);
 }
 
 #ImageRollPhotoForward{
@@ -90,12 +120,21 @@ main > div{
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    background-image: grey;
-    box-shadow: 10px 5px 5px grey;
-    height: 30%;
-    width: 100%;
+    background-color: var(--colorBG5);
+    width: 100px;
+    height: 100px;
     margin: 10px;
     text-align: center;
+}
+
+#ImageRollPhotoForward:hover{
+    opacity: 1;
+    transition: opacity .3s, box-shadow .3s;
+    box-shadow: 0px 0px 10px 0px var(--colorBG4);
+}
+
+#ImageRollPhotoForward:active{
+    background-color: var(--colorBG);
 }
 
 
@@ -104,7 +143,15 @@ main > div{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background: var(--colorBG4);
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+}
 
+#PluggaWrapper > p:last-child{
+    margin-top: 30px;
+   
 }
 
 #PluggaWrapper > p{
@@ -114,13 +161,18 @@ main > div{
 
 
 #NameOfImageRoll{
-    text-align: center;
+    background-color: var(--colorBG4);
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
 }
 
 
 #ReviewWrapper{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #ReviewWrapper > p{
@@ -130,13 +182,13 @@ text-align: center;
 #ReviewCellWrapper{
     display: flex;
     justify-content: space-around;
-    max-width: 60vw;
+    width: var(--screenSize1);
 }
 
 
 .ReviewCell{
-    width: 40%;
-    background-color: grey;
+    width: var(--screenSize0);
+    background-color: var(--colorBG4);
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -147,17 +199,6 @@ text-align: center;
 }
 
 
-#ReviewWrapper > #ReviewCell > #ReviewProgramCity{
- 
- }
-
- #ReviewWrapper > #ReviewCell > #ReviewText{
- 
-}
-
-#ReviewWrapper >  #ReviewCell > #ReviewNameDate{
- 
-}
 
 #ReviewWrapper > #ReviewCell > #ReviewStars{
     display: flex;
@@ -173,11 +214,13 @@ text-align: center;
 
 
 .ReviewStarShape{
-  
-    height: 30px;
-    width: 30px;
     border-radius: 300px;
     display: inline-block;
+}
+
+.ReviewStarShape > img{
+    height: 25px;
+    width: 25px;
 }
 
 
@@ -195,7 +238,7 @@ text-align: center;
 #SideAdsLeft{
     width: 10vw;
     height: 20vh;
-    background-color: grey;
+    background-color: transparent;
     position: absolute;
     left: 0px;
     top: 50vh;
@@ -204,7 +247,7 @@ text-align: center;
 #SideAdsRight{
     width: 10vw;
     height: 20vh;
-    background-color: grey;
+    background-color: transparent;
     position: absolute;
     right: 0px;
     top: 50vh;
@@ -213,10 +256,7 @@ text-align: center;
 #MiddleAds{
     width: 15vw;
     height: 10vh;
-    background-color: grey;
+    background-color: transparent;
     overflow-wrap: break-word;
 }
 
-img{
-    width: 15px;
-}
