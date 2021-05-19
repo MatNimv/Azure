@@ -77,8 +77,8 @@ main > div{
 }
 
 #ImageRoll{
-    width: 50vw;
-    height: 40vh;
+    width: var(--screenSize3);
+    height: var(--screenSize3);
     background-position: center;
     border: 1px solid black;
     background-size: cover;
