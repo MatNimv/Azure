@@ -196,7 +196,7 @@ function displayCity(city) {
         `
         <div class="cityCard">
             <h1 class="cityNames"> ${city.City}, ${city.Country} <img src="../Filer/Images/${city.Flag}" class="flag"> </h1>
-            <div class="ratingsByStudents"> 
+            <div class="studentRatings"> 
                 <p> Tidigare studenters betyg: </p>
                 <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsAccomodation)}/5 (Boende)</p> 
                 <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsFood)}/5 (Mat)</p>
@@ -207,7 +207,7 @@ function displayCity(city) {
             <div class="imageAndScroll">
                 <img src="../Filer/Images/${city.Images}">
                 <div class="entertainmentPlaces"> 
-                    <p>${city.Entertainment}</p>
+                    <p>${city.Entertainment.join(" | ")}</p>
                 </div>
             </div>
         </div>
@@ -439,6 +439,15 @@ function displayUniversity(university) {
                 <div class="stadOchSprak">
                     <div>${university.City}</div>
                 </div>
+                <div class="subjects">
+                    <p class="subject"><span></span>${DB.FIELDS[0].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[1].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[2].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[3].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[4].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[5].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[6].name}</p>
+                </div>
                 <p>Program:</p>
                 <div class="allaProgram">
                 
@@ -452,17 +461,17 @@ function displayUniversity(university) {
         oneProgramDiv.classList.add("oneProgram");
         createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
 
-            if (program.subjectID === 0) {
+            if (program.Program.subjectID === 0) {
                 oneProgramDiv.style.backgroundColor = "var(--colorMath)";
-            } else if (program.subjectID === 1) {
+            } else if (program.Program.subjectID === 1) {
                 oneProgramDiv.style.backgroundColor = "var(--colorTech)";
-            } else if (program.subjectID === 2) {
+            } else if (program.Program.subjectID === 2) {
                 oneProgramDiv.style.backgroundColor = "var(--colorLaw)";
-            } else if (program.subjectID === 3) {
+            } else if (program.Program.subjectID === 3) {
                 oneProgramDiv.style.backgroundColor = "var(--colorMed)";
-            } else if (program.subjectID === 4) {
+            } else if (program.Program.subjectID === 4) {
                 oneProgramDiv.style.backgroundColor = "var(--colorSoc)";
-            } else if (program.subjectID === 5) {
+            } else if (program.Program.subjectID === 5) {
                 oneProgramDiv.style.backgroundColor = "var(--colorFil)";
             } else {
                 oneProgramDiv.style.backgroundColor = "var(--colorDes)"; 
