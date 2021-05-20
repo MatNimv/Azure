@@ -4,9 +4,9 @@ let placeHolder = "Sök efter städer...";
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
-    <button id="City">City</button>
-    <button id="Program">Program</button>
-    <button id="University">University</button>
+    <button id="City"><img src="../Filer/Images/city_icon.png">City</button>
+    <button id="Program"><img src="../Filer/Images/program_icon.png">Program</button>
+    <button id="University"><img src="../Filer/Images/university_icon.png">University</button>
 </nav>
 <div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
 <div id="mainWrapper"></div>
@@ -177,9 +177,9 @@ function ShowCities() {
         document.querySelector("#mainWrapper").append(createCityCard);
 
         createCityCard.innerHTML = `
-        <div class="cityCard">
+        <div class="card">
             <h1 class="cityNames"> ${cityCard.City}, ${cityCard.Country} <img src="../Filer/Images/${cityCard.Flag}" class="flag"> </h1>
-            <div class="ratingsByStudents"> 
+            <div class="studentRatings"> 
                 <p> Tidigare studenters betyg: </p>
                 <p class="accRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsAccomodation)}/5 (Boende)</p> 
                 <p class="foodRating"> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(cityCard.Stars.StarsFood)}/5 (Mat)</p>
@@ -190,7 +190,7 @@ function ShowCities() {
             <div class="imageAndScroll">
                 <img src="../Filer/Images/${cityCard.Images}">
                 <div class="entertainmentPlaces"> 
-                    <p>${cityCard.Entertainment}</p>
+                    <p>${cityCard.Entertainment.join(" | ")}</p>
                 </div>
             </div>
         </div>
@@ -322,7 +322,7 @@ function ShowProgram() {
 
     CollectAllProgramInfo(DB).forEach(programCard => {
         let createProgramCard = document.createElement("div");
-        createProgramCard.classList.add("createProgramCard");
+        createProgramCard.classList.add("card");
         document.getElementById("mainWrapper").append(createProgramCard);
         //console.log(averageReviewScore(programCard.Ratings.RatingTeachers));
         createProgramCard.innerHTML =
@@ -480,7 +480,7 @@ function ShowUniversities() {
     CollectAllUniversityInfo(DB).forEach(universityCard => {
 
         let createUniversityCard = document.createElement("div");
-        createUniversityCard.classList.add("createUniversityCard");
+        createUniversityCard.classList.add("card"); // ändrade så att alla tre funktioner har samma klass här iom. de är samma
         document.getElementById("mainWrapper").append(createUniversityCard);
         createUniversityCard.innerHTML =
             `
@@ -571,15 +571,21 @@ let StyleCSS = document.createElement("link");
 StyleCSS.setAttribute("href", `City.css`);
 document.querySelector("head").append(StyleCSS);
 StyleCSS.setAttribute("rel", "stylesheet");
+document.querySelector("#City").classList.add("pressed");
 
 
 //Checkbox Buttons
+
 document.querySelector(`#City`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#Program").classList.remove("pressed");
+    document.querySelector("#University").classList.remove("pressed");
+    document.querySelector("#City").classList.add("pressed");
+
     ShowCities();
     FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities);
 });
@@ -591,6 +597,10 @@ document.querySelector(`#Program`).addEventListener("click", function () {
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#University").classList.remove("pressed");
+    document.querySelector("#City").classList.remove("pressed");
+    document.querySelector("#Program").classList.add("pressed");
+
     ShowProgram();
     FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram);
 });
@@ -602,6 +612,10 @@ document.querySelector(`#University`).addEventListener("click", function () {
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#Program").classList.remove("pressed");
+    document.querySelector("#City").classList.remove("pressed");
+    document.querySelector("#University").classList.add("pressed");
+
     ShowUniversities();
     FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities);
 });

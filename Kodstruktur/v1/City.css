@@ -1,18 +1,3 @@
-.cityCard {
-    padding: var(--fSizeS);
-    margin-bottom: var(--fSizeS);
-
-    background-color: var(--colorBG);
-    opacity: 0.6;
-    box-shadow: 0px;
-    transition: opacity 1s, box-shadow 1s;
-}
-
-.cityCard:hover {
-    opacity: 1;
-    transition: opacity .3s, box-shadow .3s;
-    box-shadow: 0px 0px 10px 0px var(--colorBG4);
-}
 
 .flag {
     height: 20px;
@@ -23,21 +8,7 @@
     font-size: var(--fSizeM);
 }
 
-.ratingsByStudents {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: repeat(4, 1fr);
-} 
-.ratingsByStudents p {
-    margin: 0;
-     
-    display: flex;
-    align-items: center;
-   
-}
-.ratingsByStudents p > img{ width: 25px; padding-bottom: 4px;}
-
-.ratingsByStudents p, .cityText, .imageAndScroll p, .uniBoxes {
+.cityText, .imageAndScroll p, .uniBoxes {
     font-size: var(--fSizeS);
 }
 
@@ -66,7 +37,8 @@
     margin: 0;
     width: var(--screenSize3);
     height: var(--screenSize3);
-    overflow-y: scroll;
+
+    background-color: var(--colorBG2);
 }
 
 .imageAndScroll img {
@@ -78,9 +50,10 @@
     width: 90%;
     overflow-y: scroll;
 
-    background-color: var(--colorBG2);
     padding: var(--fSizeXS);
     margin-left: var(--fSizeS);
+
+    line-height: 25px;
 }
 
 

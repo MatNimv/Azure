@@ -15,23 +15,6 @@ nav{padding-bottom: 40px;}
 p, h1, h4{ margin: 0px;}
 .stadOchSprak div, .allaProgram div{font-size: var(--fSizeS);}
 
-.createUniversityCard{ 
-    padding: var(--fSizeS);
-    margin-bottom: var(--fSizeS);
-    
-    background-color: var(--colorBG);
-    opacity: 0.6;
-    box-shadow: 0px;
-    transition: opacity 1s, box-shadow 1s;
-}
-    
-.createUniversityCard:hover {
-    opacity: 1;
-    transition: opacity .3s, box-shadow .3s;
-    box-shadow: 0px 0px 10px 0px var(--colorBG4);
-}
-
-
 h1{padding-bottom: 20px; font-size: var(--fSizeM);}
 h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 
