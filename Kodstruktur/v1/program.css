@@ -41,7 +41,7 @@ h1{font-size: var(--fSizeM);}
     margin-bottom: 2px;
 }
 .reviews{
-    border: 1px solid var(--colorBG4);
+    border: 1px solid var(--basic2);
     width: 100%;
     margin-left: 30px;
     overflow-y: scroll;
@@ -50,6 +50,6 @@ h1{font-size: var(--fSizeM);}
 .reviews > div:last-child{border:none;}
 .oneReview{
     margin: 5px 8px 5px 8px;
-    border-bottom: 1px solid var(--colorBG4);
+    border-bottom: 1px solid var(--basic2);
 }
 .oneNameAndDate{font-style: italic; font-weight: bold; padding-bottom: 5px;}

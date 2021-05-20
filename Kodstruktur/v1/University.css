@@ -48,7 +48,7 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 .allaProgram{
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--colorBG4);
+    border: 1px solid var(--basic2);
     height: 30%;
     overflow-y: scroll;
 }
