@@ -42,4 +42,5 @@ align-items: center;
 footer > div > div:nth-child(2) > img{
 height: 50px;
 width: 50px;
+padding: 0px 20px 0px 20px;
 }

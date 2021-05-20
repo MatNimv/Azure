@@ -50,6 +50,7 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
             newDiv.classList.add("placeDiv");
             newDiv.innerHTML = `Hittade inga ${placeText}. Testa sök på något annat!`;
             document.getElementById("mainWrapper").append(newDiv);
+            document.querySelector("#mainWrapper").style.overflowY = "hidden";
         }
 
         console.log(filteredArray);
@@ -331,9 +332,9 @@ function displayProgram(program){
     </div>
     <div class="studentRatings">
         <div>Tidigare studenters betyg:</div>
-        <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingTeachers)}/5 <span> (Lärarna)</span></p>
-        <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingStudents)}/5 (Klasskamrater)</span></p>
-        <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingCourses)}/5 (Kurserna)</span></p>
+        <p><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingTeachers)}/5 (Lärarna)</p>
+        <p><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingStudents)}/5 (Klasskamrater)</p>
+        <p><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingCourses)}/5 (Kurserna)</p>
     </div>
     <div class="successOchReview">
         <div class="successRateDiv">
