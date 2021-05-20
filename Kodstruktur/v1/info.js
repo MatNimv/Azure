@@ -1,6 +1,6 @@
 "use strict";
 
-let placeHolder = "";
+
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
@@ -8,20 +8,28 @@ mainWrapper.innerHTML = `
     <button id="Program"><img src="../Filer/Images/program_icon.png">Program</button>
     <button id="University"><img src="../Filer/Images/university_icon.png">University</button>
 </nav>
-<div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
+<div id="searchDiv"><input id="searchBar" type="text""></div>
 <div id="mainWrapper"></div>
 `;
 
 document.querySelector("main").append(mainWrapper);
-document.getElementById("City").click();
+
+//CSS intro
+let StyleCSS = document.createElement("link");
+StyleCSS.setAttribute("href", `City.css`);
+document.querySelector("head").append(StyleCSS);
+StyleCSS.setAttribute("rel", "stylesheet");
+document.querySelector("#City").classList.add("pressed");
+CityClicked();
 
 //Sökfunktion 
-function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar) {
+function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar, placeText) {
     let data = {
         baseArray: CollectDB, //array som ska filtreras från collektfunktionen
         filterKey: keyName, //input som searchbaren utgår från
         filterLabelKey: "", //sökord
-        DOMCreator: ShowArrays //vilken av displayfunktionerna som kallas
+        DOMCreator: ShowArrays, //vilken av displayfunktionerna som kallas
+        DOMNoSearch: placeText
     }
     console.log(data);
 
@@ -37,6 +45,12 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
         let filteredArray = data.baseArray.filter(element => {
             return element[data.filterKey].toLowerCase().includes(input.toLowerCase());
         })
+        if (input.length > 0 && filteredArray.length === 0){
+            let newDiv = document.createElement("div");
+            newDiv.classList.add("placeDiv");
+            newDiv.innerHTML = `Hittade inga ${placeText}. Testa sök på något annat!`;
+            document.getElementById("mainWrapper").append(newDiv);
+        }
 
         console.log(filteredArray);
         //Sorts the filtered array - city, university and programme names A-Ö
@@ -51,7 +65,6 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 
         //calls the function and it creates the element
         filteredArray.forEach(element => document.getElementById("mainWrapper").append(data.DOMCreator(element)));
-        //document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
     });
 }
 //////////////////////////////////////////////////////////////////
@@ -471,21 +484,13 @@ function displayUniversity(university) {
 /////////CSS ARBETE + INITIALIZATION (ultrafel stavning) AV KNAPPARNA/////
 //////////////////////////////////////////////////////////////////////////
 
-//CSS intro
-let StyleCSS = document.createElement("link");
-StyleCSS.setAttribute("href", `City.css`);
-document.querySelector("head").append(StyleCSS);
-StyleCSS.setAttribute("rel", "stylesheet");
-document.querySelector("#City").classList.add("pressed");
-
 
 //Checkbox Buttons
-
-document.querySelector(`#City`).addEventListener("click", function () {
+function CityClicked(){
     StyleCSS.remove();
-    let click = this.innerText;
-    placeHolder = "Sök efter städer...";
-    document.querySelector("#searchBar").innerText = "";
+    let click = document.querySelector(`#City`).innerText;
+    document.querySelector("#searchBar").placeholder = "Sök efter städer...";
+    document.querySelector("#searchBar").value = "";
 
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
@@ -495,13 +500,17 @@ document.querySelector(`#City`).addEventListener("click", function () {
     document.querySelector("#City").classList.add("pressed");
 
     ShowCities();
-    FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities);
+    FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities, "städer");
+}
+document.querySelector(`#City`).addEventListener("click", function () {
+    CityClicked();
 });
 
 document.querySelector(`#Program`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
-    placeHolder = "Sök efter program...";
+    document.querySelector("#searchBar").placeholder = "Sök efter program...";
+    document.querySelector("#searchBar").value = "";
 
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
@@ -511,13 +520,14 @@ document.querySelector(`#Program`).addEventListener("click", function () {
     document.querySelector("#Program").classList.add("pressed");
 
     ShowProgram();
-    FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram);
+    FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram, "program");
 });
 
 document.querySelector(`#University`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
-    placeHolder = "Sök efter universitet...";
+    document.querySelector("#searchBar").placeholder = "Sök efter universitet...";
+    document.querySelector("#searchBar").value = "";
     
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
@@ -527,6 +537,6 @@ document.querySelector(`#University`).addEventListener("click", function () {
     document.querySelector("#University").classList.add("pressed");
 
     ShowUniversities();
-    FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities);
+    FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities, "universitet");
 });
 
