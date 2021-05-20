@@ -9,9 +9,6 @@
     --colorDes: rgb(248, 201, 158);
 }
 
-#HomeNav{ background-color:var(--colorBG);}
-#InfoNav{ background-color: var(--colorBG3);}
-nav{padding-bottom: 40px;}
 p, h1, h4{ margin: 0px;}
 .stadOchSprak div, .allaProgram div{font-size: var(--fSizeS);}
 
@@ -23,8 +20,13 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 }
 .universityContent > div:first-child{width: 55%;}
 .universityContent > div:first-child > img{width: 100%;}
+.universityContent > div:last-child {
+    width: 45%;
+}
 
 .infoOchProgram{
+    display: flex;
+    flex-direction: column;
     padding-left: 20px;
 }
 
@@ -32,7 +34,6 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
     display:flex;
     flex-direction: row;
 }
-
 
 
 /* Språk */
@@ -45,8 +46,11 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 
 /* Program */
 .allaProgram{
+    display: flex;
+    flex-basis: 1;
+    flex-direction: column;
     border: 1px solid var(--colorBG4);
-    height: 100px;
+    height: 30%;
     overflow-y: scroll;
 }
 .oneProgram{
@@ -86,7 +90,7 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 .subject:nth-child(4) > span {background-color: var(--colorMed);}
 .subject:nth-child(5) > span {background-color: var(--colorSoc);}
 .subject:nth-child(6) > span {background-color: var(--colorFil);}
-.subject:last-child > span {background-color: var(--colorDes);}
+.subject:last-child > span {background-color: var(--colorDes);} 
 
 .subject {
     font-size: var(--fSizeXS);
