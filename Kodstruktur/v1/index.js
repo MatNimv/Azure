@@ -1,9 +1,27 @@
 "use strict";
 
-//Add name and date to reveiwcells
-//Change names to swedish
 
-//<img src="../../Kodstruktur/Filer/Images/star.png">
+
+//CSS Implement
+/*
+const cssArray = ["css/courses.css", "css/nav.css", "css/students.css", "css/style.css", "https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap"];
+
+
+
+cssArray.forEach(function (element) {
+    let linkSheet = document.createElement("link");
+    linkSheet.rel = "stylesheet"
+    linkSheet.type = "text/css"
+    linkSheet.href = element
+    //Applies whats inside the  array into href
+
+    //Selects all elements that have head as tag name and selects the first one
+    document.getElementsByTagName("head")[0].append(linkSheet)
+})
+*/
+
+
+
 
 //ImagePlay function
 
@@ -11,12 +29,16 @@ let ImagePlayArray = [];
 
 let ImageIndex = 0;
 
+//Creates website elements save reviews
 AddWebsiteContent();
 //Add DOM element function
 function AddWebsiteContent() {
     let div = document.createElement("div");
     div.innerHTML =
         `
+        <div id="SideAdsLeft">PLACEHOLDERTEXT</div>
+        <div id="SideAdsRight">PLACEHOLDERTEXT</div>
+    
     <div id="ImageRollWrapper">
         <div id="ImageRollCell">
             <div class="ImageButtonHolder">
@@ -27,16 +49,20 @@ function AddWebsiteContent() {
             <div id="ImageRollPhotoForward">Next Slide</div>
             </div>
         </div>
-    <p id="NameOfImageRoll"></p>
+    <div id="NameOfImageRoll">
+    <p></p>
     </div>
-    
-    
+    </div>
+
+    <div id="MiddleAds">PLACEHOLDERTEXT</div>
+
     <div id="PluggaWrapper">
-        <p>sugen på att plugga?</p>
+        <p>Sugen på att plugga?</p>
         <button id="MainPageButton">Klicka här!</button>
+        <p>Se vad andra studender tycker!</p>
     </div>
     <div id="ReviewWrapper">
-      <p>Se vad andra studender tycker!</p>
+      
       <div id="ReviewCellWrapper">
 
       </div>
@@ -49,7 +75,7 @@ function AddWebsiteContent() {
 
 }
 
-
+//Creates the elements for the reviews
 function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, ProgramText, ProgramRatings, ReviewNameDate, ProgramReviewName) {
     let ReviewCell = document.createElement("div");
     ReviewCell.classList.add("ReviewCell");
@@ -103,18 +129,21 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
     if(Ratings){
         for (let i = 0; i < Ratings.out; i++) {
             let ReviewSection1 = document.createElement("div");
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png">`
             document.querySelector("#ReviewStarsSection1").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
     
         for (let i = 0; i < Ratings.food; i++) {
             let ReviewSection1 = document.createElement("div");
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png">`
             document.querySelector("#ReviewStarsSection2").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
     
         for (let i = 0; i < Ratings.accomodation; i++) {
             let ReviewSection1 = document.createElement("div");
+            ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png">`
             document.querySelector("#ReviewStarsSection3").append(ReviewSection1);
             ReviewSection1.classList.add("ReviewStarShape");
         }
@@ -132,18 +161,21 @@ function ReviewCreator(ReviewProgramCityName, ReviewText, Ratings, ProgramName, 
     // For loops for program review stars ------------------
     for (let i = 0; i < ProgramRatings.teachers; i++) {
         let ReviewSection1 = document.createElement("div");
+        ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
         document.querySelector("#ProgramStarsSection1").append(ReviewSection1);
         ReviewSection1.classList.add("ReviewStarShape");
     }
 
     for (let i = 0; i < ProgramRatings.students; i++) {
         let ReviewSection1 = document.createElement("div");
+        ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
         document.querySelector("#ProgramStarsSection2").append(ReviewSection1);
         ReviewSection1.classList.add("ReviewStarShape");
     }
 
     for (let i = 0; i < ProgramRatings.courses; i++) {
         let ReviewSection1 = document.createElement("div");
+        ReviewSection1.innerHTML = `<img src="../../Kodstruktur/Filer/Images/star.png"></img>`
         document.querySelector("#ProgramStarsSection3").append(ReviewSection1);
         ReviewSection1.classList.add("ReviewStarShape");
     }
