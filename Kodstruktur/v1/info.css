@@ -123,7 +123,7 @@ button:hover {
     padding: var(--fSizeS);
     margin-bottom: var(--fSizeS);
 
-    background-color: var(--colorBG3);
+    background-color: var(--colorBG4);
     opacity: 0.6;
     box-shadow: 0px;
     transition: opacity 1s, box-shadow 1s;
