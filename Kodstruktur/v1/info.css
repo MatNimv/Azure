@@ -1,4 +1,12 @@
 :root {
+    /* fonts */
+    --font1: "Quicksand";
+    --font2: "Lato";
+    --font3: "Nunito Sans";
+    --font4: "Questrial";
+    --font5: "Alata";
+    --font6: "Vidaloka";
+    
     /* sizes */
     --screenSize1: 60%;
     --screenSize2: 80%;
@@ -12,11 +20,15 @@
     --veryBigSize: 100px;
 
     /* colors */
-    --colorBG: lightgrey;
-    --colorBG2: grey;
-    --colorBG3: white;
-    --colorBG4: black;
+    --colorBG: #405438;
+    --colorBG2: #e3ffd9;
+    --colorBG3: #95b986;
+    --colorBG4: #618b50;
+    --colorBG5: #7BA36B;
 
+    /* basic colors */
+    --basic1: white;
+    --basic2: black;
 }
 
 body{ 
@@ -24,17 +36,69 @@ body{
     flex-direction: column;
     justify-content: center;
     margin: 0px;
-    height: var(--screenSize3);
+    height: var(--screenSize4);
+
+    background-color: var(--colorBG2);
+    font-family: var(--font1);
+    font-weight: bold;
+    line-height: 20px;
 }
 
 nav {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: repeat(3, 1fr);
+    
+    margin: var(--fSizeXL);
 }
-#HomeNav{ background-color:var(--colorBG);}
-#InfoNav{ background-color: var(--colorBG3);}
+#HomeNav{ background-color:var(--colorBG); color: var(--basic1);}
+#InfoNav{ background-color: var(--colorBG2);}
 
+header {
+    margin: 0;
+}
+
+main {
+    margin: 0;
+}
+
+/* buttons */
+nav > button {
+    width: 115px;
+    height: 40px;
+
+    margin-right: 50px;
+    margin-left: 50px;
+    border: 2px rgb(156, 156, 156) solid;
+    border-radius: 50px;
+
+    background-color: var(--basic1);
+}
+
+button > img {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    cursor: pointer;
+}
+.pressed {
+    border: 4px var(--colorBG4) solid;
+}
+
+#University img {
+    margin-bottom: 5px;
+}
+
+/* the wrapper */
 #mainWrapper {
     width: var(--screenSize1);
     height: 100vh; 
@@ -43,9 +107,54 @@ nav {
     padding: var(--fSizeS);
 }
 
-.selected{
-    background-color: blue;
-    box-shadow: 10px 5px 5px black;
+/* search */
+#searchBar {
+    width: 59vw;
+    height: var(--fSizeL);
+    margin-bottom: var(--fSizeS);
+    padding-left: var(--fSizeXS);
+
+    border-radius: 15px;
+    border: 2px var(--colorBG4) solid;
 }
 
+/* kortinfon */
+.card {
+    padding: var(--fSizeS);
+    margin-bottom: var(--fSizeS);
 
+    background-color: var(--colorBG3);
+    opacity: 0.6;
+    box-shadow: 0px;
+    transition: opacity 1s, box-shadow 1s;
+}
+
+.card:hover {
+    opacity: 1;
+    transition: opacity .3s, box-shadow .3s;
+    box-shadow: 0px 0px 10px 0px var(--basic2);
+}
+
+/* ratings */
+
+.studentRatings {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+} 
+.studentRatings p {
+    margin: 0;
+     
+    display: flex;
+    align-items: center;
+    font-size: var(--fSizeS);
+   
+}
+
+.studentRatings > div, .studentRatings > p {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.studentRatings p > img{ width: 25px; padding-bottom: 4px;}

@@ -4,9 +4,9 @@ let placeHolder = "";
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
-    <button id="City">City</button>
-    <button id="Program">Program</button>
-    <button id="University">University</button>
+    <button id="City"><img src="../Filer/Images/city_icon.png">City</button>
+    <button id="Program"><img src="../Filer/Images/program_icon.png">Program</button>
+    <button id="University"><img src="../Filer/Images/university_icon.png">University</button>
 </nav>
 <div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
 <div id="mainWrapper"></div>
@@ -59,7 +59,7 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 //////////////////////////////////////////////////////////////////
 
 //ger ett medelvärde utav en array med siffror.
-function averageReviewScore(ratingArray){
+function averageReviewScore(ratingArray) {
     // parameter 1 är värdet som ska avrundas- parameter 2 är hur 
     // många decimaler värdet ska avrundas till.
     function runda(value, precision) {
@@ -76,7 +76,9 @@ function averageReviewScore(ratingArray){
         let noDataDiv = "No data ";
         return noDataDiv;
     }
+
     return runda(sumOfNum / ratingArray.length, 1);
+
 }
 
 
@@ -176,7 +178,7 @@ function ShowCities() {
 
 function displayCity(city) {
     let createCityCard = document.createElement("div");
-    createCityCard.classList.add("createCityCard");
+    createCityCard.classList.add("card");
     createCityCard.innerHTML =
         `
         <div class="cityCard">
@@ -207,7 +209,7 @@ function displayCity(city) {
 
     return createCityCard;
 }
-
+console.log(displayCity)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////PROGRAM/////////////////////////////////
@@ -297,14 +299,15 @@ function CollectAllProgramInfo(databas) {
     return programArray;
 }
 
-function ShowProgram(){
+
+function ShowProgram() {
     document.getElementById("mainWrapper").innerHTML = "";
     CollectAllProgramInfo(DB).forEach(element => document.getElementById("mainWrapper").append(displayProgram(element)));
 }
 
 function displayProgram(program){
     let createProgramCard = document.createElement("div");
-    createProgramCard.classList.add("createProgramCard");
+    createProgramCard.classList.add("card");
     createProgramCard.innerHTML =
     `
     <h1>${program.Program}</h1>
@@ -412,7 +415,7 @@ function ShowUniversities() {
 
 function displayUniversity(university) {
     let createUniversityCard = document.createElement("div");
-    createUniversityCard.classList.add("createUniversityCard");
+    createUniversityCard.classList.add("card");
 
     createUniversityCard.innerHTML =
         `
@@ -455,7 +458,6 @@ function displayUniversity(university) {
     return createUniversityCard;
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 /////////CSS ARBETE + INITIALIZATION (ultrafel stavning) AV KNAPPARNA/////
 //////////////////////////////////////////////////////////////////////////
@@ -465,9 +467,11 @@ let StyleCSS = document.createElement("link");
 StyleCSS.setAttribute("href", `City.css`);
 document.querySelector("head").append(StyleCSS);
 StyleCSS.setAttribute("rel", "stylesheet");
+document.querySelector("#City").classList.add("pressed");
 
 
 //Checkbox Buttons
+
 document.querySelector(`#City`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
@@ -477,6 +481,10 @@ document.querySelector(`#City`).addEventListener("click", function () {
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#Program").classList.remove("pressed");
+    document.querySelector("#University").classList.remove("pressed");
+    document.querySelector("#City").classList.add("pressed");
+
     ShowCities();
     FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities);
 });
@@ -489,6 +497,10 @@ document.querySelector(`#Program`).addEventListener("click", function () {
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#University").classList.remove("pressed");
+    document.querySelector("#City").classList.remove("pressed");
+    document.querySelector("#Program").classList.add("pressed");
+
     ShowProgram();
     FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram);
 });
@@ -501,6 +513,10 @@ document.querySelector(`#University`).addEventListener("click", function () {
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#Program").classList.remove("pressed");
+    document.querySelector("#City").classList.remove("pressed");
+    document.querySelector("#University").classList.add("pressed");
+
     ShowUniversities();
     FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities);
 });
