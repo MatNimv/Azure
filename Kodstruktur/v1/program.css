@@ -32,13 +32,14 @@ h1{font-size: var(--fSizeM);}
     flex-direction: column;
     justify-content: space-between;
 }
-.nmbrOchYear > p > span:last-child{ padding-left: 28px;}
+.nmbrOchYear > p > span:last-child{ padding-left: 80px;}
 .nmbrOchYear > p > span:first-child{padding-left: 5px;}
 .nmbrOchYear > p{ 
     background-color: var(--colorBG2);
     border-radius: 10px;
     padding: 1px;
     margin-bottom: 5px;
+    display:flex;
 }
 .reviews{
     border: 1px solid var(--basic2);

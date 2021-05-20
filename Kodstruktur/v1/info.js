@@ -338,7 +338,7 @@ function displayProgram(program){
     </div>
     <div class="successOchReview">
         <div class="successRateDiv">
-            <h4>Avklaringsgrad</h4>
+            <h4>Genomströmningsgrad</h4>
             <div class="nmbrOchYear">
                 <p><span>2020 </span><span> ${program.SuccessRate[0]}%</span></p>
                 <p><span>2019 </span><span> ${program.SuccessRate[1]}%</span></p>
