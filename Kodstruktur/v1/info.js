@@ -1,6 +1,6 @@
 "use strict";
 
-let placeHolder = "";
+
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
@@ -8,7 +8,7 @@ mainWrapper.innerHTML = `
     <button id="Program"><img src="../Filer/Images/program_icon.png">Program</button>
     <button id="University"><img src="../Filer/Images/university_icon.png">University</button>
 </nav>
-<div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
+<div id="searchDiv"><input id="searchBar" type="text""></div>
 <div id="mainWrapper"></div>
 `;
 
@@ -489,8 +489,8 @@ function displayUniversity(university) {
 function CityClicked(){
     StyleCSS.remove();
     let click = document.querySelector(`#City`).innerText;
-    placeHolder = "Sök efter städer...";
-    document.querySelector("#searchBar").innerText = "";
+    document.querySelector("#searchBar").placeholder = "Sök efter städer...";
+    document.querySelector("#searchBar").value = "";
 
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
@@ -509,7 +509,8 @@ document.querySelector(`#City`).addEventListener("click", function () {
 document.querySelector(`#Program`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
-    placeHolder = "Sök efter program...";
+    document.querySelector("#searchBar").placeholder = "Sök efter program...";
+    document.querySelector("#searchBar").value = "";
 
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
@@ -525,7 +526,8 @@ document.querySelector(`#Program`).addEventListener("click", function () {
 document.querySelector(`#University`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
-    placeHolder = "Sök efter universitet...";
+    document.querySelector("#searchBar").placeholder = "Sök efter universitet...";
+    document.querySelector("#searchBar").value = "";
     
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
