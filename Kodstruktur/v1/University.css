@@ -47,7 +47,6 @@ h1 > img {padding: 5px 0px 0px 5px; width: 30px;}
 /* Program */
 .allaProgram{
     display: flex;
-    flex-basis: 1;
     flex-direction: column;
     border: 1px solid var(--colorBG4);
     height: 30%;
