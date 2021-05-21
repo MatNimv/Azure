@@ -2,27 +2,6 @@
 
 
 
-//CSS Implement
-/*
-const cssArray = ["css/courses.css", "css/nav.css", "css/students.css", "css/style.css", "https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap"];
-
-
-
-cssArray.forEach(function (element) {
-    let linkSheet = document.createElement("link");
-    linkSheet.rel = "stylesheet"
-    linkSheet.type = "text/css"
-    linkSheet.href = element
-    //Applies whats inside the  array into href
-
-    //Selects all elements that have head as tag name and selects the first one
-    document.getElementsByTagName("head")[0].append(linkSheet)
-})
-*/
-
-
-
-
 //ImagePlay function
 
 let ImagePlayArray = [];
@@ -36,8 +15,7 @@ function AddWebsiteContent() {
     let div = document.createElement("div");
     div.innerHTML =
         `
-        <div id="SideAdsLeft">PLACEHOLDERTEXT</div>
-        <div id="SideAdsRight">PLACEHOLDERTEXT</div>
+        <div id="SideAdsRight"></div>
     
     <div id="ImageRollWrapper">
         <div id="ImageRollCell">
@@ -54,7 +32,7 @@ function AddWebsiteContent() {
     </div>
     </div>
 
-    <div id="MiddleAds">PLACEHOLDERTEXT</div>
+    <div id="MiddleAds"></div>
 
     <div id="PluggaWrapper">
         <p>Sugen på att plugga?</p>
