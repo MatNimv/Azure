@@ -1,7 +1,7 @@
 
 :root {
     /* Fonts */
-    --quickSand: 'Quicksand', sans-serif;
+    --quickSand: 'Quicksand';
 
     /* sizes */
     --screenSize0: 40%;
@@ -40,6 +40,7 @@ body{
 header{
    margin-bottom: 50px;
 }
+
 #InfoNav{ 
     background-color: var(--colorBG4);
 }

@@ -1,11 +1,6 @@
 :root {
     /* fonts */
     --font1: "Quicksand";
-    --font2: "Lato";
-    --font3: "Nunito Sans";
-    --font4: "Questrial";
-    --font5: "Alata";
-    --font6: "Vidaloka";
     
     /* sizes */
     --screenSize1: 60%;
@@ -57,6 +52,7 @@ nav {
 
 #InfoNav{ 
     background-color: var(--colorBG2);
+    font-weight: 600;
 }
 
 header {
