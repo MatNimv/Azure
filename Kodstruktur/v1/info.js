@@ -1,27 +1,35 @@
 "use strict";
 
-let placeHolder = "";
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
-    <button id="City">City</button>
-    <button id="Program">Program</button>
-    <button id="University">University</button>
+    <button id="City"><img src="../Filer/Images/city_icon.png">City</button>
+    <button id="Program"><img src="../Filer/Images/program_icon.png">Program</button>
+    <button id="University"><img src="../Filer/Images/university_icon.png">University</button>
 </nav>
-<div id="searchDiv"><input id="searchBar" type="text" placeholder="${placeHolder}"></div>
+<div id="searchDiv"><input id="searchBar" type="text""></div>
 <div id="mainWrapper"></div>
+<div class="BottomAd"></div>
 `;
 
 document.querySelector("main").append(mainWrapper);
-document.getElementById("City").click();
+
+//CSS intro
+let StyleCSS = document.createElement("link");
+StyleCSS.setAttribute("href", `City.css`);
+document.querySelector("head").append(StyleCSS);
+StyleCSS.setAttribute("rel", "stylesheet");
+document.querySelector("#City").classList.add("pressed");
+CityClicked();
 
 //Sökfunktion 
-function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar) {
+function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar, placeText) {
     let data = {
         baseArray: CollectDB, //array som ska filtreras från collektfunktionen
         filterKey: keyName, //input som searchbaren utgår från
         filterLabelKey: "", //sökord
-        DOMCreator: ShowArrays //vilken av displayfunktionerna som kallas
+        DOMCreator: ShowArrays, //vilken av displayfunktionerna som kallas
+        DOMNoSearch: placeText
     }
     console.log(data);
 
@@ -37,6 +45,13 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
         let filteredArray = data.baseArray.filter(element => {
             return element[data.filterKey].toLowerCase().includes(input.toLowerCase());
         })
+        if (input.length > 0 && filteredArray.length === 0){
+            let newDiv = document.createElement("div");
+            newDiv.classList.add("placeDiv");
+            newDiv.innerHTML = `Hittade inga ${placeText}. Testa sök på något annat!`;
+            document.getElementById("mainWrapper").append(newDiv);
+            document.querySelector("#mainWrapper").style.overflowY = "hidden";
+        }
 
         console.log(filteredArray);
         //Sorts the filtered array - city, university and programme names A-Ö
@@ -51,7 +66,6 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 
         //calls the function and it creates the element
         filteredArray.forEach(element => document.getElementById("mainWrapper").append(data.DOMCreator(element)));
-        //document.getElementById("mainWrapper").append(data.DOMCreator(filteredArray));
     });
 }
 //////////////////////////////////////////////////////////////////
@@ -59,7 +73,7 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
 //////////////////////////////////////////////////////////////////
 
 //ger ett medelvärde utav en array med siffror.
-function averageReviewScore(ratingArray){
+function averageReviewScore(ratingArray) {
     // parameter 1 är värdet som ska avrundas- parameter 2 är hur 
     // många decimaler värdet ska avrundas till.
     function runda(value, precision) {
@@ -76,7 +90,9 @@ function averageReviewScore(ratingArray){
         let noDataDiv = "No data ";
         return noDataDiv;
     }
+
     return runda(sumOfNum / ratingArray.length, 1);
+
 }
 
 
@@ -134,7 +150,7 @@ function CollectAllCityInfo(databas) {
         let EntertainmentArray = EntertainmentCityCombo.map(function (obj) {
             return obj.name;
         })
-
+        
         let CityObject =
         {
             City: element.name,
@@ -147,7 +163,7 @@ function CollectAllCityInfo(databas) {
             },
             CityInfo: element.text,
             Universities: UniversitiesArray,
-            Images: CityCountryCombo.imagesNormal[0],
+            Images: element.imagesNormal[1],
             Entertainment: EntertainmentArray
         }
 
@@ -176,12 +192,12 @@ function ShowCities() {
 
 function displayCity(city) {
     let createCityCard = document.createElement("div");
-    createCityCard.classList.add("createCityCard");
+    createCityCard.classList.add("card");
     createCityCard.innerHTML =
         `
         <div class="cityCard">
             <h1 class="cityNames"> ${city.City}, ${city.Country} <img src="../Filer/Images/${city.Flag}" class="flag"> </h1>
-            <div class="ratingsByStudents"> 
+            <div class="studentRatings"> 
                 <p> Tidigare studenters betyg: </p>
                 <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsAccomodation)}/5 (Boende)</p> 
                 <p> <img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(city.Stars.StarsFood)}/5 (Mat)</p>
@@ -192,7 +208,7 @@ function displayCity(city) {
             <div class="imageAndScroll">
                 <img src="../Filer/Images/${city.Images}">
                 <div class="entertainmentPlaces"> 
-                    <p>${city.Entertainment}</p>
+                    <p>${city.Entertainment.join(" | ")}</p>
                 </div>
             </div>
         </div>
@@ -207,7 +223,7 @@ function displayCity(city) {
 
     return createCityCard;
 }
-
+console.log(displayCity)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////PROGRAM/////////////////////////////////
@@ -297,14 +313,15 @@ function CollectAllProgramInfo(databas) {
     return programArray;
 }
 
-function ShowProgram(){
+
+function ShowProgram() {
     document.getElementById("mainWrapper").innerHTML = "";
     CollectAllProgramInfo(DB).forEach(element => document.getElementById("mainWrapper").append(displayProgram(element)));
 }
 
 function displayProgram(program){
     let createProgramCard = document.createElement("div");
-    createProgramCard.classList.add("createProgramCard");
+    createProgramCard.classList.add("card");
     createProgramCard.innerHTML =
     `
     <h1>${program.Program}</h1>
@@ -315,13 +332,13 @@ function displayProgram(program){
     </div>
     <div class="studentRatings">
         <div>Tidigare studenters betyg:</div>
-        <p class="teachersRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingTeachers)}/5 <span> (Lärarna)</span></p>
-        <p class="studentsRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingStudents)}/5 (Klasskamrater)</span></p>
-        <p class="coursesRating"><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingCourses)}/5 (Kurserna)</span></p>
+        <p><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingTeachers)}/5 (Lärarna)</p>
+        <p><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingStudents)}/5 (Klasskamrater)</p>
+        <p><img src="../../Kodstruktur/Filer/Images/star.png">${averageReviewScore(program.Ratings.RatingCourses)}/5 (Kurserna)</p>
     </div>
     <div class="successOchReview">
         <div class="successRateDiv">
-            <h4>Avklaringsgrad</h4>
+            <h4>Genomströmningsgrad</h4>
             <div class="nmbrOchYear">
                 <p><span>2020 </span><span> ${program.SuccessRate[0]}%</span></p>
                 <p><span>2019 </span><span> ${program.SuccessRate[1]}%</span></p>
@@ -385,6 +402,7 @@ function CollectAllUniversityInfo(databas) {
             return newObj;
         });
 
+        
         let universityObject =
         {
             University: element.name,
@@ -412,16 +430,25 @@ function ShowUniversities() {
 
 function displayUniversity(university) {
     let createUniversityCard = document.createElement("div");
-    createUniversityCard.classList.add("createUniversityCard");
+    createUniversityCard.classList.add("card");
 
     createUniversityCard.innerHTML =
         `
         <h1>${university.University}<img src="../Filer/Images/${university.Flag}"></h1>
         <div class="universityContent">
-            <div><img src="../Filer/Images/${university.Images}"></div>
+            <div class="picture"><img src="../Filer/Images/${university.Images}"></div>
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
                     <div>${university.City}</div>
+                </div>
+                <div class="subjects">
+                    <p class="subject"><span></span>${DB.FIELDS[0].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[1].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[2].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[3].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[4].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[5].name}</p>
+                    <p class="subject"><span></span>${DB.FIELDS[6].name}</p>
                 </div>
                 <p>Program:</p>
                 <div class="allaProgram">
@@ -436,17 +463,17 @@ function displayUniversity(university) {
         oneProgramDiv.classList.add("oneProgram");
         createUniversityCard.querySelector(".allaProgram").append(oneProgramDiv)
 
-            if (program.subjectID === 0) {
+            if (program.Program.subjectID === 0) {
                 oneProgramDiv.style.backgroundColor = "var(--colorMath)";
-            } else if (program.subjectID === 1) {
+            } else if (program.Program.subjectID === 1) {
                 oneProgramDiv.style.backgroundColor = "var(--colorTech)";
-            } else if (program.subjectID === 2) {
+            } else if (program.Program.subjectID === 2) {
                 oneProgramDiv.style.backgroundColor = "var(--colorLaw)";
-            } else if (program.subjectID === 3) {
+            } else if (program.Program.subjectID === 3) {
                 oneProgramDiv.style.backgroundColor = "var(--colorMed)";
-            } else if (program.subjectID === 4) {
+            } else if (program.Program.subjectID === 4) {
                 oneProgramDiv.style.backgroundColor = "var(--colorSoc)";
-            } else if (program.subjectID === 5) {
+            } else if (program.Program.subjectID === 5) {
                 oneProgramDiv.style.backgroundColor = "var(--colorFil)";
             } else {
                 oneProgramDiv.style.backgroundColor = "var(--colorDes)"; 
@@ -455,53 +482,63 @@ function displayUniversity(university) {
     return createUniversityCard;
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 /////////CSS ARBETE + INITIALIZATION (ultrafel stavning) AV KNAPPARNA/////
 //////////////////////////////////////////////////////////////////////////
 
-//CSS intro
-let StyleCSS = document.createElement("link");
-StyleCSS.setAttribute("href", `City.css`);
-document.querySelector("head").append(StyleCSS);
-StyleCSS.setAttribute("rel", "stylesheet");
-
 
 //Checkbox Buttons
-document.querySelector(`#City`).addEventListener("click", function () {
+function CityClicked(){
     StyleCSS.remove();
-    let click = this.innerText;
-    placeHolder = "Sök efter städer...";
-    document.querySelector("#searchBar").innerText = "";
+    let click = document.querySelector(`#City`).innerText;
+    document.querySelector("#searchBar").placeholder = "Sök efter städer...";
+    document.querySelector("#searchBar").value = "";
 
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#Program").classList.remove("pressed");
+    document.querySelector("#University").classList.remove("pressed");
+    document.querySelector("#City").classList.add("pressed");
+
     ShowCities();
-    FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities);
+    FilterSearch("City", CollectAllCityInfo(DB), displayCity, ShowCities, "städer");
+}
+document.querySelector(`#City`).addEventListener("click", function () {
+    CityClicked();
 });
 
 document.querySelector(`#Program`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
-    placeHolder = "Sök efter program...";
+    document.querySelector("#searchBar").placeholder = "Sök efter program...";
+    document.querySelector("#searchBar").value = "";
 
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#University").classList.remove("pressed");
+    document.querySelector("#City").classList.remove("pressed");
+    document.querySelector("#Program").classList.add("pressed");
+
     ShowProgram();
-    FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram);
+    FilterSearch("Program", CollectAllProgramInfo(DB), displayProgram, ShowProgram, "program");
 });
 
 document.querySelector(`#University`).addEventListener("click", function () {
     StyleCSS.remove();
     let click = this.innerText;
-    placeHolder = "Sök efter universitet...";
+    document.querySelector("#searchBar").placeholder = "Sök efter universitet...";
+    document.querySelector("#searchBar").value = "";
     
     StyleCSS.setAttribute("href", `${click}.css`);
     document.querySelector("head").append(StyleCSS);
     StyleCSS.setAttribute("rel", "stylesheet");
+    document.querySelector("#Program").classList.remove("pressed");
+    document.querySelector("#City").classList.remove("pressed");
+    document.querySelector("#University").classList.add("pressed");
+
     ShowUniversities();
-    FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities);
+    FilterSearch("University", CollectAllUniversityInfo(DB), displayUniversity, ShowUniversities, "universitet");
 });
 

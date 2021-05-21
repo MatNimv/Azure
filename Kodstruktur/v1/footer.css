@@ -1,9 +1,34 @@
+:root {
+    /* Fonts */
+    --quickSand: 'Quicksand', sans-serif;
 
+    /* sizes */
+    --screenSize0: 40%;
+    --screenSize1: 60%;
+    --screenSize2: 80%;
+    --screenSize3: 100%;
+
+    --fSizeXS: 10px;
+    --fSizeS: 14px;
+    --fSizeM: 20px;
+    --fSizeL: 30px;
+    --fSizeXL: 40px;
+    --veryBigSize: 100px;
+
+    /* colors */
+    --colorBG: #405438;
+    --colorBG2: #C3DBBA;
+    --colorBG3: #A0D48C;
+    --colorBG4: #618b50;
+    --colorBG5: #7BA36B;
+    
+
+}
 
 footer > div{
     display: flex;
     height: 5vw;
- 
+    background-color: var(--colorBG4);
 }
 
 footer > div > div{
@@ -17,4 +42,5 @@ align-items: center;
 footer > div > div:nth-child(2) > img{
 height: 50px;
 width: 50px;
+padding: 0px 20px 0px 20px;
 }

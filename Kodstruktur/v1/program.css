@@ -3,22 +3,6 @@ h1{font-size: var(--fSizeM);}
 .infoProgram div, .studentRatings p, .studentRatings div, 
 .successOchReview p, .nmbrOchYear span{font-size: var(--fSizeS);}
 
-.createProgramCard{ 
-    padding: var(--fSizeS);
-    margin-bottom: var(--fSizeS);
-    
-    background-color: var(--colorBG);
-    opacity: 0.6;
-    box-shadow: 0px;
-    transition: opacity 1s, box-shadow 1s;
-}
-    
-.createProgramCard:hover {
-    opacity: 1;
-    transition: opacity .3s, box-shadow .3s;
-    box-shadow: 0px 0px 10px 0px var(--colorBG4);
-}
-
 .infoProgram{
     display:flex;
     flex-direction: row;
@@ -31,25 +15,12 @@ h1{font-size: var(--fSizeM);}
     border-radius: 30px;
 }
 
-.studentRatings{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.studentRatings > div:first-child{
-    padding-top:1px;
-}
-.studentRatings > p{
-    display:flex;
-    align-items: center;
-    padding-bottom: 3px;
-}
-.studentRatings > p > img{ width: 25px; padding-bottom: 4px;}
-
 .successOchReview{
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
+
+    margin-top: var(--fSizeXS);
 }
 .successRateDiv{
     display:flex;
@@ -61,16 +32,17 @@ h1{font-size: var(--fSizeM);}
     flex-direction: column;
     justify-content: space-between;
 }
-.nmbrOchYear > p > span:last-child{ padding-left: 28px;}
+.nmbrOchYear > p > span:last-child{ padding-left: 80px;}
 .nmbrOchYear > p > span:first-child{padding-left: 5px;}
 .nmbrOchYear > p{ 
     background-color: var(--colorBG2);
     border-radius: 10px;
     padding: 1px;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
+    display:flex;
 }
 .reviews{
-    border: 1px solid var(--colorBG4);
+    border: 1px solid var(--basic2);
     width: 100%;
     margin-left: 30px;
     overflow-y: scroll;
@@ -79,6 +51,9 @@ h1{font-size: var(--fSizeM);}
 .reviews > div:last-child{border:none;}
 .oneReview{
     margin: 5px 8px 5px 8px;
-    border-bottom: 1px solid var(--colorBG4);
+    padding: 5px;
+    background-color: var(--colorBG2);
+    border-radius: 10px;
 }
-.oneNameAndDate{font-style: italic; font-weight: bold; padding-bottom: 5px;}
+.oneNameAndDate{font-style: italic; padding-bottom: 5px;}
+.studentRatings p:last-child{padding-left: 10px;}
