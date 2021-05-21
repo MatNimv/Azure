@@ -192,13 +192,13 @@ main > div{
 
 #ReviewCellWrapper{
     display: flex;
-    justify-content: space-around;
-    width: var(--screenSize1);
+    justify-content: center;
+    width: var(--screenSize3);
 }
 
 
 .ReviewCell{
-    width: var(--screenSize0);
+    width: 25%;
     background-color: var(--colorBG4);
     border: 1px solid black;
     display: flex;
@@ -207,9 +207,18 @@ main > div{
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
-    
+    margin: 0px 50px;
 }
 
+.ReviewCell > p{
+    width: 80%;
+text-align: center;
+}
+
+.RatingTitle{
+    width: 100%;
+text-align: center;
+}
 
 
 #ReviewWrapper > #ReviewCell > #ReviewStars{
