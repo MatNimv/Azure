@@ -1,6 +1,5 @@
 "use strict";
 
-
 let mainWrapper = document.createElement("div");
 mainWrapper.innerHTML = `
 <nav>
@@ -10,6 +9,7 @@ mainWrapper.innerHTML = `
 </nav>
 <div id="searchDiv"><input id="searchBar" type="text""></div>
 <div id="mainWrapper"></div>
+<div class="BottomAd"></div>
 `;
 
 document.querySelector("main").append(mainWrapper);

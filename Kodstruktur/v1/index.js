@@ -15,8 +15,6 @@ function AddWebsiteContent() {
     let div = document.createElement("div");
     div.innerHTML =
         `
-        <div id="SideAdsRight"></div>
-    
     <div id="ImageRollWrapper">
         <div id="ImageRollCell">
             <div class="ImageButtonHolder">
@@ -32,7 +30,7 @@ function AddWebsiteContent() {
     </div>
     </div>
 
-    <div id="MiddleAds"></div>
+    <div class="MiddleAds"></div>
 
     <div id="PluggaWrapper">
         <p>Sugen på att plugga?</p>
@@ -44,7 +42,9 @@ function AddWebsiteContent() {
       <div id="ReviewCellWrapper">
 
       </div>
+
     </div>
+    <div id="SideAdsRight"></div>
 </div>
     `
 

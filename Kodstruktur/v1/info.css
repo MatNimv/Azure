@@ -162,3 +162,12 @@ button:hover {
 }
 
 .studentRatings p > img{ width: 25px; padding-bottom: 4px;}
+.BottomAd{
+    background-image: url(../Filer/Images/annons_horizontell.jpg);
+    width: 60%;
+    height: 20vh;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+}
