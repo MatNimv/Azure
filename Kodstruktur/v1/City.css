@@ -49,7 +49,6 @@
 .entertainmentPlaces {
     height: 100%;
     width: 90%;
-    overflow-y: scroll;
 
     padding: var(--fSizeXS);
     margin-left: var(--fSizeS);
