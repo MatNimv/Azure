@@ -25,6 +25,7 @@
     --colorBG3: #95b986;
     --colorBG4: #618b50;
     --colorBG5: #7BA36B;
+    --colorBG6: #f4fff0;
 
     /* basic colors */
     --basic1: white;
@@ -50,8 +51,13 @@ nav {
     
     margin: var(--fSizeXL);
 }
-#HomeNav{ background-color:var(--colorBG); color: var(--basic1);}
-#InfoNav{ background-color: var(--colorBG2);}
+#HomeNav { 
+    background-color:var(--colorBG4); 
+}
+
+#InfoNav{ 
+    background-color: var(--colorBG2);
+}
 
 header {
     margin: 0;
@@ -122,7 +128,7 @@ button:hover {
     padding: var(--fSizeS);
     margin-bottom: var(--fSizeS);
 
-    background-color: var(--colorBG4);
+    background-color: var(--colorBG6);
     opacity: 0.6;
     box-shadow: 0px;
     transition: opacity 1s, box-shadow 1s;

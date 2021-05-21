@@ -149,7 +149,7 @@ function CollectAllCityInfo(databas) {
         let EntertainmentArray = EntertainmentCityCombo.map(function (obj) {
             return obj.name;
         })
-
+        
         let CityObject =
         {
             City: element.name,
@@ -162,7 +162,7 @@ function CollectAllCityInfo(databas) {
             },
             CityInfo: element.text,
             Universities: UniversitiesArray,
-            Images: CityCountryCombo.imagesNormal[0],
+            Images: element.imagesNormal[1],
             Entertainment: EntertainmentArray
         }
 
@@ -401,6 +401,7 @@ function CollectAllUniversityInfo(databas) {
             return newObj;
         });
 
+        
         let universityObject =
         {
             University: element.name,
@@ -434,7 +435,7 @@ function displayUniversity(university) {
         `
         <h1>${university.University}<img src="../Filer/Images/${university.Flag}"></h1>
         <div class="universityContent">
-            <div><img src="../Filer/Images/${university.Images}"></div>
+            <div class="picture"><img src="../Filer/Images/${university.Images}"></div>
             <div class="infoOchProgram">
                 <div class="stadOchSprak">
                     <div>${university.City}</div>
