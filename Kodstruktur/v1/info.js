@@ -31,7 +31,6 @@ function FilterSearch(keyName, CollectDB, ShowArrays, emptySearchBar, placeText)
         DOMCreator: ShowArrays, //vilken av displayfunktionerna som kallas
         DOMNoSearch: placeText
     }
-    console.log(data);
 
 document.querySelector("#searchBar").addEventListener("keyup", function() {
     let input = document.querySelector("#searchBar").value;
@@ -53,7 +52,6 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
             document.querySelector("#mainWrapper").style.overflowY = "hidden";
         }
 
-        console.log(filteredArray);
         //Sorts the filtered array - city, university and programme names A-Ö
         filteredArray.sort(function (elementa, elementb) {
             if (elementa[data.filterKey] < elementb[data.filterKey]) {
@@ -223,7 +221,6 @@ function displayCity(city) {
 
     return createCityCard;
 }
-console.log(displayCity)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////PROGRAM/////////////////////////////////
@@ -412,7 +409,6 @@ function CollectAllUniversityInfo(databas) {
             Images: UniversityCountryCombo.imagesBig[0],
             Programmes: UniversityProgrammeArray
         }
-        console.log(universityObject.Programmes)
         //Universitetets namn + flagga
         //stad och språk för programmen
         //lista över programnman för universitetet

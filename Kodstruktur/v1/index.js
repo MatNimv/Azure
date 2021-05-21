@@ -236,7 +236,6 @@ function BestReviewFetcher() {
         })
 
     })
-    console.log(Programs)
     let CommentProgramsCombo = DB.COMMENTS_PROGRAMME.filter(function (CommentObj) {
         return Programs.find(function (ProgramObj) {
             return ProgramObj.id === CommentObj.programmeID;
