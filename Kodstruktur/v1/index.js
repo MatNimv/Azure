@@ -37,13 +37,13 @@ function AddWebsiteContent() {
         <button id="MainPageButton">Klicka här!</button>
         <p>Se vad andra studender tycker!</p>
     </div>
-    <div id="ReviewWrapper">
+    
       
       <div id="ReviewCellWrapper">
 
       </div>
 
-    </div>
+ 
     <div id="SideAdsRight"></div>
 </div>
     `
