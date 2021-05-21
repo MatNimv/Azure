@@ -198,7 +198,7 @@ main > div{
 
 
 .ReviewCell{
-    width: 25%;
+    width: 40%;
     background-color: var(--colorBG4);
     border: 1px solid black;
     display: flex;
@@ -212,12 +212,12 @@ main > div{
 
 .ReviewCell > p{
     width: 80%;
-text-align: center;
+    text-align: center;
 }
 
 .RatingTitle{
     width: 100%;
-text-align: center;
+    text-align: center;
 }
 
 
