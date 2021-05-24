@@ -22,7 +22,11 @@
     --colorBG3: #95b986;
     --colorBG4: #618b50;
     --colorBG5: #7BA36B;
-    
+    --colorBG6: #f4fff0;
+
+        /* basic colors */
+        --basic1: white;
+        --basic2: black;
 
 }
 
@@ -63,8 +67,10 @@ main > div{
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 60vw;
-    height: 50vh;
+    width: 75vw;
+    height: 65vh;
+
+    margin-top: 50px;
 }
 
 #ImageRollCell{
@@ -78,7 +84,8 @@ main > div{
     width: var(--screenSize3);
     height: var(--screenSize3);
     background-position: center;
-    border: 1px solid black;
+    border: 20px solid var(--colorBG6);
+    border-radius: 10px;
     background-size: cover;
 }
 
@@ -89,71 +96,79 @@ main > div{
     align-items: center;
 }
 
-#ImageRollBackward{
+#ImageRollBackward, #ImageRollPhotoForward {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
-    background-color: var(--colorBG4);
-    width: 10vw;
-    height: 15vh;
+    
+    width: 8vw;
+    height: 6vh; 
+
+    background-color: var(--basic1);
+    border: 2px rgb(156, 156, 156) solid;
+    border-radius: 100px;
+
+
     text-align: center;
     margin: 10px;
     padding: 2px;
     box-sizing: border-box;
     font-size: var(--fSizeS);
-    transition: border-radius .5s, box-shadow .3s;
+    transition: box-shadow .3s;
 }
 
-#ImageRollBackward:hover{
+#ImageRollBackward:hover, #ImageRollPhotoForward:hover{
+    cursor: pointer;
     opacity: 1;
-    transition: border-radius .5s, box-shadow .3s;
+    transition: box-shadow .3s;
     box-shadow: 0px 0px 10px 0px var(--colorBG4);
-    border-radius: 10px;
 }
 
-#ImageRollBackward:active{
-    background-color: var(--colorBG);
+#ImageRollBackward:active, #ImageRollPhotoForward:active {
+    background-color: rgb(156, 156, 156);
 }
-
-#ImageRollPhotoForward{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    background-color: var(--colorBG4);
-    width: 10vw;
-    height: 15vh;
-    margin: 10px;
-    text-align: center;
-    font-size: var(--fSizeS);
-    transition: border-radius .5s, box-shadow .3s;
-
-}
-
-#ImageRollPhotoForward:hover{
-    opacity: 1;
-    transition: border-radius .5s, box-shadow .3s;
-    box-shadow: 0px 0px 10px 0px var(--colorBG4);
-    border-radius: 10px;
-}
-
-#ImageRollPhotoForward:active{
-    background-color: var(--colorBG);
-}
-
 
 #PluggaWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: var(--colorBG4);
-    border: 1px solid black;
-    margin-bottom: 50px;
-    padding: 10px;
+
+    width: 40vw;
+    height: 15vh;
+    
+    background: var(--colorBG6);
+    padding: 20px;
+    margin: 50px 0px;
+    border-radius: 20px;
 }
 
+#PluggaWrapper p {
+    margin: 0;
+    margin: 15px 0px;
+}
+
+#MainPageButton {
+    cursor: pointer;
+    width: 10vw;
+    height: 15vh; 
+
+    margin-right: 50px;
+    margin-left: 50px;
+    border: 2px var(--colorBG4) solid;
+    border-radius: 10px;
+
+    background-color: var(--colorBG4);
+    color: var(--colorBG6);
+}
+
+#image {
+    height: 100%;
+    width: 100%;
+    background-image: url(../Filer/Images/skyline.png);
+    background-size: cover;
+}
+/*
 #PluggaWrapper > p:last-child{
     margin-top: 50px;
    
@@ -162,20 +177,20 @@ main > div{
 #PluggaWrapper > p{
     text-align: center;
 }
-
-
+*/
 
 #NameOfImageRoll{
-    background-color: var(--colorBG4);
-    padding: 15px;
-    margin: 10px;
-    border-radius: 30px;
-    width: 25%;
-    height: 20%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: var(--fSizeL);
+    align-items: center;   
+    width: 20%;
+    height: 12%; 
+    
+    background-color: var(--colorBG6);
+    margin: 55px 55px 0px 55px;
+    border-radius: 15px;
+
+    font-size: var(--fSizeM);
 }
 
 
@@ -186,30 +201,84 @@ main > div{
     align-items: center;
 }
 
-#ReviewWrapper > p{
+#ReviewWrapper > p {
     text-align: center;
+    font-size: var(--fSizeM);
+    margin: 50px;
 }
 
 #ReviewCellWrapper{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     width: var(--screenSize1);
 }
 
 
 .ReviewCell{
-    width: 40%;
+    width: var(--screenSize0);
     background-color: var(--colorBG4);
-    border: 1px solid black;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    
+    padding: var(--fSizeL);
     box-sizing: border-box;
-    margin: 0px 50px;
+    border: var(--colorBG6) 5px solid;
+    border-radius: 10px;
+    color: var(--colorBG6);
 }
 
+.ReviewCell > #ProgramName, .ReviewCell > #ReviewProgramCityName {
+    margin-top: 0;
+}
+
+#ReviewWrapper > #ReviewCell > #ReviewStars{
+    display: flex;
+    align-items: center;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+#ReviewStars{
+    display: flex;
+}
+
+.ReviewStarShape{
+   
+    display: inline-block;
+}
+
+.ReviewStarShape > img{
+    height: 25px;
+    width: 25px;
+    margin: 0px 2px;
+}
+
+#SideAdsRight{
+    background-image: url(../Filer/Images/annons_horizontell.jpg);
+    height: 10vh;
+    width: 50vw;
+    
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.squareAd{
+    background-image: url(../Filer/Images/annons_kvadratisk.jpg);
+    width: 20vw;
+    height: 20vh;
+    
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    margin-top: 50px;
+}
+
+/*
 .ReviewCell > p{
     width: 80%;
     text-align: center;
@@ -256,7 +325,6 @@ main > div{
     position: sticky;
 }
 
-
 #SideAdsRight{
     background-image: url(../Filer/Images/annons_horizontell.jpg);
     height: 15vh;
@@ -276,3 +344,4 @@ main > div{
     margin-bottom: 10px;
 }
 
+*/
