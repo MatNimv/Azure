@@ -209,26 +209,33 @@ main > div{
 
 #ReviewCellWrapper{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     width: var(--screenSize1);
+
 }
 
 
 .ReviewCell{
-    width: var(--screenSize0);
+    width: 40%;
     background-color: var(--colorBG4);
-
+    border: 5px solid var(--colorBG6);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-    padding: var(--fSizeL);
+    padding: 20px;
     box-sizing: border-box;
-    border: var(--colorBG6) 5px solid;
+    margin: 0px 50px;
     border-radius: 10px;
-    color: var(--colorBG6);
 }
+
+.ReviewCell > p{
+    width: 80%;
+    text-align: center;
+}
+
+
+
 
 .ReviewCell > #ProgramName, .ReviewCell > #ReviewProgramCityName {
     margin-top: 0;
@@ -278,70 +285,10 @@ main > div{
     margin-top: 50px;
 }
 
-/*
-.ReviewCell > p{
-    width: 80%;
-    text-align: center;
-}
+
 
 .RatingTitle{
     width: 100%;
     text-align: center;
 }
 
-
-#ReviewWrapper > #ReviewCell > #ReviewStars{
-    display: flex;
-    align-items: center;
-    flex-basis: 0;
-    flex-grow: 1;
-}
-
-#ReviewStars{
-    display: flex;
-}
-
-
-
-.ReviewStarShape{
-   
-    display: inline-block;
-}
-
-.ReviewStarShape > img{
-    height: 25px;
-    width: 25px;
-}
-
-
-#AdsWrapper{
-    position: relative;
-}
-
-.SideAds{
-    width: 10vw;
-    height: 20vh;
-    background-color: grey;
-    position: sticky;
-}
-
-#SideAdsRight{
-    background-image: url(../Filer/Images/annons_horizontell.jpg);
-    height: 15vh;
-    width: 40vw;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.MiddleAds{
-    background-image: url(../Filer/Images/annons_kvadratisk.jpg);
-    width: 10vw;
-    height: 20vh;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-bottom: 10px;
-}
-
-*/

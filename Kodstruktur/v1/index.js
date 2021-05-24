@@ -30,10 +30,10 @@ function AddWebsiteContent() {
         </div>
     </div>
 
-    <div id="ReviewWrapper">
+
       <p>Se vad andra studenter tycker!</p>
       <div id="ReviewCellWrapper"></div>
-    </div>
+
 
     <div class="squareAd"></div>
 
