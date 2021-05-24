@@ -13,7 +13,6 @@
     font-size: var(--fSizeS);
 }
 
-/* kan göra något med grid osv. när jag vet hur man för de individuella boxarna så det inte blir en lång bakgrundsfärg */
 .uniDiv {
     display: flex;
     flex-direction: row;
@@ -26,8 +25,8 @@
 
     background-color: var(--colorBG2);
     margin: var(--fSizeXS) var(--fSizeXL) var(--fSizeXS) 0;
-    padding: var(--fSizeXS) var(--fSizeM);
-    border-radius: 15px;
+    padding: 15px;
+    border-radius: 30px;
     font-size: var(--fSizeS);
 }
 

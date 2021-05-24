@@ -49,7 +49,6 @@ document.querySelector("#searchBar").addEventListener("keyup", function() {
             newDiv.classList.add("placeDiv");
             newDiv.innerHTML = `Hittade inga ${placeText}. Testa sök på något annat!`;
             document.getElementById("mainWrapper").append(newDiv);
-            document.querySelector("#mainWrapper").style.overflowY = "hidden";
         }
 
         //Sorts the filtered array - city, university and programme names A-Ö
