@@ -179,6 +179,10 @@ main > div{
 }
 */
 
+#ImageRollWrapper + p{
+    margin: 30px 0px 30px 0px;
+}
+
 #NameOfImageRoll{
     display: flex;
     justify-content: center;
